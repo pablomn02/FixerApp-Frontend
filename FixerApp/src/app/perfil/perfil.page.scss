@@ -1,0 +1,42 @@
+.profile-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    gap: 20px;
+}
+
+.profile-avatar {
+    width: 120px;
+    height: 120px;
+}
+
+.profile-info h2 {
+    font-size: 24px;
+    color: #ffffff;
+}
+
+.profile-info p {
+    font-size: 16px;
+    color: #b0b0b0;
+    margin: 5px 0 0 0;
+}
+
+
+ion-item {
+    --min-height: 60px;
+    border: none;
+    margin: 0;
+    padding: 0;
+}
+
+ion-icon {
+    font-size: 24px;
+    color: #ffffff;
+}
+
+
+ion-title {
+    font-size: 20px;
+    font-weight: bold;
+}

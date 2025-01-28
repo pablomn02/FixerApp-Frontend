@@ -4,8 +4,36 @@ import { HomePage } from './home.page';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'home',
     component: HomePage,
+    children: [
+      {
+        path: 'buscar',
+        loadChildren: () => import('../buscar/buscar.module').then(m => m.BuscarPageModule)
+      },
+      {
+        path: 'favoritos',
+        loadChildren: () => import('../favoritos/favoritos.module').then(m => m.FavoritosPageModule)
+      },
+      {
+        path: 'perfil',
+        loadChildren: () => import('../perfil/perfil.module').then(m => m.PerfilPageModule)
+      },
+      {
+        path: 'servicios',
+        loadChildren: () => import('../servicios/servicios.module').then(m => m.ServiciosPageModule)
+      },
+      {
+        path: '',
+        redirectTo: '/home/buscar',
+        pathMatch: 'full'
+      }
+    ]
+  },
+  {
+    path: '',
+    redirectTo: '/home/buscar',
+    pathMatch: 'full'
   }
 ];
 
@@ -14,3 +42,4 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class HomePageRoutingModule {}
+
