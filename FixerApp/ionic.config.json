@@ -1,0 +1,7 @@
+{
+  "name": "FixerApp",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
