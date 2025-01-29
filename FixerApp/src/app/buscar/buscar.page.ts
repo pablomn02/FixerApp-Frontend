@@ -9,10 +9,13 @@ import { Component, OnInit } from '@angular/core';
 export class BuscarPage implements OnInit {
 
   palabras: string[] = [
+    'Técnico Informático',
     'Limpieza', 
     'Pintura', 
+    'Reparación de bicicletas',
     'Electricista', 
     'Carpintería', 
+    'Reparación de ordenadores',
     'Fontanería', 
     'Jardinería', 
     'Cerrajería', 
@@ -23,7 +26,6 @@ export class BuscarPage implements OnInit {
     'Mantenimiento de piscinas', 
     'Cuidado de mascotas', 
     'Clases particulares', 
-    'Reparación de bicicletas',
     'Asesoría legal',
     'Psicología',
     'Traducción',
@@ -31,7 +33,6 @@ export class BuscarPage implements OnInit {
     'Diseño gráfico',
     'Fotografía',
     'Videografía',
-    'Reparación de ordenadores',
     'Reparación de teléfonos',
     'Limpieza de alfombras',
     'Reparación de muebles',
@@ -41,7 +42,6 @@ export class BuscarPage implements OnInit {
     'Seguridad privada',
     'Abogacía',
     'Desarrollo web',
-    'SEO (Optimización en motores de búsqueda)',
     'Estilismo de uñas',
     'Corte de cabello',
     'Maquillaje',
