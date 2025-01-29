@@ -1,15 +1,30 @@
 <ion-header [translucent]="true">
-
-
   <ion-toolbar color="primary">
-    <ion-searchbar placeholder="Buscar" (ionInput)="searchBar($event)"></ion-searchbar>
+    <ion-toolbar color="primary">
+      <ion-title id="titulo">FIXER</ion-title>
+    </ion-toolbar>
+    <ion-searchbar 
+      placeholder="Buscar" 
+      (ionInput)="searchBar($event)" 
+      class="rounded-searchbar">
+    </ion-searchbar>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-list>
+  <div class="container-servicios">
+    <ion-icon name="location-outline" size="large"></ion-icon>
+    <h5>SERVICIOS POPULARES EN TU ZONA</h5>
+  </div>
+  <div class="direccion">
+    <ion-icon name="location-outline" size="large"></ion-icon>
+    <p>Calle de Numancia, 14</p>
+  </div>
+  <ion-list lines="none" class="button-container">
     <ion-item *ngFor="let palabra of palabraBuscada">
-      {{ palabra }}
+      <ion-button>
+        <p>{{ palabra }}</p>
+      </ion-button>
     </ion-item>
   </ion-list>
 </ion-content>

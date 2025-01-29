@@ -23,9 +23,40 @@ export class BuscarPage implements OnInit {
     'Mantenimiento de piscinas', 
     'Cuidado de mascotas', 
     'Clases particulares', 
-    'Reparación de bicicletas'
+    'Reparación de bicicletas',
+    'Asesoría legal',
+    'Psicología',
+    'Traducción',
+    'Marketing digital',
+    'Diseño gráfico',
+    'Fotografía',
+    'Videografía',
+    'Reparación de ordenadores',
+    'Reparación de teléfonos',
+    'Limpieza de alfombras',
+    'Reparación de muebles',
+    'Instalación de aire acondicionado',
+    'Reparación de ventanas',
+    'Reparación de tejados',
+    'Seguridad privada',
+    'Abogacía',
+    'Desarrollo web',
+    'SEO (Optimización en motores de búsqueda)',
+    'Estilismo de uñas',
+    'Corte de cabello',
+    'Maquillaje',
+    'Asesoría financiera',
+    'Personal shopper',
+    'Coaching personal',
+    'Consultoría empresarial',
+    'Planificación de eventos',
+    'Reparación de cámaras',
+    'Reparación de relojes',
+    'Cuidado de ancianos',
+    'Clases de música'
   ];
-    palabraBuscada: string[] = [];
+
+  palabraBuscada: string[] = [];
 
   constructor() { }
 
