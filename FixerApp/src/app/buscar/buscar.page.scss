@@ -63,8 +63,12 @@ ion-button p {
     font-weight: bold;
   }
 
-  // Background
-  ion-content {
-    background: linear-gradient(to bottom, #00bcd4, #ffffff);  /* Degradado de color azul a blanco */
+
+  #direccion-input {
+    border: none;
+    width: 100%;
   }
+  
+
+
   

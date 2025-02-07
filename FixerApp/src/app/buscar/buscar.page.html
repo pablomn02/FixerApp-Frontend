@@ -1,5 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="primary">
+    <ion-toolbar color="primary">    </ion-toolbar>
     <ion-toolbar color="primary">
       <ion-title id="titulo">FIXER</ion-title>
     </ion-toolbar>
@@ -13,9 +14,13 @@
 
 <ion-content [fullscreen]="true">
   <div class="direccion">
-    <ion-icon name="navigate" size="large"></ion-icon>
-    <p>Calle de Numancia, 14</p>
+    <ion-item>
+      <ion-icon name="navigate" color="primary"></ion-icon>
+      <ion-input id="direccion-input" [(ngModel)]="direccion"></ion-input>
+    </ion-item>
+
   </div>
+
   <ion-list lines="none" class="button-container">
     <ion-item *ngFor="let palabra of palabraBuscada">
       <ion-button>
