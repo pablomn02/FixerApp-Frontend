@@ -1,16 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Geolocation } from '@capacitor/geolocation';
-import { Subject } from 'rxjs';  // Importar Subject
-
+import { Subject } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
 export class BuscarCalleService {
   public direccion: string = '';
-  private direccionSubject = new Subject<string>();  // Crear un Subject para emitir cambios
+  private direccionSubject = new Subject<string>();
 
-  direccion$ = this.direccionSubject.asObservable();  // Hacer que otros componentes puedan suscribirse
+  direccion$ = this.direccionSubject.asObservable();
 
   constructor(private httpClient: HttpClient) {}
 
@@ -18,12 +17,9 @@ export class BuscarCalleService {
     try {
       let position: any;
 
-      // Verificamos si estamos en la web
       if (typeof window !== 'undefined' && navigator.geolocation) {
-        // Usamos la geolocalización del navegador en la web
         position = await this.getWebGeolocation();
       } else {
-        // Usamos la geolocalización de Capacitor en móviles
         const permiso = await Geolocation.requestPermissions();
         if (permiso.location === 'granted') {
           position = await Geolocation.getCurrentPosition();
@@ -60,7 +56,7 @@ export class BuscarCalleService {
       if (data && data.display_name) {
         console.log(data.display_name);
         this.direccion = data.display_name;
-        this.direccionSubject.next(this.direccion);  // Emitir el nuevo valor de la dirección
+        this.direccionSubject.next(this.direccion);
       } else {
         console.error('No se encontró la dirección');
       }
