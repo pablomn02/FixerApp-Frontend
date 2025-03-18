@@ -1,0 +1,53 @@
+<ion-content [fullscreen]="true" class="login-content">
+  <div class="content-container">
+    <ion-card class="login-card">
+      <div class="card-header">
+        <h1 class="card-title">Iniciar Sesión</h1>
+      </div>
+
+      <div class="card-content">
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+          <ion-item class="form-item">
+            <ion-label>Email</ion-label>
+            <ion-input 
+              type="email" 
+              formControlName="email" 
+              placeholder="Introduce tu email">
+            </ion-input>
+          </ion-item>
+          <div *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.invalid" class="error-message">
+            <span *ngIf="loginForm.get('email')?.errors?.['required']">El email es obligatorio</span>
+            <span *ngIf="loginForm.get('email')?.errors?.['email']">Por favor, introduce un email válido</span>
+          </div>
+
+          <ion-item class="form-item">
+            <ion-label>Contraseña</ion-label>
+            <ion-input 
+              type="password" 
+              formControlName="password" 
+              placeholder="Introduce tu contraseña">
+            </ion-input>
+          </ion-item>
+          <div *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.invalid" class="error-message">
+            <span *ngIf="loginForm.get('password')?.errors?.['required']">La contraseña es obligatoria</span>
+            <span *ngIf="loginForm.get('password')?.errors?.['minlength']">La contraseña debe tener 6 caracteres como mínimo</span>
+          </div>
+
+          <div class="forgot-password">
+            <a href="#">¿Olvidaste la contraseña?</a>
+          </div>
+
+          <div class="button-container">
+            <ion-button fill="outline" (click)="register()" class="register-btn">
+              Registrarse
+            </ion-button>
+            <ion-button type="submit" class="login-btn">
+              Iniciar sesión
+            </ion-button>
+          </div>
+        </form>
+      </div>
+    </ion-card>
+  </div>
+</ion-content>
+
