@@ -10,6 +10,7 @@ import {
   IonInput, 
   IonButton 
 } from "@ionic/angular/standalone";
+import { LoginService } from "../shared/services/login.service";
 
 @Component({
   selector: "app-login",
@@ -33,6 +34,7 @@ export class LoginPage {
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
+    private loginService: LoginService
   ) {
     this.loginForm = this.formBuilder.group({
       email: ["", [Validators.required, Validators.email]],
@@ -42,7 +44,18 @@ export class LoginPage {
 
   onSubmit() {
     if (this.loginForm.valid) {
-      console.log("Formulario entregado", this.loginForm.value);
+      const { email, password } = this.loginForm.value;
+      this.loginService.login(email, password).subscribe({
+        next: (data) => {
+          console.log("Usuario:", data)
+          this.loginService.saveToken(data.token); // Guardamos el token
+          this.redirigirUsuario(data.rol) // Redirigimos al usuario dependiendo de su rol
+        },
+        error: (err) => {
+          console.error('Error al iniciar sesión', err);
+          alert('Error al iniciar sesión');
+        }
+      });
     } else {
       Object.keys(this.loginForm.controls).forEach((key) => {
         const control = this.loginForm.get(key);
@@ -52,10 +65,20 @@ export class LoginPage {
   }
 
   registro() {
-    console.log("Redirigiendo a la pagina de registro...");
+    console.log("Redirigiendo al usuario al registro...")
+    this.router.navigate(['../registro']);
   }
 
   recuperacionPassword() {
-    console.log("Redirigiendo a recuperacion de contraseña...")
+    console.log("Redirigiendo al usuario a recuperar contraseña...")
+    this.router.navigate(['/recuperar-password']);
+  }
+
+  redirigirUsuario(rol: string) {
+    console.log("Rol del usuario", rol)
+    if(rol == "cliente"){
+      console.log("Redirigiendo al usuario a la pagina principal...")
+      this.router.navigate(['/home/buscar']);
+    }
   }
 }
