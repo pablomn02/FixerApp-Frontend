@@ -1,8 +1,7 @@
-import { Component, type OnInit } from "@angular/core";
+import { Component } from "@angular/core";
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router } from "@angular/router";
-import { AnimationController } from "@ionic/angular";
 import { 
   IonContent, 
   IonCard, 
@@ -30,15 +29,11 @@ import {
 })
 export class LoginPage {
   loginForm: FormGroup;
-  colorFrom = "#000046";
-  colorTo = "#1c6ae0";
 
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private animationCtrl: AnimationController,
   ) {
-    // Initialize the form with validators
     this.loginForm = this.formBuilder.group({
       email: ["", [Validators.required, Validators.email]],
       password: ["", [Validators.required, Validators.minLength(6)]],
@@ -56,7 +51,11 @@ export class LoginPage {
     }
   }
 
-  register() {
-    console.log("Navigate to register page");
+  registro() {
+    console.log("Redirigiendo a la pagina de registro...");
+  }
+
+  recuperacionPassword() {
+    console.log("Redirigiendo a recuperacion de contraseña...")
   }
 }
