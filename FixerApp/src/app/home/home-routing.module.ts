@@ -4,7 +4,7 @@ import { HomePage } from './home.page';
 
 const routes: Routes = [
   {
-    path: 'home',
+    path: '',
     component: HomePage,
     children: [
       {
@@ -25,15 +25,10 @@ const routes: Routes = [
       },
       {
         path: '',
-        redirectTo: '/home/buscar',
+        redirectTo: 'buscar',
         pathMatch: 'full'
       }
     ]
-  },
-  {
-    path: '',
-    redirectTo: '/home/buscar',
-    pathMatch: 'full'
   }
 ];
 
@@ -42,4 +37,3 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class HomePageRoutingModule {}
-

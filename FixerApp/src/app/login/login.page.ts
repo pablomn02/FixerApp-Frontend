@@ -8,7 +8,8 @@ import {
   IonItem, 
   IonLabel, 
   IonInput, 
-  IonButton 
+  IonButton, 
+  NavController
 } from "@ionic/angular/standalone";
 import { LoginService } from "../shared/services/login.service";
 
@@ -34,7 +35,8 @@ export class LoginPage {
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private loginService: LoginService
+    private loginService: LoginService,
+    private navCtrl: NavController
   ) {
     this.loginForm = this.formBuilder.group({
       email: ["", [Validators.required, Validators.email]],
@@ -75,10 +77,10 @@ export class LoginPage {
   }
 
   redirigirUsuario(rol: string) {
-    console.log("Rol del usuario", rol)
-    if(rol == "cliente"){
-      console.log("Redirigiendo al usuario a la pagina principal...")
-      this.router.navigate(['/home/buscar']);
+    console.log("Rol del usuario:", rol);
+    if (rol === "cliente") {
+      console.log("Redirigiendo al usuario a la pagina principal...");
+      this.navCtrl.navigateRoot('/home/buscar')
     }
   }
 }
