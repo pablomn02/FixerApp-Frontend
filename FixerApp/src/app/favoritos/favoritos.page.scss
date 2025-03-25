@@ -1,7 +1,110 @@
-#titulo {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    font-weight: 600;
-    text-align: center;
+/* Contenido principal */
+ion-content {
+  --background: linear-gradient(180deg, #e6f0ff 0%, #f8f9fa 100%);
+  --padding-bottom: 16px;
+  
+  .section-title {
+    padding: 0 16px;
+    margin: 20px 0 10px;
+    
+    h2 {
+      font-size: 18px;
+      font-weight: 600;
+      color: #333;
+      margin: 0;
+      text-align: center;
+    }
   }
+}
+
+/* Favoritos */
+.favorites-container {
+  margin: 0;
+  padding: 0 10px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100% - 150px);
+
+  .favorites-list {
+    background: transparent;
+    
+    .favorite-item {
+      --background: rgba(255, 255, 255, 0.9);
+      --border-radius: 15px;
+      --box-shadow: 0 2px 8px rgba(0, 0, 70, 0.1);
+      margin: 10px 12px;
+      padding: 10px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      
+      ion-avatar {
+        ion-icon {
+          font-size: 40px;
+          color: #1c6ae0;
+        }
+      }
+      
+      ion-label {
+        h3 {
+          font-size: 16px;
+          font-weight: 600;
+          color: #333;
+          margin: 0;
+        }
+        
+        p {
+          font-size: 14px;
+          color: #666;
+          margin: 4px 0 0;
+        }
+      }
+      
+      ion-button {
+        --border-radius: 10px;
+        --padding-start: 12px;
+        --padding-end: 12px;
+        font-size: 14px;
+        height: 36px;
+      }
+    }
+  }
+  
+  .add-favorite-button {
+    padding: 20px 16px;
+    
+    ion-button {
+      --border-radius: 15px;
+      --background: linear-gradient(135deg, #000046 0%, #1c6ae0 100%);
+      --background-activated: linear-gradient(135deg, #000046 80%, #1c6ae0 100%);
+      --box-shadow: 0 2px 8px rgba(0, 0, 70, 0.1);
+      font-size: 16px;
+      height: 48px;
+      text-transform: none;
+    }
+  }
+}
+
+/* Estilos para pantallas más grandes */
+@media (min-width: 768px) {
+  ion-content {
+    .section-title {
+      max-width: 700px;
+      margin: 20px auto 10px;
+    }
+    
+    .favorites-container {
+      max-width: 700px;
+      margin: 0 auto;
+      
+      .favorites-list {
+        .favorite-item {
+          margin: 10px 12px;
+        }
+      }
+      
+      .add-favorite-button {
+        padding: 20px 16px;
+      }
+    }
+  }
+}

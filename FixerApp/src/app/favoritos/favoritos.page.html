@@ -1,13 +1,28 @@
-<ion-header [translucent]="true">
-    <ion-toolbar color="primary">
-      <ion-title id="titulo">FIXER</ion-title>
-    </ion-toolbar>
-</ion-header>
+<ion-content [fullscreen]="true" id="main-content">
+  <div class="section-title">
+    <h2>Favoritos</h2>
+  </div>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Favoritos</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <div class="favorites-container">
+    <ion-list class="favorites-list">
+      <ion-item class="favorite-item" *ngFor="let favorite of favorites">
+        <ion-avatar slot="start">
+          <ion-icon name="person-circle-outline" size="large"></ion-icon>
+        </ion-avatar>
+        <ion-label>
+          <h3>{{ favorite.name }}</h3>
+          <p>{{ favorite.role }}</p>
+        </ion-label>
+        <ion-button slot="end" color="primary" (click)="contratar(favorite)">
+          Contratar de Nuevo
+        </ion-button>
+      </ion-item>
+    </ion-list>
+
+    <div class="add-favorite-button">
+      <ion-button expand="block" color="primary" (click)="addFavorite()">
+        Agregar cuentas favoritas
+      </ion-button>
+    </div>
+  </div>
 </ion-content>

@@ -1,3 +1,34 @@
+/* Header */
+ion-header {
+  ion-toolbar {
+    &::part(background) {
+      background: linear-gradient(135deg, #000046 0%, #1c6ae0 100%) !important;
+    }
+    --background: transparent;
+    --border-width: 0;
+
+    ion-menu-button {
+      --color: rgba(255, 255, 255, 0.7);
+      font-size: 24px;
+      margin-left: 8px;
+      
+      &:hover {
+        --color: #ffffff;
+      }
+    }
+  }
+}
+
+/* Título con estilo */
+#titulo {
+  font-weight: 600;
+  text-align: center;
+  font-size: 24px;
+  letter-spacing: 1px;
+  color: white;
+  margin: 0;
+  padding: 12px 0 8px;
+}
 
 ion-tabs {
   ion-tab-bar {
@@ -46,6 +77,37 @@ ion-tabs {
         ion-icon {
           transform: scale(0.9);
         }
+      }
+    }
+  }
+}
+
+ion-menu {
+  --width: 250px;
+  
+  ion-toolbar {
+    &::part(background) {
+      background: linear-gradient(135deg, #000046 0%, #1c6ae0 100%) !important;
+    }
+    --background: transparent;
+    --color: white;
+  }
+  
+  ion-list {
+    background: #ffffff;
+    
+    ion-item {
+      --color: #333333;
+      --background-hover: rgba(28, 106, 224, 0.1);
+      --background-activated: rgba(28, 106, 224, 0.2);
+      
+      ion-icon {
+        color: #1c6ae0;
+        margin-right: 16px;
+      }
+      
+      &:hover {
+        --color: #1c6ae0;
       }
     }
   }

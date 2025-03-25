@@ -18,7 +18,7 @@ export class BuscarPage implements OnInit {
     'Fotografía', 'Videografía', 'Reparación de teléfonos', 'Limpieza de alfombras',
     'Reparación de muebles', 'Reparación de ventanas',
     'Reparación de tejados', 'Seguridad privada', 'Abogacía', 'Desarrollo web',
-    'Estilismo de uñas', 'Corte de cabello', 'Maquillaje', 'Asesoría financiera',
+    'Estilismo de uñas', 'Barbería', 'Maquillaje', 'Asesoría financiera',
     'Personal shopper', 'Coaching personal', 'Consultoría empresarial',
     'Planificación de eventos', 'Reparación de cámaras', 'Reparación de relojes',
     'Cuidado de ancianos', 'Clases de música'

@@ -1,16 +1,26 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-favoritos',
   templateUrl: './favoritos.page.html',
   styleUrls: ['./favoritos.page.scss'],
-  standalone: false
+  standalone: false,
 })
-export class FavoritosPage implements OnInit {
+export class FavoritosPage {
+  favorites = [
+    { name: 'Juan Martínez', role: 'Fontanero' },
+    { name: 'Sandra Sánchez', role: 'Pintora' },
+    { name: 'Salvador Domínguez', role: 'Cocinero' },
+    { name: 'Jesús Álvarez', role: 'Electricista' },
+  ];
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit() {
+  contratar(favorite: any) {
+    console.log(`Contratar de nuevo a ${favorite.name}`);
   }
 
+  addFavorite() {
+    console.log('Agregar cuentas favoritas');
+  }
 }

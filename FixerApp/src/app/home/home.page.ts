@@ -10,4 +10,7 @@ export class HomePage {
 
   constructor() {}
 
+  logout() {
+    console.log("Cerrando sesion")
+  }
 }
