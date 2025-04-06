@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -7,10 +9,39 @@ import { Component } from '@angular/core';
   standalone: false,
 })
 export class HomePage {
+  
+  constructor(
+    private router: Router,
+    private alertController: AlertController
+  ) {}
 
-  constructor() {}
+  async presentAlertConfirm() {
+    const alert = await this.alertController.create({
+      header: 'Cerrar Sesión',
+      message: '¿Estás seguro de que quieres cerrar tu sesión?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+            console.log('Cierre de sesión cancelado');
+          }
+        }, {
+          text: 'Aceptar',
+          handler: () => {
+            this.logout();
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
 
   logout() {
-    console.log("Cerrando sesion")
+    localStorage.removeItem('token');
+    console.log("Sesión cerrada exitosamente");
+    this.router.navigate(['/login']);
   }
 }
