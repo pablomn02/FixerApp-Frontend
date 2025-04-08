@@ -1,0 +1,26 @@
+<ion-content [fullscreen]="true" class="login-content">
+  <div class="content-container">
+    <ion-card class="login-card">
+      <div class="card-header">
+        <h1 class="card-title">Tipo de Cuenta</h1>
+        <p>Elige el tipo de cuenta y comienza a ahorrar tiempo!!!</p>
+      </div>
+
+      <div class="card-content">
+        <div class="button-container">
+          <div class="account-type-buttons">
+            <ion-button class="register-btn" (click)="selectAccountType('cliente')">
+              Cliente
+            </ion-button>
+            <ion-button class="register-btn" (click)="selectAccountType('profesional')">
+              Profesional
+            </ion-button>
+          </div>
+          <ion-button class="back-btn" (click)="volver()" fill="outline">
+            Volver
+          </ion-button>
+        </div>
+      </div>
+    </ion-card>
+  </div>
+</ion-content>

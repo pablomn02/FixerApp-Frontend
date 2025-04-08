@@ -9,6 +9,7 @@ import {
   IonLabel, 
   IonInput, 
   IonButton, 
+  IonText,
   NavController
 } from "@ionic/angular/standalone";
 import { LoginService } from "../shared/services/login.service";
@@ -26,11 +27,12 @@ import { LoginService } from "../shared/services/login.service";
     IonItem,
     IonLabel,
     IonInput,
-    IonButton
+    IonButton,
   ]
 })
 export class LoginPage {
   loginForm: FormGroup;
+  errorMessage: string | null = null;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -45,20 +47,30 @@ export class LoginPage {
   }
 
   onSubmit() {
+    // Limpiar el mensaje de error anterior
+    this.errorMessage = null;
+
     if (this.loginForm.valid) {
       const { email, password } = this.loginForm.value;
       this.loginService.login(email, password).subscribe({
         next: (data) => {
-          console.log("Usuario:", data)
-          this.loginService.saveToken(data.token); // Guardamos el token
-          this.redirigirUsuario(data.rol) // Redirigimos al usuario dependiendo de su rol
+          console.log("Usuario:", data);
+          this.loginService.saveToken(data.token);
+          this.redirigirUsuario(data.rol);
         },
         error: (err) => {
-          console.error('Error al iniciar sesión', err);
-          alert('Error al iniciar sesión');
+          console.error('Error al iniciar sesión:', err);
+          if (err.status === 401) {
+            this.errorMessage = 'Correo o contraseña incorrectos. Por favor, intenta de nuevo.';
+          } else if (err.status === 0) {
+            this.errorMessage = 'No se pudo conectar al servidor. Verifica tu conexión a internet.';
+          } else {
+            this.errorMessage = 'Ocurrió un error al iniciar sesión. Vuelve a intentarlo.';
+          }
         }
       });
     } else {
+      this.errorMessage = 'Por favor, completa todos los campos correctamente.';
       Object.keys(this.loginForm.controls).forEach((key) => {
         const control = this.loginForm.get(key);
         control?.markAsTouched();
@@ -67,20 +79,20 @@ export class LoginPage {
   }
 
   registro() {
-    console.log("Redirigiendo al usuario al registro...")
-    this.router.navigate(['../registro']);
+    console.log("Redirigiendo al usuario al registro...");
+    this.navCtrl.navigateRoot(['/register']);
   }
 
-  recuperacionPassword() {
-    console.log("Redirigiendo al usuario a recuperar contraseña...")
-    this.router.navigate(['/recuperar-password']);
+  recuperarContrasena() {
+    console.log("Redirigiendo al usuario a recuperar contraseña...");
+    this.navCtrl.navigateRoot('/recuperar-contrasena');
   }
 
   redirigirUsuario(rol: string) {
     console.log("Rol del usuario:", rol);
     if (rol === "cliente") {
       console.log("Redirigiendo al usuario a la pagina principal...");
-      this.navCtrl.navigateRoot('/home/buscar')
+      this.navCtrl.navigateRoot('/home/buscar');
     }
   }
 }

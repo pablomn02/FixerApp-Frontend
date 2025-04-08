@@ -1,0 +1,39 @@
+<ion-content [fullscreen]="true" class="login-content">
+  <div class="content-container">
+    <ion-card class="login-card">
+      <div class="card-header">
+        <h1 class="card-title">Recuperar Contraseña</h1>
+      </div>
+
+      <div class="card-content">
+        <form [formGroup]="recoverForm" (ngSubmit)="onSubmit()">
+          <ion-label class="form-label">Email</ion-label>
+          <ion-item class="form-item" lines="none">
+            <ion-input 
+              type="email" 
+              formControlName="email" 
+              placeholder="Introduce tu email">
+            </ion-input>
+          </ion-item>
+          <div *ngIf="recoverForm.get('email')?.touched && recoverForm.get('email')?.invalid" class="error-message">
+            <span *ngIf="recoverForm.get('email')?.errors?.['email']">Por favor, introduce un email válido</span>
+          </div>
+
+          <!-- Mostrar mensaje de éxito -->
+          <div *ngIf="successMessage" class="success-message">
+            <span>{{ successMessage }}</span>
+          </div>
+
+          <div class="button-container">
+            <ion-button fill="outline" (click)="volver()" class="register-btn">
+              Iniciar Sesión
+            </ion-button>
+            <ion-button type="submit" class="login-btn">
+              Enviar
+            </ion-button>
+          </div>
+        </form>
+      </div>
+    </ion-card>
+  </div>
+</ion-content>

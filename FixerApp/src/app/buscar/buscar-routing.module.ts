@@ -7,7 +7,12 @@ const routes: Routes = [
   {
     path: '',
     component: BuscarPage
+  },
+  {
+    path: 'categoria/:idCategoria',
+    loadChildren: () => import('./categoria/categoria.module').then( m => m.CategoriaPageModule)
   }
+
 ];
 
 @NgModule({

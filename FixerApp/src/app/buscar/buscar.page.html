@@ -1,34 +1,33 @@
-<ion-app>
-  <ion-content [fullscreen]="true">
-    <div class="section-title">
-      <h2>Tu Ubicación</h2>
-    </div>
-    <div class="direccion">
-      <ion-item>
-        <ion-icon name="navigate" color="primary"></ion-icon>
-        <ion-input id="direccion-input" [(ngModel)]="direccion" placeholder="Tu dirección"></ion-input>
-      </ion-item>
-    </div>
+<ion-content [fullscreen]="true">
+  <div class="section-title">
+    <h2>Tu Ubicación</h2>
+  </div>
+  <div class="direccion">
+    <ion-item>
+      <ion-icon name="navigate" color="primary"></ion-icon>
+      <ion-input readonly id="direccion-input" [(ngModel)]="direccion" placeholder="Tu dirección">
+      </ion-input>      
+    </ion-item>
+  </div>
 
-    <div class="section-title">
-      <h2>Servicios populares</h2>
-    </div>
+  <div class="section-title">
+    <h2>Servicios populares en tu zona</h2>
+  </div>
 
-    <ion-searchbar 
-      placeholder="Buscar" 
-      (ionInput)="searchBar($event)" 
-      class="rounded-searchbar">
-    </ion-searchbar>
+  <ion-searchbar 
+    placeholder="Buscar" 
+    (ionInput)="searchBar($event)" 
+    class="rounded-searchbar">
+  </ion-searchbar>
 
-    <div class="categories-container">
-      <div class="categories-grid">
-        <div class="category-item" *ngFor="let category of palabraBuscada">
-          <div class="category-bubble" [ngStyle]="{'background-color': getColor(category)}">
-            <ion-icon [name]="getIcon(category)"></ion-icon>
-          </div>
-          <span class="category-name">{{ category }}</span>
+  <div class="categories-container">
+    <div class="categories-grid">
+      <div class="category-item" *ngFor="let category of palabraBuscada" (click)="navegarACategoria(category)">
+        <div class="category-bubble" [ngStyle]="{'background-color': getColor(category)}">
+          <ion-icon [name]="getIcon(category)"></ion-icon>
         </div>
+        <span class="category-name">{{ category }}</span>
       </div>
     </div>
-  </ion-content>
-</ion-app>
+  </div>
+</ion-content>

@@ -1,7 +1,9 @@
+/* Fondo de la página */
 .login-content {
     --background: linear-gradient(180deg, #e6f0ff 0%, #f8f9fa 100%);
 }
 
+/* Contenedor centrado */
 .content-container {
     display: flex;
     align-items: center;
@@ -10,6 +12,7 @@
     padding: 16px;
 }
 
+/* Estilo del card */
 .login-card {
     background: white;
     border-radius: 16px;
@@ -22,88 +25,51 @@
     animation: fadeIn 0.5s ease-in-out;
 }
 
+/* Encabezado del card */
 .card-header {
     background: linear-gradient(135deg, #000046 0%, #1c6ae0 100%);
     padding: 24px 20px;
     text-align: center;
 }
 
+/* Título del card */
 .card-title {
     color: white;
     font-size: 24px;
     font-weight: 600;
     letter-spacing: 1px;
-}
-
-.card-content {
-    padding: 24px 20px;
-}
-
-/* Nuevo estilo para los labels fuera del input */
-.form-label {
-    display: block;
-    color: #666;
-    font-weight: 500;
     margin-bottom: 8px;
+}
+
+/* Estilo del párrafo dentro del card-header */
+.card-header p {
+    color: rgba(255, 255, 255, 0.8);
     font-size: 14px;
+    font-weight: 400;
+    margin: 0;
+    line-height: 1.4;
 }
 
-.form-item {
-    --background: transparent;
-    --border-color: rgba(28, 106, 224, 0.2);
-    --border-radius: 8px;
-    --border-style: solid;
-    --border-width: 1px;
-    --padding-start: 12px;
-    --padding-end: 12px;
-    --inner-padding-end: 0;
-    margin-bottom: 16px; /* Aumentado para mejor espaciado */
-    box-shadow: 0 2px 8px rgba(0, 0, 70, 0.05);
+/* Contenido del card */
+.card-content {
+    padding: 15px 15px;
 }
 
-ion-item.form-item {
-    --highlight-color-focused: #1c6ae0;
-    --highlight-color-valid: #1c6ae0;
-    --highlight-color-invalid: #d9534f;
-}
-
-.form-item ion-input {
-    --padding-start: 6px;
-    --color: #333;
-    font-size: 15px;
-}
-
-.form-item ion-input::placeholder {
-    color: #999;
-}
-
-.error-message {
-    color: #d9534f;
-    font-size: 12px;
-    margin: 4px 0 12px 16px;
-}
-
-.forgot-password {
-    text-align: right;
-    margin: 16px 0 24px;
-}
-
-.forgot-password a {
-    color: #1c6ae0;
-    font-size: 14px;
-    text-decoration: none;
-}
-
-.forgot-password a:hover {
-    cursor: pointer;;
-}
-
+/* Contenedor de botones */
 .button-container {
     display: flex;
-    justify-content: space-between;
-    gap: 16px;
+    flex-direction: column;
+    gap: 1px;
 }
 
+/* Subcontenedor para los botones de tipo de cuenta (Cliente y Profesional) */
+.account-type-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+/* Estilo general de los botones */
 ion-button {
     --border-radius: 8px;
     --box-shadow: 0 4px 12px rgba(0, 0, 70, 0.1);
@@ -113,26 +79,21 @@ ion-button {
     height: 44px;
 }
 
-.register-btn {
+/* Botón de volver */
+.back-btn {
     --border-color: #1c6ae0;
     --color: #1c6ae0;
-    flex: 1;
+    width: 100%;
 }
 
-.login-btn {
+/* Botones de registro (Cliente y Profesional) */
+.register-btn {
     --background: linear-gradient(135deg, #000046 0%, #1c6ae0 100%);
     --color: white;
     flex: 1;
 }
 
-.error-message {
-    color: #d9534f;
-    font-size: 12px;
-    margin: 4px 0 12px 16px;
-}
-
-
-/* Animacion */
+/* Animación de entrada */
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -144,7 +105,7 @@ ion-button {
     }
 }
 
-/* Responsive */
+/* Estilos responsivos */
 @media (min-width: 768px) {
     .login-card {
         max-width: 450px;
@@ -156,6 +117,10 @@ ion-button {
     
     .card-title {
         font-size: 28px;
+    }
+    
+    .card-header p {
+        font-size: 16px;
     }
     
     .card-content {

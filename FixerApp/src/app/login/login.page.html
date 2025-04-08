@@ -8,7 +8,7 @@
       <div class="card-content">
         <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
           <ion-label class="form-label">Email</ion-label>
-          <ion-item class="form-item">
+          <ion-item class="form-item" lines="none">
             <ion-input 
               type="email" 
               formControlName="email" 
@@ -21,7 +21,7 @@
           </div>
 
           <ion-label class="form-label">Contraseña</ion-label>
-          <ion-item class="form-item">
+          <ion-item class="form-item" lines="none">
             <ion-input 
               type="password" 
               formControlName="password" 
@@ -33,8 +33,13 @@
             <span *ngIf="loginForm.get('password')?.errors?.['minlength']">La contraseña debe tener 6 caracteres como mínimo</span>
           </div>
 
+          <!-- Mostrar mensaje de error general debajo de los inputs -->
+          <div *ngIf="errorMessage" class="error-message">
+            <span>{{ errorMessage }}</span>
+          </div>
+
           <div class="forgot-password">
-            <a (click)="recuperacionPassword()">¿Olvidaste la contraseña?</a>
+            <a (click)="recuperarContrasena()">¿Olvidaste la contraseña?</a>
           </div>
 
           <div class="button-container">
