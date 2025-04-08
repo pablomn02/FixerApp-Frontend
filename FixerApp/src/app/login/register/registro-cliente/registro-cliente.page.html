@@ -12,13 +12,13 @@
           <ion-item class="form-item" lines="none">
             <ion-input 
               type="text" 
-              formControlName="name" 
+              formControlName="nombre" 
               placeholder="Introduce tu nombre">
             </ion-input>
           </ion-item>
-          <div *ngIf="registerForm.get('name')?.touched && registerForm.get('name')?.invalid" class="error-message">
-            <span *ngIf="registerForm.get('name')?.errors?.['required']">El nombre es obligatorio</span>
-            <span *ngIf="registerForm.get('name')?.errors?.['minlength']">El nombre debe tener al menos 2 caracteres</span>
+          <div *ngIf="registerForm.get('nombre')?.touched && registerForm.get('nombre')?.invalid" class="error-message">
+            <span *ngIf="registerForm.get('nombre')?.errors?.['required']">El nombre es obligatorio</span>
+            <span *ngIf="registerForm.get('nombre')?.errors?.['minlength']">El nombre debe tener al menos 2 caracteres</span>
           </div>
 
           <!-- Campo Email -->
@@ -35,18 +35,18 @@
             <span *ngIf="registerForm.get('email')?.errors?.['email']">Por favor, introduce un email válido</span>
           </div>
 
-          <!-- Campo Username -->
+          <!-- Campo Nombre de usuario -->
           <ion-label class="form-label">Nombre de usuario</ion-label>
           <ion-item class="form-item" lines="none">
             <ion-input 
               type="text" 
-              formControlName="username" 
+              formControlName="usuario" 
               placeholder="Introduce tu nombre de usuario">
             </ion-input>
           </ion-item>
-          <div *ngIf="registerForm.get('username')?.touched && registerForm.get('username')?.invalid" class="error-message">
-            <span *ngIf="registerForm.get('username')?.errors?.['required']">El nombre de usuario es obligatorio</span>
-            <span *ngIf="registerForm.get('username')?.errors?.['minlength']">El nombre de usuario debe tener al menos 2 caracteres</span>
+          <div *ngIf="registerForm.get('usuario')?.touched && registerForm.get('usuario')?.invalid" class="error-message">
+            <span *ngIf="registerForm.get('usuario')?.errors?.['required']">El nombre de usuario es obligatorio</span>
+            <span *ngIf="registerForm.get('usuario')?.errors?.['minlength']">El nombre de usuario debe tener al menos 2 caracteres</span>
           </div>
 
           <!-- Campo Contraseña -->
@@ -54,13 +54,13 @@
           <ion-item class="form-item" lines="none">
             <ion-input 
               type="password" 
-              formControlName="password" 
+              formControlName="contrasena" 
               placeholder="Introduce tu contraseña">
             </ion-input>
           </ion-item>
-          <div *ngIf="registerForm.get('password')?.touched && registerForm.get('password')?.invalid" class="error-message">
-            <span *ngIf="registerForm.get('password')?.errors?.['required']">La contraseña es obligatoria</span>
-            <span *ngIf="registerForm.get('password')?.errors?.['minlength']">La contraseña debe tener 6 caracteres como mínimo</span>
+          <div *ngIf="registerForm.get('contrasena')?.touched && registerForm.get('contrasena')?.invalid" class="error-message">
+            <span *ngIf="registerForm.get('contrasena')?.errors?.['required']">La contraseña es obligatoria</span>
+            <span *ngIf="registerForm.get('contrasena')?.errors?.['minlength']">La contraseña debe tener 6 caracteres como mínimo</span>
           </div>
 
           <!-- Campo Confirmar Contraseña -->
