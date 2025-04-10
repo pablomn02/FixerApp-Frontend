@@ -1,7 +1,7 @@
-import { Component } from "@angular/core";
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { Router } from "@angular/router";
+import { Router } from '@angular/router';
 import { 
   IonContent, 
   IonCard, 
@@ -11,13 +11,13 @@ import {
   IonButton, 
   IonText,
   NavController
-} from "@ionic/angular/standalone";
-import { LoginService } from "../shared/services/login.service";
+} from '@ionic/angular/standalone';
+import { LoginService } from '../shared/services/login.service';
 
 @Component({
-  selector: "app-login",
-  templateUrl: "./login.page.html",
-  styleUrls: ["./login.page.scss"],
+  selector: 'app-login',
+  templateUrl: './login.page.html',
+  styleUrls: ['./login.page.scss'],
   standalone: true,
   imports: [
     CommonModule,
@@ -41,8 +41,8 @@ export class LoginPage {
     private navCtrl: NavController
   ) {
     this.loginForm = this.formBuilder.group({
-      email: ["", [Validators.required, Validators.email]],
-      password: ["", [Validators.required, Validators.minLength(6)]],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
     });
   }
 
@@ -54,7 +54,7 @@ export class LoginPage {
       const { email, password } = this.loginForm.value;
       this.loginService.login(email, password).subscribe({
         next: (data) => {
-          console.log("Usuario:", data);
+          console.log('Usuario:', data);
           this.loginService.saveToken(data.token);
           this.redirigirUsuario(data.rol);
         },
@@ -79,20 +79,26 @@ export class LoginPage {
   }
 
   registro() {
-    console.log("Redirigiendo al usuario al registro...");
-    this.navCtrl.navigateRoot(['/register']);
+    console.log('Redirigiendo al usuario al registro...');
+    this.navCtrl.navigateRoot('/register');
   }
 
   recuperarContrasena() {
-    console.log("Redirigiendo al usuario a recuperar contraseña...");
+    console.log('Redirigiendo al usuario a recuperar contraseña...');
     this.navCtrl.navigateRoot('/recuperar-contrasena');
   }
 
   redirigirUsuario(rol: string) {
-    console.log("Rol del usuario:", rol);
-    if (rol === "cliente") {
-      console.log("Redirigiendo al usuario a la pagina principal...");
-      this.navCtrl.navigateRoot('/home/buscar');
+    console.log('Rol del usuario:', rol);
+    if (rol === 'cliente') {
+      console.log('Redirigiendo al usuario a los tabs de cliente...');
+      this.navCtrl.navigateRoot('/tabs-cliente');
+    } else if (rol === 'profesional') {
+      console.log('Redirigiendo al usuario a los tabs de profesional...');
+      this.navCtrl.navigateRoot('/tabs-profesional');
+    } else if (rol === 'admin') {
+      console.log('Redirigiendo al usuario a los tabs de administrador...');
+      this.navCtrl.navigateRoot('/tabs-admin');
     }
   }
 }

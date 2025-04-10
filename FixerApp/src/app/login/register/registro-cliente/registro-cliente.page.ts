@@ -23,6 +23,7 @@ export class RegistroClientePage implements OnInit {
       nombre: ['', [Validators.required, Validators.minLength(2)]],
       email: ['', [Validators.required, Validators.email]],
       usuario: ['', [Validators.required, Validators.minLength(2)]],
+      telefono: ['', [Validators.required, Validators.minLength(8)]],
       contrasena: ['', [Validators.required, Validators.minLength(6)]],
       confirmPassword: ['', [Validators.required]]
     }, { validators: this.compararContrasenas });
@@ -41,11 +42,12 @@ export class RegistroClientePage implements OnInit {
     this.successMessage = null;
 
     if (this.registerForm.valid) {
-      const { nombre, email, usuario, contrasena } = this.registerForm.value;
+      const { nombre, email, usuario, telefono, contrasena } = this.registerForm.value;
       const userData = {
         nombre,
         email,
         usuario,
+        telefono,
         contrasena,
         rol: 'cliente'
       };

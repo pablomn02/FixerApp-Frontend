@@ -7,10 +7,6 @@ const routes: Routes = [
     loadChildren: () => import('./login/login.module').then(m => m.LoginPageModule)
   },
   {
-    path: 'home',
-    loadChildren: () => import('./home/home.module').then(m => m.HomePageModule)
-  },
-  {
     path: 'recuperar-contrasena',
     loadChildren: () => import('./login/recuperar-contrasena/recuperar-contrasena.module').then(m => m.RecuperarContrasenaPageModule)
   },
@@ -25,6 +21,18 @@ const routes: Routes = [
   {
     path: 'registro-profesional',
     loadChildren: () => import('./login/register/registro-profesional/registro-profesional.module').then(m => m.RegistroProfesionalPageModule)
+  },
+  {
+    path: 'tabs-cliente',
+    loadChildren: () => import('./tabs-cliente/tabs-cliente.module').then(m => m.TabsClientePageModule)
+  },
+  {
+    path: 'tabs-profesional',
+    loadChildren: () => import('./tabs-profesional/tabs-profesional.module').then(m => m.TabsProfesionalPageModule)
+  },
+  {
+    path: 'tabs-admin',
+    loadChildren: () => import('./tabs-admin/tabs-admin.module').then(m => m.TabsAdminPageModule)
   },
   {
     path: '',

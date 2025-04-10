@@ -1,0 +1,18 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs-cliente/buscar"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ categoriaNombre || 'Categoría' }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="category-details">
+    <div class="category-header">
+      <ion-icon [name]="getIcon(categoriaNombre)" size="large"></ion-icon>
+      <h2>Detalles de {{ categoriaNombre || 'Categoría' }}</h2>
+    </div>
+    <p>Aquí puedes mostrar más información sobre el servicio de {{ categoriaNombre || 'esta categoría' }}.</p>
+  </div>
+</ion-content>

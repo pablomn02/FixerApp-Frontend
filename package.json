@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "intl-tel-input": "^25.3.1",
+    "libphonenumber-js": "^1.12.6",
+    "ngx-intl-tel-input": "^17.0.0"
+  }
+}

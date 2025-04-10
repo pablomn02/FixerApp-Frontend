@@ -1,0 +1,197 @@
+/* Contenido principal */
+ion-content {
+    --background: linear-gradient(180deg, #e6f0ff 0%, #f8f9fa 100%);
+    --padding-bottom: 16px;
+    --padding-start: 8px; // Reducido para pantallas pequeñas
+    --padding-end: 8px;
+    --padding-top: 8px;
+  
+    .section-title {
+      padding: 0 8px; // Reducido para pantallas pequeñas
+      margin: 16px 0 8px; // Reducido para ahorrar espacio vertical
+  
+      h2 {
+        font-size: 16px; // Reducido para mejor legibilidad en móviles
+        font-weight: 600;
+        color: #333;
+        margin: 0;
+        text-align: center;
+      }
+    }
+  }
+  
+  /* Botón de contratar */
+  .btn-contratar {
+    --background: white;
+    color: #000046;
+    font-weight: 500;
+    --border-radius: 8px; // Añadido para consistencia
+    --padding-start: 16px; // Ajustado para mejor toque en móviles
+    --padding-end: 16px;
+    font-size: 14px; // Reducido para pantallas pequeñas
+    height: 40px; // Ajustado para mejor proporción
+  }
+  
+  /* Favoritos */
+  .favorites-container {
+    margin: 0;
+    padding: 0 8px; // Reducido para pantallas pequeñas
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: calc(100% - 120px); // Reducido para pantallas pequeñas
+  
+    .favorites-list {
+      background: transparent;
+  
+      .favorite-item {
+        --background: linear-gradient(135deg, #000046 0%, #1c6ae0 100%);
+        --border-radius: 12px; // Reducido para mejor proporción
+        --box-shadow: 0 2px 6px rgba(0, 0, 70, 0.1); // Sombra más suave
+        margin: 8px 0; // Ajustado para pantallas pequeñas
+        padding: 8px; // Reducido para ahorrar espacio
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        color: white;
+  
+        ion-avatar {
+          width: 40px; // Reducido para pantallas pequeñas
+          height: 40px;
+  
+          ion-icon {
+            font-size: 32px; // Reducido para proporción
+            color: #ffffff;
+          }
+        }
+  
+        ion-label {
+          h3 {
+            font-size: 14px; // Reducido para pantallas pequeñas
+            font-weight: 500;
+            color: #ffffff;
+            margin: 0;
+          }
+  
+          p {
+            font-size: 12px; // Reducido para pantallas pequeñas
+            color: #ffffff;
+            margin: 2px 0 0;
+          }
+        }
+  
+        ion-button {
+          --border-radius: 8px; // Reducido para proporción
+          --padding-start: 10px; // Ajustado para pantallas pequeñas
+          --padding-end: 10px;
+          font-size: 12px; // Reducido para pantallas pequeñas
+          height: 32px; // Reducido para proporción
+        }
+      }
+    }
+  
+    .add-favorite-button {
+      padding: 16px 8px; // Reducido para pantallas pequeñas
+  
+      ion-button {
+        --border-radius: 12px; // Reducido para proporción
+        --background: white;
+        --box-shadow: 0 2px 6px rgba(0, 0, 70, 0.1); // Sombra más suave
+        font-size: 14px; // Reducido para pantallas pequeñas
+        height: 44px; // Ajustado para mejor toque en móviles
+        text-transform: none;
+        width: 100%; // Asegura que el botón ocupe todo el ancho
+      }
+    }
+  }
+  
+  /* Estilos para pantallas más grandes (mantenidos pero no aplicados en móviles) */
+  @media (min-width: 768px) {
+    ion-content {
+      --padding-start: 16px;
+      --padding-end: 16px;
+      --padding-top: 16px;
+  
+      .section-title {
+        max-width: 700px;
+        margin: 20px auto 10px;
+        padding: 0 16px;
+  
+        h2 {
+          font-size: 18px; // Tamaño original para pantallas grandes
+        }
+      }
+    }
+  
+    .btn-contratar {
+      font-size: 16px; // Tamaño original para pantallas grandes
+      height: 44px;
+    }
+  
+    .favorites-container {
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 0 16px;
+      min-height: calc(100% - 150px);
+  
+      .favorites-list {
+        .favorite-item {
+          margin: 10px 12px;
+          padding: 10px;
+  
+          ion-avatar {
+            width: 48px;
+            height: 48px;
+  
+            ion-icon {
+              font-size: 40px;
+            }
+          }
+  
+          ion-label {
+            h3 {
+              font-size: 16px;
+            }
+  
+            p {
+              font-size: 14px;
+              margin: 4px 0 0;
+            }
+          }
+  
+          ion-button {
+            --border-radius: 10px;
+            --padding-start: 12px;
+            --padding-end: 12px;
+            font-size: 14px;
+            height: 36px;
+          }
+        }
+      }
+  
+      .add-favorite-button {
+        padding: 20px 16px;
+  
+        ion-button {
+          --border-radius: 15px;
+          font-size: 16px;
+          height: 48px;
+        }
+      }
+    }
+  }
+  
+  /* Estilos para pantallas pequeñas (móviles) */
+  @media (max-width: 767px) {
+    ion-content {
+      --padding-start: 8px;
+      --padding-end: 8px;
+      --padding-top: 8px;
+    }
+  
+    .favorites-container {
+      padding: 0 8px;
+    }
+  
+    .add-favorite-button {
+      padding: 16px 8px;
+    }
+  }
