@@ -43,7 +43,7 @@ export class RegistroProfesionalPage {
     this.successMessage = null;
 
     if (this.registerForm.valid) {
-      const { nombre, email, username, especialidad, precioHora, horarioDisponible, password } = this.registerForm.value;
+      const { name, email, username, especialidad, precioHora, horarioDisponible, password } = this.registerForm.value;
       const userData = {
         nombre: name,
         email,

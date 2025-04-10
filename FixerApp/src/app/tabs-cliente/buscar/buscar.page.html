@@ -5,8 +5,7 @@
   <div class="direccion">
     <ion-item>
       <ion-icon name="navigate" color="primary"></ion-icon>
-      <ion-input readonly id="direccion-input" [(ngModel)]="direccion" placeholder="Tu dirección">
-      </ion-input>      
+      <ion-input readonly id="direccion-input" [(ngModel)]="direccion" placeholder="Tu dirección"></ion-input>      
     </ion-item>
   </div>
 
@@ -15,18 +14,18 @@
   </div>
 
   <ion-searchbar 
-    placeholder="Buscar" 
+    placeholder="Buscar categorías" 
     (ionInput)="searchBar($event)" 
     class="rounded-searchbar">
   </ion-searchbar>
 
   <div class="categories-container">
     <div class="categories-grid">
-      <div class="category-item" *ngFor="let category of palabraBuscada" (click)="navegarACategoria(category)">
-        <div class="category-bubble" [ngStyle]="{'background-color': getColor(category)}">
-          <ion-icon [name]="getIcon(category)"></ion-icon>
+      <div class="category-item" *ngFor="let categoria of categoriasFiltradas" (click)="navegarACategoria(categoria.id)">
+        <div class="category-bubble" [ngStyle]="{'background-color': getColor(categoria.nombre)}">
+          <ion-icon [name]="getIcon(categoria.nombre)"></ion-icon>
         </div>
-        <span class="category-name">{{ category }}</span>
+        <span class="category-name">{{ categoria.nombre }}</span>
       </div>
     </div>
   </div>

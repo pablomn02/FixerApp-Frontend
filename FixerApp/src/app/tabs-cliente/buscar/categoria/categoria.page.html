@@ -8,11 +8,20 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <div class="category-details">
-    <div class="category-header">
-      <ion-icon [name]="getIcon(categoriaNombre)" size="large"></ion-icon>
-      <h2>Detalles de {{ categoriaNombre || 'Categoría' }}</h2>
+  <div class="section-title">
+    <h2>Servicios de {{ categoriaNombre || 'esta categoría' }}</h2>
+  </div>
+  <div class="services-container">
+    <div class="services-grid">
+      <div class="service-item" *ngFor="let servicio of servicios">
+        <div class="service-bubble" [ngStyle]="{'background-color': getColor(categoriaNombre)}">
+          <ion-icon [name]="getIcon(categoriaNombre)"></ion-icon>
+        </div>
+        <span class="service-name">{{ servicio.nombre }}</span>
+      </div>
+      <div class="service-item" *ngIf="servicios.length === 0">
+        <span class="service-name">No hay servicios disponibles</span>
+      </div>
     </div>
-    <p>Aquí puedes mostrar más información sobre el servicio de {{ categoriaNombre || 'esta categoría' }}.</p>
   </div>
 </ion-content>

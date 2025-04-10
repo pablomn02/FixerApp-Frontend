@@ -1,28 +1,148 @@
-.category-details {
-    padding: 16px;
-  
-    .category-header {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 16px;
-  
-      ion-icon {
-        font-size: 32px;
-        color: #000046; // Color que coincide con tu paleta
-      }
-  
-      h2 {
-        font-size: 20px;
-        font-weight: 600;
-        color: #333;
-        margin: 0;
-      }
-    }
-  
-    p {
-      font-size: 14px;
-      color: #666;
-      line-height: 1.5;
+/* Barra de búsqueda y elementos generales */
+ion-content {
+  --background: linear-gradient(180deg, #e6f0ff 0%, #f8f9fa 100%);
+  --padding-bottom: 16px;
+
+  /* Título de sección */
+  .section-title {
+    padding: 0 16px;
+    margin: 20px 0 10px;
+
+    h2 {
+      font-size: 18px;
+      font-weight: 600;
+      color: #333;
+      margin: 0;
+      text-align: center;
     }
   }
+
+  /* Servicios */
+  .services-container {
+    margin: 0;
+    padding: 0 10px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: calc(100% - 100px); // Ajustado para cabecera más simple
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+      gap: 20px;
+      padding: 20px 0;
+      justify-content: center;
+      align-items: start;
+      flex-grow: 1;
+    }
+
+    .service-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      height: 130px;
+      animation: fadeIn 0.5s ease-in-out;
+
+      .service-bubble {
+        width: 90px;
+        height: 90px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 10px;
+        box-shadow: 0 6px 15px rgba(0, 0, 70, 0.15),
+                    0 0 10px rgba(255, 255, 255, 0.3);
+        background: linear-gradient(145deg, rgba(255, 255, 255, 0.2), rgba(0, 0, 0, 0.1));
+        border: 2px solid rgba(255, 255, 255, 0.9);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+        ion-icon {
+          font-size: 36px;
+          color: white;
+          filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+        }
+
+        &:hover,
+        &:active {
+          transform: scale(1.05);
+          box-shadow: 0 8px 20px rgba(0, 0, 70, 0.2),
+                      0 0 15px rgba(255, 255, 255, 0.5);
+        }
+      }
+
+      .service-name {
+        font-size: 14px;
+        font-weight: 500;
+        color: #222;
+        text-align: center;
+        max-width: 90px;
+        line-height: 1.2;
+        padding: 0 4px;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+  }
+}
+
+/* Animación */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Media queries para pantallas más grandes */
+@media (min-width: 768px) {
+  ion-content {
+    .section-title {
+      max-width: 700px;
+      margin: 20px auto 10px;
+    }
+
+    .services-container {
+      max-width: 700px;
+      margin: 0 auto;
+
+      .services-grid {
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        gap: 25px;
+      }
+
+      .service-item {
+        height: 140px;
+
+        .service-bubble {
+          width: 100px;
+          height: 100px;
+        }
+
+        ion-icon {
+          font-size: 40px;
+        }
+
+        .service-name {
+          font-size: 15px;
+        }
+      }
+    }
+  }
+}
+
+/* Estilo del header */
+ion-header {
+  ion-toolbar {
+    --background: linear-gradient(135deg, #000046 0%, #1c6ae0 100%);
+    --color: white;
+  }
+}

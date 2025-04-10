@@ -15,11 +15,9 @@ export class LoginService {
 
   constructor(private http: HttpClient) {}
 
-  // Método para iniciar sesión
   login(email: string, contrasena: string): Observable<any> {
     return this.http.post(this.loginUrl, { email, contrasena }).pipe(
       tap((response: any) => {
-        // Almacenar el token, el ID del usuario y el rol en localStorage
         if (response.token && response.idUsuario && response.rol) {
           this.saveToken(response.token);
           this.saveUserId(response.idUsuario);
@@ -29,7 +27,6 @@ export class LoginService {
     );
   }
 
-  // Método para registrar un cliente
   registerCliente(usuario: Cliente): Observable<any> {
     return this.http.post(this.registerUrl, usuario);
   }
@@ -38,37 +35,30 @@ export class LoginService {
     return this.http.post(this.registerUrl, usuario)
   }
 
-  // Almacenar el token en localStorage
   saveToken(token: string): void {
     localStorage.setItem('token', token);
   }
 
-  // Obtener el token de localStorage
   getToken(): string | null {
     return localStorage.getItem('token');
   }
 
-  // Almacenar el ID del usuario en localStorage
   saveUserId(userId: number): void {
     localStorage.setItem('userId', userId.toString());
   }
 
-  // Obtener el ID del usuario de localStorage
   getUserId(): string | null {
     return localStorage.getItem('userId');
   }
 
-  // Almacenar el rol del usuario en localStorage
   saveUserRole(role: string): void {
     localStorage.setItem('userRole', role);
   }
 
-  // Obtener el rol del usuario de localStorage
   getUserRole(): string | null {
     return localStorage.getItem('userRole');
   }
 
-  // Obtener los datos del usuario autenticado
   getCurrentUser(): Observable<any> {
     const token = this.getToken();
     const userId = this.getUserId();
@@ -82,18 +72,15 @@ export class LoginService {
       'Authorization': `Bearer ${token}`
     });
 
-    // Hacer la solicitud al backend para obtener los datos del usuario
     return this.http.get(`${this.userUrl}/${userId}`, { headers });
   }
 
-  // Cerrar sesión
   logout(): void {
     localStorage.removeItem('token');
     localStorage.removeItem('userId');
     localStorage.removeItem('userRole');
   }
 
-  // Verificar si el usuario está autenticado
   isAuthenticated(): boolean {
     return !!this.getToken();
   }
