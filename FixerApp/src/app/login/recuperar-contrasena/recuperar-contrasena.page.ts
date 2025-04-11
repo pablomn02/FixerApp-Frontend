@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { NavController } from '@ionic/angular';
+import { NavController, LoadingController } from '@ionic/angular';
+import { LoginService } from 'src/app/shared/services/login.service';
 
 @Component({
   selector: 'app-recuperar-contrasena',
@@ -17,23 +18,41 @@ export class RecuperarContrasenaPage {
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private navCtrl: NavController
+    private navCtrl: NavController,
+    private loadingCtrl: LoadingController,
+    private loginService: LoginService
   ) {
     this.recoverForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]]
     });
   }
 
-  onSubmit() {
+  async onSubmit() {
     this.errorMessage = null;
     this.successMessage = null;
 
     if (this.recoverForm.valid) {
+      const loading = await this.loadingCtrl.create({
+        message: 'Enviando...',
+        spinner: 'crescent',
+        cssClass: 'custom-loading'
+      });
+      await loading.present();
+
       const { email } = this.recoverForm.value;
-      console.log('Enviando correo de recuperación a:', email);
-      
-      this.successMessage = 'Se ha enviado un enlace de recuperación a tu correo electrónico.';
-    
+      this.loginService.requestPasswordReset(email).subscribe({
+        next: (response) => {
+          loading.dismiss();
+          this.successMessage = response.message || 'Se ha enviado un enlace de recuperación a tu correo electrónico.';
+        },
+        error: (err) => {
+          loading.dismiss();
+          this.errorMessage = err.error.error || 'Error al enviar el enlace de recuperación.';
+          setTimeout(() => {
+            this.errorMessage = null;
+          }, 5000);
+        }
+      });
     } else {
       this.errorMessage = 'Por favor, introduce un correo electrónico válido.';
       Object.keys(this.recoverForm.controls).forEach((key) => {

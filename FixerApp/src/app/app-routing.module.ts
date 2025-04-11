@@ -40,6 +40,10 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
+    path: 'reset-password',
+    loadChildren: () => import('./login/reset-password/reset-password.module').then(m => m.ResetPasswordPageModule)
+  },
+  {
     path: '**',
     redirectTo: '/login'
   }
@@ -47,7 +51,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
+    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules, useHash: false })
   ],
   exports: [RouterModule]
 })

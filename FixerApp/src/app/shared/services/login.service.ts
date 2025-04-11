@@ -11,6 +11,8 @@ export class LoginService {
   private baseUrl = 'http://localhost:8080';
   private loginUrl = `${this.baseUrl}/auth/login`;
   private registerUrl = `${this.baseUrl}/auth/register`;
+  private recoverPasswordUrl = `${this.baseUrl}/auth/request-password-reset`;
+  private resetPasswordUrl = `${this.baseUrl}/auth/reset-password`;
   private userUrl = `${this.baseUrl}/usuarios`;
 
   constructor(private http: HttpClient) {}
@@ -32,7 +34,7 @@ export class LoginService {
   }
 
   registerProfesional(usuario: any): Observable<any> {
-    return this.http.post(this.registerUrl, usuario)
+    return this.http.post(this.registerUrl, usuario);
   }
 
   saveToken(token: string): void {
@@ -67,7 +69,6 @@ export class LoginService {
       throw new Error('No hay usuario autenticado');
     }
 
-    // Configurar los encabezados con el token
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
@@ -83,5 +84,13 @@ export class LoginService {
 
   isAuthenticated(): boolean {
     return !!this.getToken();
+  }
+
+  requestPasswordReset(email: string): Observable<{ message: string }> {
+    return this.http.post<{ message: string }>(this.recoverPasswordUrl, { email });
+  }
+
+  resetPassword(token: string, newPassword: string): Observable<{ message: string }> {
+    return this.http.post<{ message: string }>(this.resetPasswordUrl, { token, newPassword });
   }
 }

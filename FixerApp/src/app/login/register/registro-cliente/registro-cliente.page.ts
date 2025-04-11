@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NavController } from '@ionic/angular';
+import { NavController, LoadingController } from '@ionic/angular';
 import { LoginService } from 'src/app/shared/services/login.service';
 
 @Component({
@@ -17,13 +17,13 @@ export class RegistroClientePage implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private navCtrl: NavController,
-    private loginService: LoginService
+    private loginService: LoginService,
+    private loadingCtrl: LoadingController
   ) {
     this.registerForm = this.formBuilder.group({
       nombre: ['', [Validators.required, Validators.minLength(2)]],
       email: ['', [Validators.required, Validators.email]],
       usuario: ['', [Validators.required, Validators.minLength(2)]],
-      telefono: ['', [Validators.required, Validators.minLength(8)]],
       contrasena: ['', [Validators.required, Validators.minLength(6)]],
       confirmPassword: ['', [Validators.required]]
     }, { validators: this.compararContrasenas });
@@ -37,17 +37,23 @@ export class RegistroClientePage implements OnInit {
     return contrasena === confirmPassword ? null : { mismatch: true };
   }
 
-  onSubmit() {
+  async onSubmit() {
     this.errorMessage = null;
     this.successMessage = null;
 
     if (this.registerForm.valid) {
-      const { nombre, email, usuario, telefono, contrasena } = this.registerForm.value;
+      const loading = await this.loadingCtrl.create({
+        message: 'Registrando...',
+        spinner: 'crescent',
+        cssClass: 'custom-loading'
+      });
+      await loading.present();
+
+      const { nombre, email, usuario, contrasena } = this.registerForm.value;
       const userData = {
         nombre,
         email,
         usuario,
-        telefono,
         contrasena,
         rol: 'cliente'
       };
@@ -56,12 +62,14 @@ export class RegistroClientePage implements OnInit {
 
       this.loginService.registerCliente(userData).subscribe({
         next: (response) => {
+          loading.dismiss();
           this.successMessage = 'Registro exitoso. Serás redirigido al login en 3 segundos.';
           setTimeout(() => {
             this.navCtrl.navigateRoot('/login');
           }, 3000);
         },
         error: (err) => {
+          loading.dismiss();
           console.error('Error al registrarse:', err);
           if (err.status === 400) {
             this.errorMessage = err.error.error || 'Datos inválidos. Por favor, verifica los campos.';

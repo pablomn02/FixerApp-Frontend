@@ -35,7 +35,8 @@ export class CategoriaPage implements OnInit {
     // Obtener el nombre de la categoría
     this.categoriaService.getCategoriaById(+id).subscribe({
       next: (data) => {
-        console.log('Categoría cargada:', data);
+        console.log('Categoría cargada:', data.nombre);
+        this.categoriaNombre = data.nombre;
       },
       error: (err) => {
         console.error('Error al cargar categoría:', err);
