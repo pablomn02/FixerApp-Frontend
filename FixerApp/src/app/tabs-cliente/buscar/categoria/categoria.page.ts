@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { CategoryStyleService } from 'src/app/shared/services/category-style.service';
 import { CategoriaService } from 'src/app/shared/services/categoria.service';
 import { ServicioService } from 'src/app/shared/services/servicio.service';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-categoria',
@@ -19,7 +20,8 @@ export class CategoriaPage implements OnInit {
     private route: ActivatedRoute,
     private categoriaStyleService: CategoryStyleService,
     private categoriaService: CategoriaService,
-    private servicioService: ServicioService
+    private servicioService: ServicioService,
+    private navCtrl: NavController
   ) {}
 
   ngOnInit() {
@@ -31,8 +33,13 @@ export class CategoriaPage implements OnInit {
     }
   }
 
+  goToServicio(id: number) {
+    console.log('Cargando servicio con ID:', id);
+    // Navegar a la página de detalles del servicio
+    this.navCtrl.navigateForward(`/servicio/${id}`);
+  }
+
   cargarCategoriaYServicios(id: string) {
-    // Obtener el nombre de la categoría
     this.categoriaService.getCategoriaById(+id).subscribe({
       next: (data) => {
         console.log('Categoría cargada:', data.nombre);
@@ -44,7 +51,6 @@ export class CategoriaPage implements OnInit {
       }
     });
 
-    // Obtener los servicios de la categoría
     this.servicioService.getServiciosByCategoria(+id).subscribe({
       next: (data) => {
         this.servicios = data;
