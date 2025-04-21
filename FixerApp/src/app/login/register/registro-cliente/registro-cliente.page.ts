@@ -62,9 +62,10 @@ export class RegistroClientePage implements OnInit {
 
       this.loginService.registerCliente(userData).subscribe({
         next: (response) => {
-          loading.dismiss();
+          loading.message = 'Redirigiendo...'; // Update loader message
           this.successMessage = 'Registro exitoso. Serás redirigido al login en 3 segundos.';
           setTimeout(() => {
+            loading.dismiss();
             this.navCtrl.navigateRoot('/login');
           }, 3000);
         },

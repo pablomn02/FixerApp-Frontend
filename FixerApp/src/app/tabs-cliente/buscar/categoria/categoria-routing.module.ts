@@ -7,8 +7,9 @@ const routes: Routes = [
   {
     path: '',
     component: CategoriaPage
-  },  {
-    path: 'servicio',
+  },
+  {
+    path: 'servicio/:id',
     loadChildren: () => import('./servicio/servicio.module').then( m => m.ServicioPageModule)
   }
 
