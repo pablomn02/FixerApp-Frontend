@@ -30,11 +30,19 @@ export class LoginService {
   }
 
   registerCliente(usuario: Cliente): Observable<any> {
-    return this.http.post(this.registerUrl, usuario);
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+    console.log('Registrando cliente - Cuerpo de la solicitud:', JSON.stringify(usuario, null, 2));
+    return this.http.post(this.registerUrl, usuario, { headers });
   }
 
   registerProfesional(usuario: any): Observable<any> {
-    return this.http.post(this.registerUrl, usuario);
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+    console.log('Registrando profesional - Cuerpo de la solicitud:', JSON.stringify(usuario, null, 2));
+    return this.http.post(this.registerUrl, usuario, { headers });
   }
 
   saveToken(token: string): void {

@@ -27,7 +27,14 @@ export class RegistroProfesionalPage {
       username: ['', [Validators.required, Validators.minLength(2)]],
       especialidad: ['', [Validators.required, Validators.maxLength(100)]],
       precioHora: ['', [Validators.required, Validators.min(0)]],
-      horarioDisponible: ['', [Validators.required]],
+      ubicacion: this.formBuilder.group({
+        latitud: [40.416775], // Latitud por defecto (Madrid, España)
+        longitud: [-3.703790] // Longitud por defecto (Madrid, España)
+      }),
+      horarioDisponible: this.formBuilder.group({
+        inicio: [''],
+        fin: ['']
+      }),
       password: ['', [Validators.required, Validators.minLength(6)]],
       confirmPassword: ['', [Validators.required]]
     }, { validators: this.compararContrasenas });
@@ -39,12 +46,49 @@ export class RegistroProfesionalPage {
     return password === confirmPassword ? null : { mismatch: true };
   }
 
+  // Método para registrar el valor del horario cuando pierde el foco
+  logHorario(field: string) {
+    const value = this.registerForm.get(`horarioDisponible.${field}`)?.value;
+    console.log(`Horario (${field}):`, value);
+  }
+
+  // Método para transformar el formato de la hora ISO a HH:mm
+  formatTime(isoString: string): string {
+    if (!isoString) return '';
+    const date = new Date(isoString);
+    const hours = date.getHours().toString().padStart(2, '0');
+    const minutes = date.getMinutes().toString().padStart(2, '0');
+    return `${hours}:${minutes}`;
+  }
+
+  // Método para construir el objeto horarioDisponible con el formato esperado
+  buildHorarioDisponible(inicio: string, fin: string) {
+    const horario: { [key: string]: { inicio: string, fin: string }[] } = {
+      lunes: [],
+      martes: [],
+      miercoles: [],
+      jueves: [],
+      viernes: [],
+      sabado: [],
+      domingo: []
+    };
+
+    if (inicio && fin) {
+      const rango = { inicio: this.formatTime(inicio), fin: this.formatTime(fin) };
+      // Aplica el mismo rango a todos los días
+      Object.keys(horario).forEach(dia => {
+        horario[dia].push(rango);
+      });
+    }
+
+    return horario;
+  }
+
   async onSubmit() {
     this.errorMessage = null;
     this.successMessage = null;
 
     if (this.registerForm.valid) {
-      // Mostrar el loader
       const loading = await this.loadingCtrl.create({
         message: 'Registrando...',
         spinner: 'crescent',
@@ -52,7 +96,7 @@ export class RegistroProfesionalPage {
       });
       await loading.present();
 
-      const { name, email, username, especialidad, precioHora, horarioDisponible, password } = this.registerForm.value;
+      const { name, email, username, especialidad, precioHora, ubicacion, horarioDisponible, password } = this.registerForm.value;
       const userData = {
         nombre: name,
         email,
@@ -60,15 +104,22 @@ export class RegistroProfesionalPage {
         contrasena: password,
         rol: 'profesional',
         especialidad,
-        precioHora,
-        horarioDisponible
+        precioHora: Number(precioHora), // Asegurarse de que sea un número
+        ubicacion: {
+          latitud: Number(ubicacion.latitud), // Asegurarse de que sea un número
+          longitud: Number(ubicacion.longitud) // Asegurarse de que sea un número
+        },
+        horarioDisponible: this.buildHorarioDisponible(horarioDisponible.inicio, horarioDisponible.fin),
+        experiencia: null,
+        certificaciones: null,
+        calificacionPromedio: 0,
+        totalContrataciones: 0
       };
 
-      console.log("Registrando al profesional", userData);
+      console.log("Datos enviados al backend:", JSON.stringify(userData, null, 2));
 
       this.loginService.registerProfesional(userData).subscribe({
         next: (response) => {
-          // Ocultar el loader
           loading.dismiss();
           this.successMessage = 'Registro exitoso. Redirigiendo a login.';
           setTimeout(() => {
@@ -76,13 +127,14 @@ export class RegistroProfesionalPage {
           }, 3000);
         },
         error: (err) => {
-          // Ocultar el loader
           loading.dismiss();
           console.error('Error al registrarse:', err);
           if (err.status === 400) {
             this.errorMessage = err.error.error || 'Datos inválidos. Por favor, verifica los campos.';
           } else if (err.status === 409) {
             this.errorMessage = 'El correo electrónico ya está registrado.';
+          } else if (err.status === 500) {
+            this.errorMessage = 'Error en el servidor: ' + (err.error?.message || 'Por favor, intenta de nuevo más tarde.');
           } else if (err.status === 0) {
             this.errorMessage = 'No se pudo conectar al servidor. Verifica tu conexión a internet.';
           } else {

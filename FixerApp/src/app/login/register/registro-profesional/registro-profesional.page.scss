@@ -226,6 +226,34 @@ ion-button {
     }
 }
 
+.form-item ion-datetime {
+    --padding-start: 6px;
+    --color: #333;
+    font-size: 15px;
+    width: 100%;
+  }
+
+  .time-picker-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .time-picker {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .time-picker ion-item {
+    --min-height: 40px;
+  }
+  
+  .time-picker ion-datetime {
+    font-size: 14px;
+    --padding-start: 8px;
+    --padding-end: 8px;
+  }
+
 // Loader
 .custom-loading {
     --background: rgba(0, 0, 0, 0.3);

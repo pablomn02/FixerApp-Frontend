@@ -80,20 +80,34 @@
             <span *ngIf="registerForm.get('precioHora')?.errors?.['min']">El precio por hora debe ser mayor o igual a 0</span>
           </div>
 
-          <!-- Campo Horario Disponible (Texto) -->
-          <ion-label class="form-label">Horario</ion-label>
-          <ion-item class="form-item" lines="none">
-            <ion-input 
-              type="text" 
-              formControlName="horarioDisponible" 
-              placeholder="Introduce tu horario">
-            </ion-input>
-          </ion-item>
-          <div class="help-text">
-            <span>Ej: Lunes a Viernes, 9:00-17:00</span>
-          </div>
-          <div *ngIf="registerForm.get('horarioDisponible')?.touched && registerForm.get('horarioDisponible')?.invalid" class="error-message">
-            <span *ngIf="registerForm.get('horarioDisponible')?.errors?.['required']">El horario disponible es obligatorio</span>
+          <!-- Campo Horario Disponible -->
+          <ion-label class="form-label">Horario Disponible (Todos los días)</ion-label>
+          <div formGroupName="horarioDisponible" class="time-picker-container">
+            <div class="time-picker">
+              <ion-label class="form-label">Hora de Inicio</ion-label>
+              <ion-item class="form-item" lines="none">
+                <ion-datetime 
+                  presentation="time" 
+                  format="HH:mm" 
+                  formControlName="inicio"
+                  placeholder="Selecciona la hora de inicio"
+                  (ionBlur)="logHorario('inicio')">
+                </ion-datetime>
+              </ion-item>
+            </div>
+
+            <div class="time-picker">
+              <ion-label class="form-label">Hora de Fin</ion-label>
+              <ion-item class="form-item" lines="none">
+                <ion-datetime 
+                  presentation="time" 
+                  format="HH:mm" 
+                  formControlName="fin"
+                  placeholder="Selecciona la hora de fin"
+                  (ionBlur)="logHorario('fin')">
+                </ion-datetime>
+              </ion-item>
+            </div>
           </div>
 
           <!-- Campo Contraseña -->
