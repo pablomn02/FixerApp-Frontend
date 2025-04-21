@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Agenda</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="agenda-content">
+  <!-- Filtro de Estados -->
+  <ion-segment [(ngModel)]="filtroEstado" (ionChange)="filtrarCitas()">
+    <ion-segment-button value="pendientes">
+      <ion-label>Pendientes</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="completadas">
+      <ion-label>Completadas</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+  <!-- Lista de Citas -->
+  <ion-list class="citas-list">
+    <ion-item *ngFor="let cita of citasFiltradas" class="cita-item">
+      <ion-label>
+        <h2>{{ cita.clienteNombre }}</h2>
+        <p><strong>Servicio:</strong> {{ cita.servicio }}</p>
+        <p><strong>Fecha y Hora:</strong> {{ cita.fechaHora }}</p>
+        <p><strong>Estado:</strong> {{ cita.estado | titlecase }}</p>
+      </ion-label>
+      <div slot="end" class="acciones" *ngIf="cita.estado === 'pendiente'">
+        <ion-button fill="outline" color="danger" (click)="cancelarCita(cita)">
+          Cancelar
+        </ion-button>
+      </div>
+    </ion-item>
+  </ion-list>
+
+  <!-- Mensaje si no hay citas -->
+  <div class="no-citas" *ngIf="citasFiltradas.length === 0">
+    <p>No hay citas {{ filtroEstado }} en este momento.</p>
+  </div>
+</ion-content>

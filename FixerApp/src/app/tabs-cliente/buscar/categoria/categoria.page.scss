@@ -24,7 +24,7 @@ ion-content {
     flex-grow: 1;
     display: flex;
     flex-direction: column;
-    min-height: calc(100% - 100px); // Ajustado para cabecera más simple
+    min-height: calc(100% - 100px);
 
     .services-grid {
       display: grid;
@@ -102,42 +102,6 @@ ion-content {
   }
 }
 
-/* Media queries para pantallas más grandes */
-@media (min-width: 768px) {
-  ion-content {
-    .section-title {
-      max-width: 700px;
-      margin: 20px auto 10px;
-    }
-
-    .services-container {
-      max-width: 700px;
-      margin: 0 auto;
-
-      .services-grid {
-        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-        gap: 25px;
-      }
-
-      .service-item {
-        height: 140px;
-
-        .service-bubble {
-          width: 100px;
-          height: 100px;
-        }
-
-        ion-icon {
-          font-size: 40px;
-        }
-
-        .service-name {
-          font-size: 15px;
-        }
-      }
-    }
-  }
-}
 
 /* Estilo del header */
 ion-header {

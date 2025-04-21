@@ -14,6 +14,7 @@ export class RegistroProfesionalPage {
   errorMessage: string | null = null;
   successMessage: string | null = null;
   isLoading: boolean = false;
+  diasSemana: string[] = ['lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado', 'domingo'];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -28,12 +29,13 @@ export class RegistroProfesionalPage {
       especialidad: ['', [Validators.required, Validators.maxLength(100)]],
       precioHora: ['', [Validators.required, Validators.min(0)]],
       ubicacion: this.formBuilder.group({
-        latitud: [40.416775], // Latitud por defecto (Madrid, España)
+        latitud: [40.416775], // Latitud por defecto (Madrid, Españaknow
         longitud: [-3.703790] // Longitud por defecto (Madrid, España)
       }),
       horarioDisponible: this.formBuilder.group({
         inicio: [''],
-        fin: ['']
+        fin: [''],
+        diasSeleccionados: [[]] // Almacena los días seleccionados como un array
       }),
       password: ['', [Validators.required, Validators.minLength(6)]],
       confirmPassword: ['', [Validators.required]]
@@ -46,7 +48,30 @@ export class RegistroProfesionalPage {
     return password === confirmPassword ? null : { mismatch: true };
   }
 
-  // Método para registrar el valor del horario cuando pierde el foco
+  // Método para manejar la selección de días
+  onDiaChange(event: any) {
+    const dia = event.detail.value;
+    const checked = event.detail.checked;
+    const diasSeleccionados = this.registerForm.get('horarioDisponible.diasSeleccionados')?.value || [];
+
+    if (checked) {
+      // Añadir el día si está marcado
+      if (!diasSeleccionados.includes(dia)) {
+        diasSeleccionados.push(dia);
+      }
+    } else {
+      // Quitar el día si se desmarca
+      const index = diasSeleccionados.indexOf(dia);
+      if (index > -1) {
+        diasSeleccionados.splice(index, 1);
+      }
+    }
+
+    this.registerForm.get('horarioDisponible.diasSeleccionados')?.setValue(diasSeleccionados);
+    console.log('Días seleccionados:', diasSeleccionados); // Depuración
+  }
+
+  // Método para registrar el valor del horario cuando cambia
   logHorario(field: string) {
     const value = this.registerForm.get(`horarioDisponible.${field}`)?.value;
     console.log(`Horario (${field}):`, value);
@@ -62,7 +87,7 @@ export class RegistroProfesionalPage {
   }
 
   // Método para construir el objeto horarioDisponible con el formato esperado
-  buildHorarioDisponible(inicio: string, fin: string) {
+  buildHorarioDisponible(inicio: string, fin: string, diasSeleccionados: string[]) {
     const horario: { [key: string]: { inicio: string, fin: string }[] } = {
       lunes: [],
       martes: [],
@@ -73,12 +98,19 @@ export class RegistroProfesionalPage {
       domingo: []
     };
 
-    if (inicio && fin) {
-      const rango = { inicio: this.formatTime(inicio), fin: this.formatTime(fin) };
-      // Aplica el mismo rango a todos los días
-      Object.keys(horario).forEach(dia => {
-        horario[dia].push(rango);
+    if (inicio && fin && diasSeleccionados.length > 0) {
+      const formattedInicio = this.formatTime(inicio);
+      const formattedFin = this.formatTime(fin);
+      console.log(`Horario formateado - Inicio: ${formattedInicio}, Fin: ${formattedFin}`); // Depuración
+      const rango = { inicio: formattedInicio, fin: formattedFin };
+      // Aplica el rango solo a los días seleccionados
+      diasSeleccionados.forEach(dia => {
+        if (horario.hasOwnProperty(dia)) {
+          horario[dia].push(rango);
+        }
       });
+    } else {
+      console.log('Inicio, Fin o Días Seleccionados están vacíos - Inicio:', inicio, 'Fin:', fin, 'Días:', diasSeleccionados); // Depuración
     }
 
     return horario;
@@ -109,7 +141,7 @@ export class RegistroProfesionalPage {
           latitud: Number(ubicacion.latitud), // Asegurarse de que sea un número
           longitud: Number(ubicacion.longitud) // Asegurarse de que sea un número
         },
-        horarioDisponible: this.buildHorarioDisponible(horarioDisponible.inicio, horarioDisponible.fin),
+        horarioDisponible: this.buildHorarioDisponible(horarioDisponible.inicio, horarioDisponible.fin, horarioDisponible.diasSeleccionados),
         experiencia: null,
         certificaciones: null,
         calificacionPromedio: 0,

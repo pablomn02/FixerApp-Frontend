@@ -1,0 +1,119 @@
+.solicitudes-content {
+    --background: linear-gradient(180deg, #e6f0ff 0%, #f8f9fa 100%);
+    padding: 16px;
+  }
+  
+  /* Filtro de Estados */
+  ion-segment {
+    background: white;
+    border-radius: 12px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 70, 0.1);
+  }
+  
+  ion-segment-button {
+    --color: #666;
+    --color-checked: #1c6ae0;
+    --indicator-color: #1c6ae0;
+    --padding-start: 16px;
+    --padding-end: 16px;
+    font-weight: 500;
+  }
+  
+  /* Lista de Solicitudes */
+  .solicitudes-list {
+    background: transparent;
+  }
+  
+  .solicitud-item {
+    --background: white;
+    --border-radius: 12px;
+    --padding-start: 16px;
+    --padding-end: 16px;
+    margin-bottom: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 70, 0.05);
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  .solicitud-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 70, 0.1);
+  }
+  
+  .solicitud-item h2 {
+    color: #333;
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  
+  .solicitud-item p {
+    color: #666;
+    font-size: 14px;
+    margin: 4px 0;
+  }
+  
+  .solicitud-item p strong {
+    color: #1c6ae0;
+  }
+  
+  /* Botones de Acción */
+  .acciones {
+    display: flex;
+    gap: 8px;
+  }
+  
+  ion-button {
+    --border-radius: 8px;
+    --padding-start: 12px;
+    --padding-end: 12px;
+    height: 36px;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  
+  ion-button[color="success"] {
+    --background: #28a745;
+    --color: white;
+  }
+  
+  ion-button[color="danger"] {
+    --border-color: #d9534f;
+    --color: #d9534f;
+  }
+  
+  /* Mensaje de No Solicitudes */
+  .no-solicitudes {
+    text-align: center;
+    padding: 20px;
+    color: #666;
+    font-size: 16px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 70, 0.05);
+  }
+  
+  /* Estilos Responsivos */
+  @media (min-width: 768px) {
+    .solicitudes-content {
+      padding: 24px;
+    }
+  
+    .solicitud-item {
+      --padding-start: 20px;
+      --padding-end: 20px;
+    }
+  
+    .solicitud-item h2 {
+      font-size: 18px;
+    }
+  
+    .solicitud-item p {
+      font-size: 15px;
+    }
+  
+    ion-button {
+      height: 40px;
+      font-size: 15px;
+    }
+  }

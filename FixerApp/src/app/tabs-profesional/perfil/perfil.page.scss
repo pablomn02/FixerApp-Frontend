@@ -1,0 +1,143 @@
+.bg-primary {
+    --background: linear-gradient(180deg, #e6f0ff 0%, #f8f9fa 100%);
+    padding: 16px;
+  }
+  
+  /* Sección de Perfil */
+  .profile-section {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0, 0, 70, 0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    animation: fadeIn 0.5s ease-in-out;
+  }
+  
+  /* Avatar */
+  .profile-avatar {
+    --border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    box-shadow: 0 4px 12px rgba(0, 0, 70, 0.15);
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  .profile-avatar img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+  }
+  
+  /* Información del Perfil */
+  .profile-info {
+    flex: 1;
+  }
+  
+  .profile-info h2 {
+    color: #333;
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0 0 4px 0;
+  }
+  
+  .profile-info p {
+    color: #666;
+    font-size: 14px;
+    margin: 4px 0;
+  }
+  
+  .profile-info p:nth-child(2) {
+    color: #1c6ae0;
+    font-weight: 500;
+  }
+  
+  /* Lista de Ajustes */
+  ion-list {
+    background: transparent;
+  }
+  
+  ion-list h5 {
+    color: #1c6ae0;
+    font-size: 14px;
+    font-weight: 600;
+    margin: 16px 0 8px 16px;
+    letter-spacing: 0.5px;
+  }
+  
+  ion-item {
+    --background: white;
+    --border-radius: 12px;
+    --padding-start: 16px;
+    --padding-end: 16px;
+    margin-bottom: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 70, 0.05);
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  ion-item ion-icon {
+    color: #1c6ae0;
+    margin-right: 12px;
+  }
+  
+  ion-item ion-label {
+    color: #333;
+    font-size: 16px;
+    font-weight: 500;
+  }
+  
+  ion-item[lines="full"] {
+    --border-color: rgba(28, 106, 224, 0.2);
+  }
+  
+  /* Animación de Entrada */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Estilos Responsivos */
+  @media (min-width: 768px) {
+    .bg-primary {
+      padding: 24px;
+    }
+  
+    .profile-section {
+      padding: 24px;
+    }
+  
+    .profile-avatar {
+      width: 100px;
+      height: 100px;
+    }
+  
+    .profile-info h2 {
+      font-size: 24px;
+    }
+  
+    .profile-info p {
+      font-size: 16px;
+    }
+  
+    ion-list h5 {
+      font-size: 16px;
+      margin-left: 20px;
+    }
+  
+    ion-item {
+      --padding-start: 20px;
+      --padding-end: 20px;
+    }
+  
+    ion-item ion-label {
+      font-size: 18px;
+    }
+  }

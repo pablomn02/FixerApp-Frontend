@@ -81,17 +81,32 @@
           </div>
 
           <!-- Campo Horario Disponible -->
-          <ion-label class="form-label">Horario Disponible (Todos los días)</ion-label>
+          <ion-label class="form-label">Horario de disponibilidad</ion-label>
           <div formGroupName="horarioDisponible" class="time-picker-container">
+            <!-- Selector de Días -->
+            <ion-label class="form-label">Selecciona los dias</ion-label>
+            <ion-item lines="none" class="checkbox-container">
+              <ion-list>
+                <ion-item *ngFor="let dia of diasSemana" lines="none">
+                  <ion-label>{{ dia | titlecase }}</ion-label>
+                  <ion-checkbox 
+                    slot="start" 
+                    [value]="dia" 
+                    (ionChange)="onDiaChange($event)">
+                  </ion-checkbox>
+                </ion-item>
+              </ion-list>
+            </ion-item>
+
             <div class="time-picker">
               <ion-label class="form-label">Hora de Inicio</ion-label>
               <ion-item class="form-item" lines="none">
                 <ion-datetime 
                   presentation="time" 
-                  format="HH:mm" 
                   formControlName="inicio"
                   placeholder="Selecciona la hora de inicio"
-                  (ionBlur)="logHorario('inicio')">
+                  [value]="registerForm.get('horarioDisponible.inicio')?.value"
+                  (ionChange)="logHorario('inicio')">
                 </ion-datetime>
               </ion-item>
             </div>
@@ -101,10 +116,10 @@
               <ion-item class="form-item" lines="none">
                 <ion-datetime 
                   presentation="time" 
-                  format="HH:mm" 
                   formControlName="fin"
                   placeholder="Selecciona la hora de fin"
-                  (ionBlur)="logHorario('fin')">
+                  [value]="registerForm.get('horarioDisponible.fin')?.value"
+                  (ionChange)="logHorario('fin')">
                 </ion-datetime>
               </ion-item>
             </div>

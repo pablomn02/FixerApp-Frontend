@@ -10,7 +10,8 @@ import { Cliente } from '../interfaces/cliente';
 export class LoginService {
   private baseUrl = 'http://localhost:8080';
   private loginUrl = `${this.baseUrl}/auth/login`;
-  private registerUrl = `${this.baseUrl}/auth/register`;
+  private registerClienteUrl = `${this.baseUrl}/auth/register/cliente`;
+  private registerProfesionalUrl = `${this.baseUrl}/auth/register/profesional`;
   private recoverPasswordUrl = `${this.baseUrl}/auth/request-password-reset`;
   private resetPasswordUrl = `${this.baseUrl}/auth/reset-password`;
   private userUrl = `${this.baseUrl}/usuarios`;
@@ -34,7 +35,7 @@ export class LoginService {
       'Content-Type': 'application/json'
     });
     console.log('Registrando cliente - Cuerpo de la solicitud:', JSON.stringify(usuario, null, 2));
-    return this.http.post(this.registerUrl, usuario, { headers });
+    return this.http.post(this.registerClienteUrl, usuario, { headers });
   }
 
   registerProfesional(usuario: any): Observable<any> {
@@ -42,7 +43,7 @@ export class LoginService {
       'Content-Type': 'application/json'
     });
     console.log('Registrando profesional - Cuerpo de la solicitud:', JSON.stringify(usuario, null, 2));
-    return this.http.post(this.registerUrl, usuario, { headers });
+    return this.http.post(this.registerProfesionalUrl, usuario, { headers });
   }
 
   saveToken(token: string): void {

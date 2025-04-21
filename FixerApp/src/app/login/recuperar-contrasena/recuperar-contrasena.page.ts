@@ -41,9 +41,16 @@ export class RecuperarContrasenaPage {
 
       const { email } = this.recoverForm.value;
       this.loginService.requestPasswordReset(email).subscribe({
-        next: (response) => {
+        next: (response: any) => {
           loading.dismiss();
           this.successMessage = response.message || 'Se ha enviado un enlace de recuperación a tu correo electrónico.';
+          // Para pruebas, redirigimos con el token devuelto
+          const token = response.token;
+          if (token) {
+            setTimeout(() => {
+              this.router.navigate(['/reset-password'], { queryParams: { token } });
+            }, 2000);
+          }
         },
         error: (err) => {
           loading.dismiss();
