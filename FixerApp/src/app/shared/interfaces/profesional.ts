@@ -1,4 +1,5 @@
 export interface Profesional {
+    id: number,
     nombre: string,
     email: string,
     usuario: string,
@@ -9,13 +10,3 @@ export interface Profesional {
     horarioDisponible: string,
     telefono: string
 }
-
-
-// nombre: name,
-// email,
-// usuario: username,
-// contrasena: password,
-// rol: 'profesional',
-// especialidad,
-// precioHora,
-// horarioDisponible

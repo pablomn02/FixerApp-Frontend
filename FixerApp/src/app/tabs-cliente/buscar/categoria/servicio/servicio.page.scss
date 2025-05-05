@@ -1,0 +1,222 @@
+/* Profesionales Card Styles */
+ion-card.profesionales-card {
+    margin: 16px;
+    border-radius: 16px;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 8px 20px rgba(0, 0, 70, 0.15), 
+                0 0 15px rgba(255, 255, 255, 0.3);
+    animation: fadeIn 0.5s ease-in-out;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 25px rgba(0, 0, 70, 0.2), 
+                  0 0 20px rgba(255, 255, 255, 0.4);
+    }
+  
+    .profesionales-card-header {
+      background: linear-gradient(135deg, #1c6ae0 0%, #000046 100%);
+      padding: 16px;
+      text-align: center;
+  
+      ion-card-title {
+        font-size: 20px;
+        font-weight: 600;
+        color: white;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      }
+    }
+  
+    ion-card-content {
+      padding: 16px;
+  
+      ion-list {
+        background: transparent;
+        padding: 0;
+  
+        ion-item.profesional-item {
+          --background: transparent;
+          --padding-start: 12px;
+          --inner-padding-end: 12px;
+          border-radius: 12px;
+          margin: 8px 0;
+          transition: background 0.3s ease, transform 0.3s ease;
+          cursor: pointer;
+  
+          &:hover {
+            --background: rgba(230, 240, 255, 0.5);
+            transform: scale(1.02);
+          }
+  
+          ion-avatar.profesional-avatar {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(145deg, #e6f0ff, #f8f9fa);
+            border: 2px solid rgba(255, 255, 255, 0.9);
+            box-shadow: 0 4px 10px rgba(0, 0, 70, 0.1);
+  
+            ion-icon {
+              font-size: 32px;
+              color: #1c6ae0;
+              filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+            }
+          }
+  
+          ion-label {
+            margin-left: 12px;
+  
+            h2 {
+              font-size: 16px;
+              font-weight: 600;
+              color: #222;
+              margin: 0 0 4px 0;
+              text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+            }
+  
+            p.especialidad {
+              font-size: 14px;
+              color: #555;
+              margin: 0 0 4px 0;
+              line-height: 1.4;
+            }
+  
+            p.precio {
+              font-size: 14px;
+              font-weight: 500;
+              color: #1c6ae0;
+              margin: 0 0 4px 0;
+              line-height: 1.4;
+            }
+  
+            p.rating {
+              font-size: 14px;
+              color: #555;
+              margin: 0;
+              display: flex;
+              align-items: center;
+              line-height: 1.4;
+  
+              ion-icon {
+                font-size: 16px;
+                margin-left: 4px;
+                transition: transform 0.2s ease;
+              }
+  
+              ion-icon:hover {
+                transform: scale(1.2);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  
+  /* Empty State Card Styles */
+  ion-card.profesionales-empty {
+    margin: 16px;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 6px 15px rgba(0, 0, 70, 0.1), 
+                0 0 10px rgba(255, 255, 255, 0.2);
+    animation: fadeIn 0.5s ease-in-out;
+    text-align: center;
+  
+    ion-card-content {
+      padding: 24px;
+  
+      p {
+        font-size: 16px;
+        font-weight: 500;
+        color: #444;
+        margin: 0;
+        line-height: 1.5;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+      }
+    }
+  }
+  
+  /* Responsive Adjustments */
+  @media (min-width: 768px) {
+    ion-card.profesionales-card {
+      margin: 24px auto;
+      max-width: 600px;
+  
+      .profesionales-card-header {
+        padding: 20px;
+        
+        ion-card-title {
+          font-size: 24px;
+        }
+      }
+  
+      ion-card-content {
+        ion-list {
+          ion-item.profesional-item {
+            --padding-start: 16px;
+            --inner-padding-end: 16px;
+  
+            ion-avatar.profesional-avatar {
+              width: 56px;
+              height: 56px;
+  
+              ion-icon {
+                font-size: 36px;
+              }
+            }
+  
+            ion-label {
+              h2 {
+                font-size: 18px;
+              }
+  
+              p.especialidad {
+                font-size: 15px;
+              }
+  
+              p.precio {
+                font-size: 15px;
+              }
+  
+              p.rating {
+                font-size: 15px;
+  
+                ion-icon {
+                  font-size: 18px;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  
+    ion-card.profesionales-empty {
+      margin: 24px auto;
+      max-width: 600px;
+  
+      ion-card-content {
+        padding: 32px;
+  
+        p {
+          font-size: 18px;
+        }
+      }
+    }
+  }
+  
+  /* Reusing Existing Animation */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }

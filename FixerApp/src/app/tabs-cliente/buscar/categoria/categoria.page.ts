@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CategoryStyleService } from 'src/app/shared/services/category-style.service';
 import { CategoriaService } from 'src/app/shared/services/categoria.service';
 import { ServicioService } from 'src/app/shared/services/servicio.service';
@@ -17,6 +17,7 @@ export class CategoriaPage implements OnInit {
   servicios: any[] = [];
 
   constructor(
+    private router: Router,
     private route: ActivatedRoute,
     private categoriaStyleService: CategoryStyleService,
     private categoriaService: CategoriaService,
@@ -35,8 +36,10 @@ export class CategoriaPage implements OnInit {
 
   goToServicio(id: number) {
     console.log('Cargando servicio con ID:', id);
-    // Navegar a la página de detalles del servicio
-    this.navCtrl.navigateForward(`/servicio/${id}`);
+    this.router.navigate(
+      ['servicio', id],
+      { relativeTo: this.route }
+    );
   }
 
   cargarCategoriaYServicios(id: string) {

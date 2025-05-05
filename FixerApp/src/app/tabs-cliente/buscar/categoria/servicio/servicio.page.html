@@ -1,13 +1,29 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>servicio</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-card class="profesionales-card" *ngIf="profesionales.length > 0">
+  <ion-card-header class="profesionales-card-header">
+    <ion-card-title>Profesionales disponibles</ion-card-title>
+  </ion-card-header>
+  <ion-card-content>
+    <ion-list>
+      <ion-item *ngFor="let prof of profesionales" (click)="abrirPerfil(prof)" lines="none" class="profesional-item">
+        <ion-avatar slot="start" class="profesional-avatar">
+          <ion-icon name="person-circle-outline"></ion-icon>
+        </ion-avatar>
+        <ion-label>
+          <h2>{{ prof.nombre }}</h2>
+          <p class="especialidad">Especialidad: {{ prof.especialidad || '—' }}</p>
+          <p class="precio">Precio por hora: {{ prof.precioHora }} €</p>
+          <p class="rating">Valoración: 
+            <ion-icon name="star" color="warning" *ngFor="let star of [1,2,3,4,5]; let i = index">
+            </ion-icon>
+          </p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </ion-card-content>
+</ion-card>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">servicio</ion-title>
-    </ion-toolbar>
-  </ion-header>
-</ion-content>
+<ion-card class="profesionales-empty" *ngIf="profesionales.length === 0 && servicio">
+  <ion-card-content>
+    <p>No hay profesionales asignados a este servicio.</p>
+  </ion-card-content>
+</ion-card>
