@@ -13,10 +13,12 @@
           <p class="especialidad">Especialidad: {{ prof.especialidad || '—' }}</p>
           <p class="precio">Precio por hora: {{ prof.precioHora }} €</p>
           <p class="rating">Valoración: 
-            <ion-icon name="star" color="warning" *ngFor="let star of [1,2,3,4,5]; let i = index">
-            </ion-icon>
+            <ion-icon name="star" color="warning" *ngFor="let star of [1,2,3,4,5]; let i = index"></ion-icon>
           </p>
         </ion-label>
+        <ion-button slot="end" fill="solid" color="primary" class="contratar-button" (click)="contratar($event, prof)">
+          <ion-icon name="briefcase-outline"></ion-icon>
+        </ion-button>
       </ion-item>
     </ion-list>
   </ion-card-content>

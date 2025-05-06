@@ -32,4 +32,10 @@ export class ServicioPage implements OnInit {
     console.log(prof.id)
     this.router.navigate(['/perfil-profesional', prof.id]);
   }
+
+  contratar(event: Event, profesional: any) {
+    event.stopPropagation(); // para evitar que se dispare abrirPerfil
+    console.log(`Contratando a ${profesional.nombre}`);
+  }
+  
 }
