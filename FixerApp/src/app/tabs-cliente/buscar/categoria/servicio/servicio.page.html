@@ -4,22 +4,23 @@
   </ion-card-header>
   <ion-card-content>
     <ion-list>
-      <ion-item *ngFor="let prof of profesionales" (click)="abrirPerfil(prof)" lines="none" class="profesional-item">
-        <ion-avatar slot="start" class="profesional-avatar">
+      <ion-item *ngFor="let prof of profesionales" lines="none" class="profesional-item">
+        <ion-avatar slot="start" class="profesional-avatar" (click)="abrirPerfil(prof)">
           <ion-icon name="person-circle-outline"></ion-icon>
         </ion-avatar>
-        <ion-label>
+        <ion-label (click)="abrirPerfil(prof)">
           <h2>{{ prof.nombre }}</h2>
           <p class="especialidad">Especialidad: {{ prof.especialidad || '—' }}</p>
           <p class="precio">Precio por hora: {{ prof.precioHora }} €</p>
-          <p class="rating">Valoración: 
+          <p class="rating">
+            Valoración: 
             <ion-icon name="star" color="warning" *ngFor="let star of [1,2,3,4,5]; let i = index"></ion-icon>
           </p>
         </ion-label>
         <ion-button slot="end" fill="solid" color="primary" class="contratar-button" (click)="contratar($event, prof)">
           <ion-icon name="briefcase-outline"></ion-icon>
         </ion-button>
-      </ion-item>
+      </ion-item>      
     </ion-list>
   </ion-card-content>
 </ion-card>
@@ -29,3 +30,36 @@
     <p>No hay profesionales asignados a este servicio.</p>
   </ion-card-content>
 </ion-card>
+
+<ion-modal [isOpen]="modalAbierto" (didDismiss)="cerrarModal()">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>Contratar Servicio</ion-title>
+        <ion-buttons slot="end">
+          <ion-button (click)="cerrarModal()">Cerrar</ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-padding">
+      <form (ngSubmit)="confirmarContratacion()">
+        <ion-item>
+          <ion-label position="floating">Fecha y hora</ion-label>
+          <ion-datetime displayFormat="YYYY-MM-DD HH:mm" [(ngModel)]="form.fechaHora" name="fechaHora"></ion-datetime>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">Duración estimada (minutos)</ion-label>
+          <ion-input type="number" [(ngModel)]="form.duracion" name="duracion"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">Comentarios</ion-label>
+          <ion-textarea [(ngModel)]="form.comentario" name="comentario"></ion-textarea>
+        </ion-item>
+
+        <ion-button expand="full" type="submit" [disabled]="!form.fechaHora || !form.duracion">Confirmar Contratación</ion-button>
+      </form>
+    </ion-content>
+  </ng-template>
+</ion-modal>

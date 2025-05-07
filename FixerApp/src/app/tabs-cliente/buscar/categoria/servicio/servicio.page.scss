@@ -222,6 +222,189 @@ ion-card.profesionales-empty {
   }
 }
 
+/* Modal Styles */
+ion-modal {
+  --background: rgba(255, 255, 255, 0.95);
+  --backdrop-opacity: 0.5;
+  --border-radius: 16px;
+  --box-shadow: 0 8px 20px rgba(0, 0, 70, 0.15), 
+                0 0 15px rgba(255, 255, 255, 0.3);
+  --max-width: 500px;
+  --max-height: 90%;
+  animation: modalFadeIn 0.3s ease-in-out;
+
+  ion-header {
+    ion-toolbar {
+      --background: linear-gradient(135deg, #1c6ae0 0%, #000046 100%);
+      --color: white;
+      --border-radius: 16px 16px 0 0;
+
+      ion-title {
+        font-size: 18px;
+        font-weight: 600;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+        padding: 0 16px;
+      }
+
+      ion-buttons {
+        ion-button {
+          --color: white;
+          --padding-start: 12px;
+          --padding-end: 12px;
+          font-size: 14px;
+          text-transform: none;
+          transition: transform 0.2s ease;
+
+          &:active {
+            transform: scale(0.95);
+          }
+        }
+      }
+    }
+  }
+
+  ion-content {
+    --padding-start: 16px;
+    --padding-end: 16px;
+    --padding-top: 16px;
+    --padding-bottom: 16px;
+    --background: transparent;
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+
+      ion-item {
+        --background: rgba(255, 255, 255, 0.8);
+        --border-radius: 12px;
+        --padding-start: 12px;
+        --inner-padding-end: 12px;
+        --box-shadow: 0 2px 6px rgba(0, 0, 70, 0.1);
+        margin-bottom: 12px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+        ion-label {
+          font-size: 14px;
+          font-weight: 500;
+          color: #222;
+          text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+        }
+
+        ion-datetime {
+          font-size: 14px;
+          color: #333;
+          --padding-start: 0;
+          --padding-end: 0;
+        }
+
+        ion-input {
+          font-size: 14px;
+          color: #333;
+          --padding-top: 8px;
+          --padding-bottom: 8px;
+        }
+
+        ion-textarea {
+          font-size: 14px;
+          color: #333;
+          --padding-top: 8px;
+          --padding-bottom: 8px;
+          min-height: 80px;
+        }
+
+        &:hover {
+          --box-shadow: 0 4px 10px rgba(0, 0, 70, 0.15);
+          transform: translateY(-2px);
+        }
+      }
+
+      ion-button {
+        --border-radius: 12px;
+        --background: linear-gradient(135deg, #1c6ae0 0%, #000046 100%);
+        --color: white;
+        --box-shadow: 0 4px 10px rgba(28, 106, 224, 0.3);
+        height: 48px;
+        font-size: 16px;
+        font-weight: 500;
+        text-transform: none;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+        &:disabled {
+          --background: #ccc;
+          --box-shadow: none;
+          --color: #666;
+          opacity: 0.7;
+        }
+
+        &:active:not(:disabled) {
+          transform: scale(0.95);
+          --box-shadow: 0 2px 6px rgba(28, 106, 224, 0.2);
+        }
+      }
+    }
+  }
+}
+
+/* Modal Animation */
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Responsive Adjustments */
+@media (min-width: 768px) {
+  ion-modal {
+    --max-width: 600px;
+
+    ion-header {
+      ion-toolbar {
+        ion-title {
+          font-size: 20px;
+        }
+
+        ion-buttons {
+          ion-button {
+            font-size: 16px;
+          }
+        }
+      }
+    }
+
+    ion-content {
+      --padding-start: 24px;
+      --padding-end: 24px;
+      --padding-top: 24px;
+      --padding-bottom: 24px;
+
+      form {
+        ion-item {
+          ion-label {
+            font-size: 15px;
+          }
+
+          ion-datetime,
+          ion-input,
+          ion-textarea {
+            font-size: 15px;
+          }
+        }
+
+        ion-button {
+          height: 52px;
+          font-size: 18px;
+        }
+      }
+    }
+  }
+}
+
 /* Reusing Existing Animation */
 @keyframes fadeIn {
   from {
