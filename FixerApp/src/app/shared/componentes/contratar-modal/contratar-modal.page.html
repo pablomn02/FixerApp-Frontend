@@ -19,7 +19,7 @@
 
       <ion-card-content>
         <form (ngSubmit)="confirmarContratacion()" #formulario="ngForm">
-          
+
           <!-- Fecha selector -->
           <div class="form-group">
             <ion-label>Fecha de servicio</ion-label>
@@ -36,15 +36,16 @@
           <!-- Horas disponibles -->
           <div class="form-group" *ngIf="horasDisponibles.length > 0 && !diaNoDisponible">
             <ion-label>Horarios disponibles</ion-label>
-            <div class="time-chips-container">
-              <ion-chip 
-                *ngFor="let hora of horasDisponibles" 
-                (click)="seleccionarHora(hora)" 
-                [class.selected]="hora === form.horaSeleccionada">
-                <ion-icon name="time-outline"></ion-icon>
-                <ion-label>{{ hora }}</ion-label>
-              </ion-chip>
-            </div>
+              <div class="time-chips-container">
+                <ion-chip 
+                  *ngFor="let hora of horasDisponibles"
+                  [disabled]="hora.ocupada"
+                  (click)="seleccionarHora(hora.hora)" 
+                  [class.selected]="hora.hora === form.horaSeleccionada">
+                  <ion-icon name="time-outline"></ion-icon>
+                  <ion-label>{{ hora.hora }}</ion-label>
+                </ion-chip>
+              </div>
           </div>
 
           <!-- Si NO hay horarios -->
@@ -56,26 +57,11 @@
             </div>
           </div>
 
-          <!-- Duración estimada -->
-          <div class="form-group">
-            <ion-label>Duración estimada</ion-label>
-            <ion-item lines="none" class="duration-item">
-              <ion-input
-                type="number"
-                [(ngModel)]="form.duracion"
-                name="duracion"
-                (ionBlur)="validarFormulario()"
-                placeholder="Minutos">
-              </ion-input>
-              <ion-icon name="hourglass-outline" slot="end"></ion-icon>
-            </ion-item>
-          </div>
-
           <!-- Botón de confirmar -->
           <ion-button 
-            expand="block" 
-            type="submit" 
-            class="confirm-button" 
+            expand="block"
+            type="submit"
+            class="confirm-button"
             [disabled]="botonDeshabilitado">
             <ion-icon name="checkmark-circle-outline" slot="start"></ion-icon>
             Confirmar Contratación

@@ -267,6 +267,13 @@
       font-size: 20px;
     }
   }
+
+  .disabled-chip {
+    opacity: 0.4;
+    pointer-events: none;
+    background-color: #ccc;
+  }
+
   
   /* Animations */
   @keyframes fadeIn {

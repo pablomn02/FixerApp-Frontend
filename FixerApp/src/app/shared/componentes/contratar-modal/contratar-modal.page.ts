@@ -4,6 +4,11 @@ import { ContratacionService } from 'src/app/shared/services/contratacion.servic
 import { ContratacionCreateRequest } from 'src/app/shared/interfaces/contratacion-create-request';
 import { DateTime } from 'luxon';
 
+interface HoraChip {
+  hora: string;
+  ocupada: boolean;
+}
+
 @Component({
   selector: 'app-contratar-modal',
   templateUrl: './contratar-modal.page.html',
@@ -11,20 +16,19 @@ import { DateTime } from 'luxon';
   standalone: false
 })
 export class ContratarModalPage implements OnInit {
-
   @Input() profesional: any;
   @Input() usuarioId!: number;
 
   form: any = {
-    fecha: '', 
+    fecha: '',
     horaSeleccionada: '',
     duracion: 60
   };
 
-  horasDisponibles: string[] = [];
+  horasDisponibles: HoraChip[] = [];
   horasOcupadas: string[] = [];
   diaNoDisponible: boolean = false;
-  mensajeError: string = "";
+  mensajeError: string = '';
   botonDeshabilitado: boolean = true;
   minDate: string = new Date().toISOString();
 
@@ -49,12 +53,7 @@ export class ContratarModalPage implements OnInit {
   }
 
   async presentToast(message: string, color: string = 'success') {
-    const toast = await this.toastController.create({
-      message: message,
-      duration: 2000,
-      color: color,
-      position: 'bottom'
-    });
+    const toast = await this.toastController.create({ message, duration: 2000, color, position: 'bottom' });
     await toast.present();
   }
 
@@ -66,7 +65,25 @@ export class ContratarModalPage implements OnInit {
     const diaSemana = fechaLocal.setLocale('es').toFormat('cccc').toLowerCase();
 
     this.generarHorasDisponibles(diaSemana);
-    this.validarFormulario();
+
+    const fechaStr = fechaLocal.toISODate();
+    if (!fechaStr) return;
+
+    this.contratacionService.getHorasOcupadas(this.profesional.idProfesionalServicio, fechaStr).subscribe({
+      next: (ocupadas) => {
+        this.horasOcupadas = ocupadas;
+        this.horasDisponibles = this.horasDisponibles.map(h => ({
+          hora: h.hora,
+          ocupada: this.horasOcupadas.includes(h.hora)
+        }));
+        this.diaNoDisponible = this.horasDisponibles.every(h => h.ocupada);
+        this.validarFormulario();
+      },
+      error: (err) => {
+        console.error('Error al obtener horas ocupadas:', err);
+        this.horasOcupadas = [];
+      }
+    });
   }
 
   generarHorasDisponibles(diaSemana: string) {
@@ -83,16 +100,19 @@ export class ContratarModalPage implements OnInit {
     const [horaInicio, minutoInicio] = rango.inicio.split(':').map(Number);
     const [horaFin, minutoFin] = rango.fin.split(':').map(Number);
 
-    let start = DateTime.fromObject({ hour: horaInicio, minute: minutoInicio, second: 0 });
-    const end = DateTime.fromObject({ hour: horaFin, minute: minutoFin, second: 0 });
+    let start = DateTime.fromObject({ hour: horaInicio, minute: minutoInicio });
+    const end = DateTime.fromObject({ hour: horaFin, minute: minutoFin });
 
     while (start < end) {
-      this.horasDisponibles.push(start.toFormat('HH:mm'));
-      start = start.plus({ minutes: 30 });
+      const horaStr = start.toFormat('HH:00');
+      this.horasDisponibles.push({ hora: horaStr, ocupada: false });
+      start = start.plus({ hours: 1 });
     }
   }
 
   seleccionarHora(hora: string) {
+    const horaEstaOcupada = this.horasDisponibles.find(h => h.hora === hora)?.ocupada;
+    if (horaEstaOcupada) return;
     this.form.horaSeleccionada = hora;
     this.validarFormulario();
   }
@@ -110,48 +130,31 @@ export class ContratarModalPage implements OnInit {
     const fechaStr = this.form.fecha?.split('T')[0];
     const horaStr = this.form.horaSeleccionada;
 
-    if (!fechaStr || !horaStr) {
-      this.mensajeError = "Fecha u hora inválida.";
-      return;
-    }
-
-    const fechaHoraLocal = DateTime.fromISO(`${fechaStr}T${horaStr}`, {
-      zone: 'Europe/Madrid'
-    });
-
-
-    if (!fechaHoraLocal.isValid) {
-      this.mensajeError = "Fecha y hora inválidas.";
-      return;
-    }
-
+    const fechaHoraLocal = DateTime.fromISO(`${fechaStr}T${horaStr}`, { zone: 'Europe/Madrid' });
     const fechaHoraUTC = fechaHoraLocal.toUTC().toISO({ suppressMilliseconds: true });
-    console.log("Fecha-hora en UTC a enviar:", fechaHoraUTC);
-
-
-    if (!fechaHoraUTC) {
-      this.mensajeError = "Error al procesar la fecha y hora seleccionada.";
-      return;
-    }
 
     const nuevaContratacion: ContratacionCreateRequest = {
       idUsuario: this.usuarioId,
       idProfesionalServicio: this.profesional.idProfesionalServicio,
-      fechaHora: fechaHoraUTC,
+      fechaHora: fechaHoraUTC!,
       duracionEstimada: this.form.duracion || 60,
-      costoTotal: 0
+      costoTotal: this.calcularPrecioTotal()
     };
 
     this.contratacionService.crearContratacion(nuevaContratacion).subscribe({
-      next: (response) => {
-        console.log('Contratación realizada:', response);
-        this.presentToast('¡Contratación realizada exitosamente!', 'success');
+      next: () => {
+        this.presentToast('¡Contratación realizada exitosamente!');
         this.dismiss();
       },
       error: (error) => {
-        console.error(' Error al contratar:', error);
+        console.error('Error al contratar:', error);
         this.presentToast('Error al realizar la contratación.', 'danger');
       }
     });
+  }
+
+  calcularPrecioTotal() {
+    const precioHora = this.profesional?.precioHora || this.profesional?.precio || 0;
+    return (this.form.duracion / 60) * precioHora;
   }
 }

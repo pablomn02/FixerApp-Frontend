@@ -16,7 +16,10 @@ export class ContratacionService {
     return this.http.post(`${this.baseUrl}/contrataciones`, contratacion);
   }
 
-  getHorasOcupadas(idProfesionalServicio: number, fecha: string): Observable<string[]> {
-    return this.http.get<string[]>(`${this.baseUrl}/contrataciones/ocupadas/${idProfesionalServicio}/${fecha}`);
-  }
+getHorasOcupadas(idProfesionalServicio: number, fecha: string) {
+  return this.http.get<string[]>(
+    `http://localhost:8080/horas-ocupadas?idProfesionalServicio=${idProfesionalServicio}&fecha=${fecha}`
+  );
+}
+
 }
