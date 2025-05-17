@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Seleccionar Especialidad</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cerrarModal()">Cerrar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <ion-searchbar [(ngModel)]="searchTerm" placeholder="Buscar categoría o servicio..." disabled></ion-searchbar>
+
+  <ion-list>
+    <ng-container *ngFor="let categoria of categorias">
+      <!-- Botón de la categoría -->
+      <ion-item (click)="toggleCategoria(categoria)">
+        <ion-label>
+          {{ categoria.nombre }}
+        </ion-label>
+        <ion-icon name="chevron-down-outline" slot="end" *ngIf="categoriaExpandidaId !== categoria.id"></ion-icon>
+        <ion-icon name="chevron-up-outline" slot="end" *ngIf="categoriaExpandidaId === categoria.id"></ion-icon>
+      </ion-item>
+  
+      <!-- Mostrar servicios solo si esta categoría está expandida -->
+      <div *ngIf="categoriaExpandidaId === categoria.id">
+        <ion-item *ngFor="let servicio of serviciosPorCategoria[categoria.id]" (click)="seleccionarServicio(servicio)">
+          <ion-label class="ion-padding-start">
+            → {{ servicio.nombre }}
+          </ion-label>
+        </ion-item>
+  
+        <!-- Si no hay servicios -->
+        <div *ngIf="serviciosPorCategoria[categoria.id]?.length === 0" class="ion-text-center ion-margin-top">
+          <p>No hay servicios en esta categoría.</p>
+          <ion-button expand="block" color="primary" (click)="agregarNuevoServicio()">
+            Agregar nuevo servicio
+          </ion-button>
+        </div>
+      </div>
+  
+    </ng-container>
+  </ion-list>
+  
+
+</ion-content>

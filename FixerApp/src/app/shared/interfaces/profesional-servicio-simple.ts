@@ -1,0 +1,10 @@
+export interface ProfesionalServicioSimple {
+    idProfesionalServicio: number;
+    idUsuario: number;
+    nombre: string;
+    especialidad: string;
+    precioHora: number;
+    idServicio: number;
+    nombreServicio: string;
+  }
+  

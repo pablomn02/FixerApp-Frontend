@@ -25,7 +25,8 @@ export class RegistroClientePage implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       usuario: ['', [Validators.required, Validators.minLength(2)]],
       contrasena: ['', [Validators.required, Validators.minLength(6)]],
-      confirmPassword: ['', [Validators.required]]
+      confirmPassword: ['', [Validators.required]],
+      tipoUsuario: ['cliente']
     }, { validators: this.compararContrasenas });
   }
 
@@ -38,65 +39,66 @@ export class RegistroClientePage implements OnInit {
   }
 
   async onSubmit() {
-    this.errorMessage = null;
-    this.successMessage = null;
+  this.errorMessage = null;
+  this.successMessage = null;
 
-    if (this.registerForm.valid) {
-      const loading = await this.loadingCtrl.create({
-        message: 'Registrando...',
-        spinner: 'crescent',
-        cssClass: 'custom-loading'
-      });
-      await loading.present();
+  if (this.registerForm.valid) {
+    const loading = await this.loadingCtrl.create({
+      message: 'Registrando...',
+      spinner: 'crescent',
+      cssClass: 'custom-loading'
+    });
+    await loading.present();
 
-      const { nombre, email, usuario, contrasena } = this.registerForm.value;
-      const userData = {
-        nombre,
-        email,
-        usuario,
-        contrasena,
-        rol: 'cliente'
-      };
+    const { nombre, email, usuario, contrasena, tipoUsuario } = this.registerForm.value;
+    const userData = {
+      nombre,
+      email,
+      usuario,
+      contrasena,
+      tipoUsuario
+    };
 
-      console.log("Registrando al usuario", userData);
+    console.log("Registrando al usuario", userData);
 
-      this.loginService.registerCliente(userData).subscribe({
-        next: (response) => {
-          loading.message = 'Redirigiendo...'; // Update loader message
-          this.successMessage = 'Registro exitoso. Serás redirigido al login en 3 segundos.';
-          setTimeout(() => {
-            loading.dismiss();
-            this.navCtrl.navigateRoot('/login');
-          }, 3000);
-        },
-        error: (err) => {
+    this.loginService.registerCliente(userData).subscribe({
+      next: (response) => {
+        loading.message = 'Redirigiendo...';
+        this.successMessage = 'Registro exitoso. Serás redirigido al login en 3 segundos.';
+        setTimeout(() => {
           loading.dismiss();
-          console.error('Error al registrarse:', err);
-          if (err.status === 400) {
-            this.errorMessage = err.error.error || 'Datos inválidos. Por favor, verifica los campos.';
-          } else if (err.status === 409) {
-            this.errorMessage = 'El correo electrónico ya está registrado.';
-          } else if (err.status === 0) {
-            this.errorMessage = 'No se pudo conectar al servidor. Verifica tu conexión a internet.';
-          } else {
-            this.errorMessage = 'Ocurrió un error al registrarse. Intenta de nuevo.';
-          }
-          setTimeout(() => {
-            this.errorMessage = null;
-          }, 5000);
+          this.navCtrl.navigateRoot('/login');
+        }, 3000);
+      },
+      error: (err) => {
+        loading.dismiss();
+        console.error('Error al registrarse:', err);
+        if (err.status === 400) {
+          this.errorMessage = err.error.error || 'Datos inválidos. Por favor, verifica los campos.';
+        } else if (err.status === 409) {
+          this.errorMessage = 'El correo electrónico ya está registrado.';
+        } else if (err.status === 0) {
+          this.errorMessage = 'No se pudo conectar al servidor. Verifica tu conexión a internet.';
+        } else {
+          this.errorMessage = 'Ocurrió un error al registrarse. Intenta de nuevo.';
         }
-      });
-    } else {
-      this.errorMessage = 'Por favor, completa todos los campos correctamente.';
-      setTimeout(() => {
-        this.errorMessage = null;
-      }, 5000);
-      Object.keys(this.registerForm.controls).forEach((key) => {
-        const control = this.registerForm.get(key);
-        control?.markAsTouched();
-      });
-    }
+        setTimeout(() => {
+          this.errorMessage = null;
+        }, 5000);
+      }
+    });
+  } else {
+    this.errorMessage = 'Por favor, completa todos los campos correctamente.';
+    setTimeout(() => {
+      this.errorMessage = null;
+    }, 5000);
+    Object.keys(this.registerForm.controls).forEach((key) => {
+      const control = this.registerForm.get(key);
+      control?.markAsTouched();
+    });
   }
+}
+
 
   volver() {
     console.log("Regresando a la página de selección de tipo de cuenta...");

@@ -1,17 +1,18 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Profesional } from '../interfaces/profesional';
+import { ProfesionalServicioSimple } from '../interfaces/profesional-servicio-simple';
 
-@Injectable({ providedIn: 'root' })
+@Injectable({
+  providedIn: 'root'
+})
 export class ProfesionalServicioService {
-  private baseUrl = 'http://localhost:8080/servicios';
+
+  private baseUrl = 'http://localhost:8080';
 
   constructor(private http: HttpClient) {}
 
-  getProfesionalesByServicio(idServicio: number): Observable<Profesional[]> {
-    return this.http.get<Profesional[]>(
-      `${this.baseUrl}/${idServicio}/profesionales`
-    );
+  getProfesionalesByServicio(idCategoria: number): Observable<ProfesionalServicioSimple[]> {
+    return this.http.get<ProfesionalServicioSimple[]>(`${this.baseUrl}/profesionales/servicio/${idCategoria}`);
   }
 }

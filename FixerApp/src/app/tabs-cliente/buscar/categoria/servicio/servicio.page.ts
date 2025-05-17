@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ModalController } from '@ionic/angular';
 import { ServicioService } from 'src/app/shared/services/servicio.service';
 import { ProfesionalServicioService } from 'src/app/shared/services/profesional-servicio.service';
-import { ContratacionService } from 'src/app/shared/services/contratacion.service';
-import { Profesional } from 'src/app/shared/interfaces/profesional';
-import { ContratacionCreateRequest } from 'src/app/shared/interfaces/contratacion-create-request';
+import { ContratarModalPage } from 'src/app/shared/componentes/contratar-modal/contratar-modal.page';
+import { ProfesionalServicioSimple } from 'src/app/shared/interfaces/profesional-servicio-simple';
 
 @Component({
   selector: 'app-servicio',
@@ -14,70 +14,47 @@ import { ContratacionCreateRequest } from 'src/app/shared/interfaces/contratacio
 })
 export class ServicioPage implements OnInit {
   servicio: any;
-  profesionales: Profesional[] = [];
-
-  modalAbierto: boolean = false;
-  profesionalSeleccionado: any = null;
-  form: any = {
-    fechaHora: '',
-    duracion: 60,
-    comentario: ''
-  };
+  profesionales: ProfesionalServicioSimple[] = [];
+  usuarioIdLogueado!: number;
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private servicioService: ServicioService,
     private profServService: ProfesionalServicioService,
-    private contratacionService: ContratacionService
+    private modalController: ModalController
   ) {}
 
   ngOnInit() {
     const id = Number(this.route.snapshot.paramMap.get('id'));
+
     this.servicioService.getServiciosByCategoria(id).subscribe(s => (this.servicio = s));
     this.profServService.getProfesionalesByServicio(id)
       .subscribe(ps => (this.profesionales = ps));
+
+    const idGuardado = localStorage.getItem('idUsuario');
+    if (idGuardado) {
+      this.usuarioIdLogueado = Number(idGuardado);
+    } else {
+      console.error('No se encontró el idUsuario en localStorage');
+    }
   }
 
-  abrirPerfil(prof: Profesional) {
-    this.router.navigate(['/perfil-profesional', prof.id]);
+  abrirPerfil(prof: ProfesionalServicioSimple) {
+    this.router.navigate(['/perfil-profesional', prof.idUsuario]);
   }
 
-  contratar(event: Event, profesional: any) {
+  async contratar(event: Event, profesional: ProfesionalServicioSimple) {
     event.stopPropagation();
-    this.profesionalSeleccionado = profesional;
-    this.modalAbierto = true;
-  }
 
-  cerrarModal() {
-    this.modalAbierto = false;
-    this.form = {
-      fechaHora: '',
-      duracion: 60,
-      comentario: ''
-    };
-  }
-
-  confirmarContratacion() {
-    const horas = this.form.duracion / 60;
-    const costoTotal = parseFloat((horas * this.profesionalSeleccionado.precioHora).toFixed(2));
-
-    const nuevaContratacion: ContratacionCreateRequest = {
-      idUsuario: 1,
-      idProfesionalServicio: this.profesionalSeleccionado.id,
-      fechaHora: this.form.fechaHora,
-      duracionEstimada: this.form.duracion,
-      costoTotal: costoTotal
-    };
-
-    this.contratacionService.crearContratacion(nuevaContratacion).subscribe({
-      next: response => {
-        console.log('Contratación enviada con éxito:', response);
-        this.cerrarModal();
+    const modal = await this.modalController.create({
+      component: ContratarModalPage,
+      componentProps: {
+        profesional: profesional,
+        usuarioId: this.usuarioIdLogueado
       },
-      error: err => {
-        console.error('Error al contratar:', err);
-      }
+      cssClass: 'classic-modal'
     });
+    await modal.present();
   }
 }

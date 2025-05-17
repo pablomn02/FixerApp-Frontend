@@ -1,0 +1,95 @@
+<ion-header class="animated-header">
+  <ion-toolbar>
+    <ion-title>Contratar Servicio</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismiss()">
+        <ion-icon name="close-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding booking-content">
+  <div class="booking-container">
+    <ion-card class="booking-card">
+      <div class="card-header-custom">
+        <h1>Detalles de la contratación</h1>
+        <div class="header-decoration"></div>
+      </div>
+
+      <ion-card-content>
+        <form (ngSubmit)="confirmarContratacion()" #formulario="ngForm">
+          
+          <!-- Fecha selector -->
+          <div class="form-group">
+            <ion-label>Fecha de servicio</ion-label>
+            <ion-item lines="none" class="date-item">
+              <ion-datetime
+                (ionChange)="onFechaSeleccionada($event)"
+                [min]="minDate"
+                presentation="date"
+                name="fecha">
+              </ion-datetime>
+            </ion-item>
+          </div>
+
+          <!-- Horas disponibles -->
+          <div class="form-group" *ngIf="horasDisponibles.length > 0 && !diaNoDisponible">
+            <ion-label>Horarios disponibles</ion-label>
+            <div class="time-chips-container">
+              <ion-chip 
+                *ngFor="let hora of horasDisponibles" 
+                (click)="seleccionarHora(hora)" 
+                [class.selected]="hora === form.horaSeleccionada">
+                <ion-icon name="time-outline"></ion-icon>
+                <ion-label>{{ hora }}</ion-label>
+              </ion-chip>
+            </div>
+          </div>
+
+          <!-- Si NO hay horarios -->
+          <div *ngIf="diaNoDisponible" class="no-availability">
+            <ion-icon name="calendar-outline" class="calendar-icon"></ion-icon>
+            <div class="no-availability-text">
+              <h2>No hay disponibilidad</h2>
+              <p>Por favor selecciona otra fecha</p>
+            </div>
+          </div>
+
+          <!-- Duración estimada -->
+          <div class="form-group">
+            <ion-label>Duración estimada</ion-label>
+            <ion-item lines="none" class="duration-item">
+              <ion-input
+                type="number"
+                [(ngModel)]="form.duracion"
+                name="duracion"
+                (ionBlur)="validarFormulario()"
+                placeholder="Minutos">
+              </ion-input>
+              <ion-icon name="hourglass-outline" slot="end"></ion-icon>
+            </ion-item>
+          </div>
+
+          <!-- Botón de confirmar -->
+          <ion-button 
+            expand="block" 
+            type="submit" 
+            class="confirm-button" 
+            [disabled]="botonDeshabilitado">
+            <ion-icon name="checkmark-circle-outline" slot="start"></ion-icon>
+            Confirmar Contratación
+          </ion-button>
+
+          <!-- Mensaje de error -->
+          <div *ngIf="mensajeError" class="error-message">
+            <ion-text color="danger">
+              <p><strong>{{ mensajeError }}</strong></p>
+            </ion-text>
+          </div>
+
+        </form>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

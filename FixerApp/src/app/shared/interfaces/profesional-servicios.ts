@@ -4,7 +4,7 @@ import { Servicio } from "./servicio";
 
 export interface ProfesionalServicios {
     id: number,
-    profesiona: Profesional,
+    profesional: Profesional,
     servicio: Servicio,
     precio: number,
     descripcionServicio: string,

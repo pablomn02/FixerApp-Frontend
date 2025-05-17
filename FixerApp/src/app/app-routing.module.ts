@@ -46,7 +46,16 @@ const routes: Routes = [
   {
     path: '**',
     redirectTo: '/login'
+  },
+  {
+    path: 'contratar-modal',
+    loadChildren: () => import('./shared/componentes/contratar-modal/contratar-modal.module').then( m => m.ContratarModalPageModule)
+  },  {
+    path: 'seleccionar-servicio-modal',
+    loadChildren: () => import('./shared/componentes/seleccionar-servicio-modal/seleccionar-servicio-modal.module').then( m => m.SeleccionarServicioModalPageModule)
   }
+
+
 ];
 
 @NgModule({

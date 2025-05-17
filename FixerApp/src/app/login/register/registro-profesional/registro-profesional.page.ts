@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NavController, LoadingController } from '@ionic/angular';
+import { NavController, LoadingController, ModalController } from '@ionic/angular';
+import { SeleccionarServicioModalPage } from 'src/app/shared/componentes/seleccionar-servicio-modal/seleccionar-servicio-modal.page';
 import { LoginService } from 'src/app/shared/services/login.service';
 
 @Component({
@@ -20,22 +21,24 @@ export class RegistroProfesionalPage {
     private formBuilder: FormBuilder,
     private navCtrl: NavController,
     private loginService: LoginService,
-    private loadingCtrl: LoadingController
+    private loadingCtrl: LoadingController,
+    private modalController: ModalController
   ) {
     this.registerForm = this.formBuilder.group({
       name: ['', [Validators.required, Validators.minLength(2)]],
       email: ['', [Validators.required, Validators.email]],
       username: ['', [Validators.required, Validators.minLength(2)]],
       especialidad: ['', [Validators.required, Validators.maxLength(100)]],
+      idServicio: [null, Validators.required], // Nuevo campo
       precioHora: ['', [Validators.required, Validators.min(0)]],
       ubicacion: this.formBuilder.group({
-        latitud: [40.416775], // Latitud por defecto (Madrid, Españaknow
-        longitud: [-3.703790] // Longitud por defecto (Madrid, España)
+        latitud: [40.416775],
+        longitud: [-3.703790]
       }),
       horarioDisponible: this.formBuilder.group({
         inicio: [''],
         fin: [''],
-        diasSeleccionados: [[]] // Almacena los días seleccionados como un array
+        diasSeleccionados: [[]]
       }),
       password: ['', [Validators.required, Validators.minLength(6)]],
       confirmPassword: ['', [Validators.required]]
@@ -48,19 +51,34 @@ export class RegistroProfesionalPage {
     return password === confirmPassword ? null : { mismatch: true };
   }
 
-  // Método para manejar la selección de días
+  async abrirSelectorDeEspecialidad() {
+    const modal = await this.modalController.create({
+      component: SeleccionarServicioModalPage,
+      cssClass: 'classic-modal',
+    });
+
+    modal.onDidDismiss().then((res) => {
+      if (res.data) {
+        this.registerForm.patchValue({
+          especialidad: res.data.nombreServicioSeleccionado,
+          idServicio: res.data.idServicioSeleccionado
+        });
+      }
+    });
+
+    await modal.present();
+  }
+
   onDiaChange(event: any) {
     const dia = event.detail.value;
     const checked = event.detail.checked;
     const diasSeleccionados = this.registerForm.get('horarioDisponible.diasSeleccionados')?.value || [];
 
     if (checked) {
-      // Añadir el día si está marcado
       if (!diasSeleccionados.includes(dia)) {
         diasSeleccionados.push(dia);
       }
     } else {
-      // Quitar el día si se desmarca
       const index = diasSeleccionados.indexOf(dia);
       if (index > -1) {
         diasSeleccionados.splice(index, 1);
@@ -68,16 +86,13 @@ export class RegistroProfesionalPage {
     }
 
     this.registerForm.get('horarioDisponible.diasSeleccionados')?.setValue(diasSeleccionados);
-    console.log('Días seleccionados:', diasSeleccionados); // Depuración
   }
 
-  // Método para registrar el valor del horario cuando cambia
   logHorario(field: string) {
     const value = this.registerForm.get(`horarioDisponible.${field}`)?.value;
     console.log(`Horario (${field}):`, value);
   }
 
-  // Método para transformar el formato de la hora ISO a HH:mm
   formatTime(isoString: string): string {
     if (!isoString) return '';
     const date = new Date(isoString);
@@ -86,7 +101,6 @@ export class RegistroProfesionalPage {
     return `${hours}:${minutes}`;
   }
 
-  // Método para construir el objeto horarioDisponible con el formato esperado
   buildHorarioDisponible(inicio: string, fin: string, diasSeleccionados: string[]) {
     const horario: { [key: string]: { inicio: string, fin: string }[] } = {
       lunes: [],
@@ -97,24 +111,19 @@ export class RegistroProfesionalPage {
       sabado: [],
       domingo: []
     };
-
+  
     if (inicio && fin && diasSeleccionados.length > 0) {
-      const formattedInicio = this.formatTime(inicio);
-      const formattedFin = this.formatTime(fin);
-      console.log(`Horario formateado - Inicio: ${formattedInicio}, Fin: ${formattedFin}`); // Depuración
-      const rango = { inicio: formattedInicio, fin: formattedFin };
-      // Aplica el rango solo a los días seleccionados
       diasSeleccionados.forEach(dia => {
-        if (horario.hasOwnProperty(dia)) {
-          horario[dia].push(rango);
-        }
+        horario[dia].push({
+          inicio: inicio,
+          fin: fin
+        });
       });
-    } else {
-      console.log('Inicio, Fin o Días Seleccionados están vacíos - Inicio:', inicio, 'Fin:', fin, 'Días:', diasSeleccionados); // Depuración
     }
-
+  
     return horario;
   }
+  
 
   async onSubmit() {
     this.errorMessage = null;
@@ -128,18 +137,19 @@ export class RegistroProfesionalPage {
       });
       await loading.present();
 
-      const { name, email, username, especialidad, precioHora, ubicacion, horarioDisponible, password } = this.registerForm.value;
+      const { name, email, username, especialidad, idServicio, precioHora, ubicacion, horarioDisponible, password } = this.registerForm.value;
       const userData = {
         nombre: name,
         email,
         usuario: username,
         contrasena: password,
         rol: 'profesional',
-        especialidad,
-        precioHora: Number(precioHora), // Asegurarse de que sea un número
+        especialidad: especialidad,
+        idServicio: idServicio,
+        precioHora: Number(precioHora),
         ubicacion: {
-          latitud: Number(ubicacion.latitud), // Asegurarse de que sea un número
-          longitud: Number(ubicacion.longitud) // Asegurarse de que sea un número
+          latitud: Number(ubicacion.latitud),
+          longitud: Number(ubicacion.longitud)
         },
         horarioDisponible: this.buildHorarioDisponible(horarioDisponible.inicio, horarioDisponible.fin, horarioDisponible.diasSeleccionados),
         experiencia: null,
@@ -187,7 +197,6 @@ export class RegistroProfesionalPage {
   }
 
   volver() {
-    console.log("Regresando a la página de selección de tipo de cuenta...");
     this.navCtrl.navigateBack('/register');
   }
 }

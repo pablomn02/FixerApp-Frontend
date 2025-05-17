@@ -405,6 +405,13 @@ ion-modal {
   }
 }
 
+::ng-deep .custom-modal {
+  --width: 90%;
+  --height: auto;
+  --border-radius: 20px;
+}
+
+
 /* Reusing Existing Animation */
 @keyframes fadeIn {
   from {

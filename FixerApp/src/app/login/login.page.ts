@@ -55,7 +55,12 @@ export class LoginPage {
       this.loginService.login(email, password).subscribe({
         next: (data) => {
           console.log('Usuario:', data);
-          this.loginService.saveToken(data.token);
+          
+          localStorage.clear();
+          localStorage.setItem('token', data.token);
+          localStorage.setItem('idUsuario', data.idUsuario);
+          localStorage.setItem('rol', data.rol);
+
           this.redirigirUsuario(data.rol);
         },
         error: (err) => {
