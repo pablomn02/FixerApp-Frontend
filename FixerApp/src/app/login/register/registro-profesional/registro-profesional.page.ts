@@ -147,10 +147,8 @@ export class RegistroProfesionalPage {
         especialidad: especialidad,
         idServicio: idServicio,
         precioHora: Number(precioHora),
-        ubicacion: {
-          latitud: Number(ubicacion.latitud),
-          longitud: Number(ubicacion.longitud)
-        },
+        latitud: Number(ubicacion.latitud),
+        longitud: Number(ubicacion.longitud),
         horarioDisponible: this.buildHorarioDisponible(horarioDisponible.inicio, horarioDisponible.fin, horarioDisponible.diasSeleccionados),
         experiencia: null,
         certificaciones: null,

@@ -21,14 +21,24 @@ export class LoginService {
   login(email: string, contrasena: string): Observable<any> {
     return this.http.post(this.loginUrl, { email, contrasena }).pipe(
       tap((response: any) => {
+        console.log('Login response:', response);
+
         if (response.token && response.idUsuario && response.rol) {
           this.saveToken(response.token);
           this.saveUserId(response.idUsuario);
           this.saveUserRole(response.rol);
+
+          console.log('Guardado en localStorage:');
+          console.log('Token:', localStorage.getItem('token'));
+          console.log('UserID:', localStorage.getItem('idUsuario'));
+          console.log('Rol:', localStorage.getItem('rol'));
+        } else {
+          console.warn('Faltan datos en la respuesta del login');
         }
       })
     );
   }
+
 
   registerCliente(usuario: Cliente): Observable<any> {
     const headers = new HttpHeaders({
@@ -59,15 +69,15 @@ export class LoginService {
   }
 
   getUserId(): string | null {
-    return localStorage.getItem('userId');
+    return localStorage.getItem('idUsuario');
   }
 
   saveUserRole(role: string): void {
-    localStorage.setItem('userRole', role);
+    localStorage.setItem('rol', role);
   }
 
   getUserRole(): string | null {
-    return localStorage.getItem('userRole');
+    return localStorage.getItem('rol');
   }
 
   getCurrentUser(): Observable<any> {
@@ -87,8 +97,8 @@ export class LoginService {
 
   logout(): void {
     localStorage.removeItem('token');
-    localStorage.removeItem('userId');
-    localStorage.removeItem('userRole');
+    localStorage.removeItem('idUsuario');
+    localStorage.removeItem('rol');
   }
 
   isAuthenticated(): boolean {

@@ -96,19 +96,29 @@ export class ContratarModalPage implements OnInit {
       return;
     }
 
-    const rango = horarioDelDia[0];
-    const [horaInicio, minutoInicio] = rango.inicio.split(':').map(Number);
-    const [horaFin, minutoFin] = rango.fin.split(':').map(Number);
+    for (const horario of horarioDelDia) {
+      if (!horario?.inicio || !horario?.fin) {
+        console.warn('Horario inválido:', horario);
+        continue;
+      }
 
-    let start = DateTime.fromObject({ hour: horaInicio, minute: minutoInicio });
-    const end = DateTime.fromObject({ hour: horaFin, minute: minutoFin });
+      const inicio = DateTime.fromISO(horario.inicio);
+      const fin = DateTime.fromISO(horario.fin);
 
-    while (start < end) {
-      const horaStr = start.toFormat('HH:00');
-      this.horasDisponibles.push({ hora: horaStr, ocupada: false });
-      start = start.plus({ hours: 1 });
+      if (!inicio.isValid || !fin.isValid) {
+        console.warn('Fechas inválidas:', horario);
+        continue;
+      }
+
+      let actual = inicio;
+      while (actual < fin) {
+        const horaStr = actual.toFormat('HH:mm');
+        this.horasDisponibles.push({ hora: horaStr, ocupada: false });
+        actual = actual.plus({ minutes: this.form.duracion });
+      }
     }
   }
+
 
   seleccionarHora(hora: string) {
     const horaEstaOcupada = this.horasDisponibles.find(h => h.hora === hora)?.ocupada;
@@ -130,13 +140,18 @@ export class ContratarModalPage implements OnInit {
     const fechaStr = this.form.fecha?.split('T')[0];
     const horaStr = this.form.horaSeleccionada;
 
-    const fechaHoraLocal = DateTime.fromISO(`${fechaStr}T${horaStr}`, { zone: 'Europe/Madrid' });
-    const fechaHoraUTC = fechaHoraLocal.toUTC().toISO({ suppressMilliseconds: true });
+    const fechaHoraLocal = DateTime.fromFormat(
+      `${fechaStr} ${horaStr}`, 
+      'yyyy-MM-dd HH:mm', 
+      { zone: 'Europe/Madrid' }
+    );
+
+    const fechaHoraFormatted = fechaHoraLocal.toFormat("yyyy-MM-dd'T'HH:mm:ss");
 
     const nuevaContratacion: ContratacionCreateRequest = {
       idUsuario: this.usuarioId,
       idProfesionalServicio: this.profesional.idProfesionalServicio,
-      fechaHora: fechaHoraUTC!,
+      fechaHora: fechaHoraFormatted,
       duracionEstimada: this.form.duracion || 60,
       costoTotal: this.calcularPrecioTotal()
     };

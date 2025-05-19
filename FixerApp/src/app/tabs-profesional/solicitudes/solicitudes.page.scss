@@ -1,119 +1,456 @@
-.solicitudes-content {
-    --background: linear-gradient(180deg, #e6f0ff 0%, #f8f9fa 100%);
-    padding: 16px;
-  }
+ion-content.solicitudes-content {
+  --background: #f8f9fa;
   
-  /* Filtro de Estados */
-  ion-segment {
-    background: white;
-    border-radius: 12px;
-    margin-bottom: 16px;
-    box-shadow: 0 2px 8px rgba(0, 0, 70, 0.1);
-  }
-  
-  ion-segment-button {
-    --color: #666;
-    --color-checked: #1c6ae0;
-    --indicator-color: #1c6ae0;
-    --padding-start: 16px;
-    --padding-end: 16px;
-    font-weight: 500;
-  }
-  
-  /* Lista de Solicitudes */
-  .solicitudes-list {
-    background: transparent;
-  }
-  
-  .solicitud-item {
-    --background: white;
-    --border-radius: 12px;
-    --padding-start: 16px;
-    --padding-end: 16px;
-    margin-bottom: 12px;
-    box-shadow: 0 2px 8px rgba(0, 0, 70, 0.05);
-    transition: transform 0.2s ease-in-out;
-  }
-  
-  .solicitud-item:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 70, 0.1);
-  }
-  
-  .solicitud-item h2 {
-    color: #333;
-    font-size: 16px;
-    font-weight: 600;
-    margin-bottom: 8px;
-  }
-  
-  .solicitud-item p {
-    color: #666;
-    font-size: 14px;
-    margin: 4px 0;
-  }
-  
-  .solicitud-item p strong {
-    color: #1c6ae0;
-  }
-  
-  /* Botones de Acción */
-  .acciones {
+  /* Enhanced segment styling */
+  .segment-container {
+    padding: 20px 20px 16px;
     display: flex;
-    gap: 8px;
+    justify-content: center;
+    animation: fadeIn 0.5s ease-in-out;
   }
   
-  ion-button {
-    --border-radius: 8px;
-    --padding-start: 12px;
-    --padding-end: 12px;
-    height: 36px;
-    font-size: 14px;
-    font-weight: 500;
-  }
-  
-  ion-button[color="success"] {
-    --background: #28a745;
-    --color: white;
-  }
-  
-  ion-button[color="danger"] {
-    --border-color: #d9534f;
-    --color: #d9534f;
-  }
-  
-  /* Mensaje de No Solicitudes */
-  .no-solicitudes {
-    text-align: center;
-    padding: 20px;
-    color: #666;
-    font-size: 16px;
+  ion-segment {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
     background: white;
-    border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0, 0, 70, 0.05);
+    border-radius: 16px;
+    box-shadow: 0 6px 16px rgba(0, 0, 70, 0.08);
+    padding: 6px;
+    overflow: hidden;
+    border: 1px solid rgba(28, 106, 224, 0.1);
+    
+    ion-segment-button {
+      --background: transparent;
+      --background-checked: linear-gradient(135deg, #000046 0%, #1c6ae0 100%) !important;
+      --background-focused: rgba(28, 106, 224, 0.1);
+      --background-hover: rgba(28, 106, 224, 0.05);
+      --border-radius: 12px;
+      --border-width: 0;
+      --color: #666;
+      --color-checked: white;
+      --indicator-color: transparent;
+      --padding-bottom: 10px;
+      --padding-end: 8px;
+      --padding-start: 8px;
+      --padding-top: 10px;
+      min-height: 44px;
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0;
+      transition: all 0.3s ease;
+      text-transform: none;
+      position: relative;
+      overflow: hidden;
+      
+      &::part(indicator) {
+        display: none;
+      }
+      
+      &.segment-button-checked {
+        font-weight: 600;
+        box-shadow: 0 4px 10px rgba(28, 106, 224, 0.25);
+        
+        &::after {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+      
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: 6px;
+        left: 50%;
+        transform: translateX(-50%) scale(0);
+        width: 4px;
+        height: 4px;
+        border-radius: 50%;
+        background-color: rgba(255, 255, 255, 0.7);
+        transition: transform 0.3s ease, opacity 0.3s ease;
+        opacity: 0;
+      }
+      
+      ion-label {
+        margin: 0;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        
+        &::before {
+          content: '';
+          display: inline-block;
+          width: 8px;
+          height: 8px;
+          border-radius: 50%;
+          margin-right: 8px;
+          background-color: #666;
+          transition: background-color 0.3s ease;
+        }
+      }
+      
+      &[value="pendiente"] ion-label::before {
+        background-color: #ff9800;
+      }
+      
+      &[value="aceptada"] ion-label::before {
+        background-color: #4caf50;
+      }
+      
+      &[value="completada"] ion-label::before {
+        background-color: #1c6ae0;
+      }
+      
+      &[value="rechazada"] ion-label::before {
+        background-color: #f44336;
+      }
+    }
   }
   
-  /* Estilos Responsivos */
-  @media (min-width: 768px) {
-    .solicitudes-content {
-      padding: 24px;
-    }
-  
+  .solicitudes-list {
+    padding: 0 20px;
+    margin: 0;
+    
     .solicitud-item {
-      --padding-start: 20px;
-      --padding-end: 20px;
-    }
-  
-    .solicitud-item h2 {
-      font-size: 18px;
-    }
-  
-    .solicitud-item p {
-      font-size: 15px;
-    }
-  
-    ion-button {
-      height: 40px;
-      font-size: 15px;
+      --background: white;
+      --border-color: transparent;
+      --border-radius: 16px;
+      --padding-start: 0;
+      --padding-end: 0;
+      --inner-padding-end: 0;
+      margin-bottom: 16px;
+      box-shadow: 0 4px 15px rgba(0, 0, 70, 0.08);
+      border-radius: 16px;
+      overflow: hidden;
+      
+      &:last-child {
+        margin-bottom: 0;
+      }
+      
+      ion-label {
+        margin: 0;
+        padding: 0;
+      }
+      
+      .solicitud-content {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        
+        .solicitud-header {
+          padding: 16px 16px 12px;
+          border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+          
+          h2 {
+            font-size: 18px;
+            font-weight: 600;
+            color: linear-gradient(135deg, #000046 0%, #1c6ae0 100%) !important;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            
+            &::before {
+              content: '';
+              display: inline-block;
+              width: 8px;
+              height: 8px;
+              border-radius: 50%;
+              margin-right: 10px;
+              background-color: #4caf50;
+            }
+            
+            &.estado-pendiente::before {
+              background-color: #ff9800;
+            }
+            
+            &.estado-aceptada::before {
+              background-color: #4caf50;
+            }
+            
+            &.estado-completada::before {
+              background-color: #1c6ae0;
+            }
+            
+            &.estado-rechazada::before {
+              background-color: #f44336;
+            }
+          }
+        }
+        
+        .solicitud-body {
+          padding: 12px 16px;
+          
+          .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            
+            .info-item {
+              display: flex;
+              flex-direction: column;
+              
+              .info-label {
+                font-size: 13px;
+                color: #666;
+                margin-bottom: 4px;
+              }
+              
+              .info-value {
+                font-size: 15px;
+                color: #333;
+                font-weight: 500;
+              }
+              
+              &.full-width {
+                grid-column: 1 / -1;
+              }
+              
+              &.highlight .info-value {
+                color: linear-gradient(135deg, #000046 0%, #1c6ae0 100%) !important;
+                font-weight: 600;
+              }
+            }
+          }
+        }
+        
+        .solicitud-footer {
+          padding: 12px 16px;
+          background-color: rgba(28, 106, 224, 0.03);
+          border-top: 1px solid rgba(0, 0, 0, 0.05);
+          display: flex;
+          justify-content: flex-end;
+          gap: 12px;
+          
+          ion-button {
+            --border-radius: 12px;
+            --box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            --border-width: 1px;
+            --border-style: solid;
+            font-size: 14px;
+            font-weight: 500;
+            height: 40px;
+            margin: 0;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.3s ease;
+            text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+            
+            &[color="success"] {
+              --background: linear-gradient(135deg, #000046 0%, #1c6ae0 100%);
+              --border-color: rgba(28, 106, 224, 0.3);
+              --color: white;
+              --background-hover: linear-gradient(135deg, #1c2526 0%, #2f80ed 100%);
+              --background-activated: linear-gradient(135deg, #00001f 0%, #0d47a1 100%);
+              --box-shadow: 0 3px 8px rgba(28, 106, 224, 0.25);
+              --padding-start: 20px;
+              --padding-end: 20px;
+            }
+            
+            &[color="danger"] {
+              --background: linear-gradient(135deg, #f44336 0%, #d32f2f 100%);
+              --border-color: rgba(244, 67, 54, 0.3);
+              --color: white;
+              --background-hover: linear-gradient(135deg, #ef5350 0%, #e53935 100%);
+              --background-activated: linear-gradient(135deg, #d32f2f 0%, #b71c1c 100%);
+              --box-shadow: 0 3px 8px rgba(244, 67, 54, 0.25);
+              --padding-start: 20px;
+              --padding-end: 20px;
+            }
+            
+            &:hover {
+              transform: scale(1.03);
+            }
+            
+            &:active {
+              transform: scale(0.98);
+            }
+          }
+        }
+      }
+      
+      &:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(28, 106, 224, 0.15);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
     }
   }
+  
+  .no-solicitudes {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: calc(100% - 100px);
+    padding: 0 16px;
+    
+    p {
+      background: white;
+      border-radius: 16px;
+      padding: 24px;
+      text-align: center;
+      max-width: 80%;
+      box-shadow: 0 4px 15px rgba(0, 0, 70, 0.08);
+      font-size: 16px;
+      color: #666;
+      line-height: 1.5;
+      animation: fadeIn 0.5s ease-in-out;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      
+      &::before {
+        content: '📋';
+        font-size: 36px;
+        margin-bottom: 16px;
+      }
+    }
+  }
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Media queries */
+@media (min-width: 768px) {
+  ion-content.solicitudes-content {
+    .segment-container {
+      padding: 24px 20px 20px;
+    }
+    
+    ion-segment {
+      max-width: 500px;
+    }
+    
+    .solicitudes-list {
+      max-width: 700px;
+      margin: 0 auto;
+      
+      .solicitud-item {
+        .solicitud-content {
+          .solicitud-header {
+            h2 {
+              font-size: 19px;
+            }
+          }
+          
+          .solicitud-body {
+            .info-grid {
+              grid-template-columns: repeat(3, 1fr);
+              
+              .info-item {
+                .info-label {
+                  font-size: 14px;
+                }
+                
+                .info-value {
+                  font-size: 16px;
+                }
+              }
+            }
+          }
+          
+          .solicitud-footer {
+            ion-button {
+              height: 42px;
+              font-size: 15px;
+            }
+          }
+        }
+      }
+    }
+    
+    .no-solicitudes p {
+      max-width: 500px;
+      font-size: 17px;
+    }
+  }
+}
+
+@media (min-width: 992px) {
+  ion-content.solicitudes-content {
+    .solicitudes-list {
+      .solicitud-item {
+        .solicitud-content {
+          .solicitud-body {
+            padding: 16px;
+            
+            .info-grid {
+              gap: 16px;
+            }
+          }
+          
+          .solicitud-footer {
+            padding: 16px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (hover: hover) {
+  ion-content.solicitudes-content {
+    ion-segment-button:hover {
+      --background: rgba(28, 106, 224, 0.08);
+      
+      &::after {
+        transform: translateX(-50%) scale(0.5);
+        opacity: 0.5;
+      }
+    }
+    
+    .solicitud-item {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      
+      &:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(28, 106, 224, 0.15);
+      }
+      
+      .solicitud-footer ion-button {
+        transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.3s ease;
+        
+        &:hover {
+          transform: scale(1.03);
+          
+          &[color="success"] {
+            --box-shadow: 0 4px 10px rgba(28, 106, 224, 0.3);
+          }
+          
+          &[color="danger"] {
+            --box-shadow: 0 4px 10px rgba(244, 67, 54, 0.3);
+          }
+        }
+      }
+    }
+  }
+}

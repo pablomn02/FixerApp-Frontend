@@ -5,42 +5,74 @@
 </ion-header>
 
 <ion-content class="solicitudes-content">
-  <!-- Filtro de Estados -->
-  <ion-segment [(ngModel)]="filtroEstado" (ionChange)="filtrarSolicitudes()">
-    <ion-segment-button value="pendientes">
-      <ion-label>Pendientes</ion-label>
-    </ion-segment-button>
-    <ion-segment-button value="aceptadas">
-      <ion-label>Aceptadas</ion-label>
-    </ion-segment-button>
-    <ion-segment-button value="rechazadas">
-      <ion-label>Rechazadas</ion-label>
-    </ion-segment-button>
-  </ion-segment>
+  <div class="segment-container">
+    <ion-segment [(ngModel)]="filtroEstado" (ionChange)="filtrarContrataciones()">
+      <ion-segment-button value="pendiente">
+        <ion-label>Pendientes</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="aceptada">
+        <ion-label>Aceptadas</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="completada">
+        <ion-label>Completadas</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </div>
 
-  <!-- Lista de Solicitudes -->
   <ion-list class="solicitudes-list">
-    <ion-item *ngFor="let solicitud of solicitudesFiltradas" class="solicitud-item">
+    <ion-item *ngFor="let contratacion of contratacionesFiltradas" class="solicitud-item">
       <ion-label>
-        <h2>{{ solicitud.clienteNombre }}</h2>
-        <p><strong>Servicio:</strong> {{ solicitud.servicio }}</p>
-        <p><strong>Fecha y Hora:</strong> {{ solicitud.fechaHora }}</p>
-        <p *ngIf="solicitud.mensaje"><strong>Mensaje:</strong> {{ solicitud.mensaje }}</p>
-        <p><strong>Estado:</strong> {{ solicitud.estado | titlecase }}</p>
+        <div class="solicitud-content">
+          <div class="solicitud-header">
+            <h2 [ngClass]="'estado-' + contratacion.estadoContratacion">{{ contratacion.nombreCliente }}</h2>
+          </div>
+
+          <div class="solicitud-body">
+            <div class="info-grid">
+              <div class="info-item full-width">
+                <span class="info-label">Servicio</span>
+                <span class="info-value">{{ contratacion.nombreServicio }}</span>
+              </div>
+              <div class="info-item">
+                <span class="info-label">Fecha y Hora</span>
+                <span class="info-value">{{ contratacion.fechaHora | date: 'short' }}</span>
+              </div>
+              <div class="info-item">
+                <span class="info-label">Duración</span>
+                <span class="info-value">{{ contratacion.duracionEstimada }} min</span>
+              </div>
+              <div class="info-item">
+                <span class="info-label">Costo</span>
+                <span class="info-value">€{{ contratacion.costoTotal }}</span>
+              </div>
+              <div class="info-item highlight">
+                <span class="info-label">Estado</span>
+                <span class="info-value">{{ contratacion.estadoContratacion | titlecase }}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Botones según estado -->
+          <div class="solicitud-footer" *ngIf="contratacion.estadoContratacion === 'PENDIENTE'">
+            <ion-button fill="outline" color="danger" (click)="rechazarSolicitud(contratacion)">
+              Rechazar
+            </ion-button>
+            <ion-button fill="solid" color="primary" (click)="aceptarSolicitud(contratacion)">
+              Aceptar
+            </ion-button>
+          </div>
+
+          <div class="solicitud-footer" *ngIf="contratacion.estadoContratacion === 'ACEPTADA'">
+            <ion-button fill="solid" color="success" (click)="marcarComoCompletada(contratacion)">
+              Marcar como Completada
+            </ion-button>
+          </div>
+        </div>
       </ion-label>
-      <div slot="end" class="acciones" *ngIf="solicitud.estado === 'pendiente'">
-        <ion-button fill="solid" color="success" (click)="aceptarSolicitud(solicitud)">
-          Aceptar
-        </ion-button>
-        <ion-button fill="outline" color="danger" (click)="rechazarSolicitud(solicitud)">
-          Rechazar
-        </ion-button>
-      </div>
     </ion-item>
   </ion-list>
 
-  <!-- Mensaje si no hay solicitudes -->
-  <div class="no-solicitudes" *ngIf="solicitudesFiltradas.length === 0">
-    <p>No hay solicitudes {{ filtroEstado }} en este momento.</p>
+  <div class="no-solicitudes" *ngIf="contratacionesFiltradas.length === 0">
+    <p>No hay {{ filtroEstado | titlecase }} en este momento.</p>
   </div>
 </ion-content>

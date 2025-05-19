@@ -1,13 +1,28 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>contrataciones</ion-title>
+    <ion-title>Mis Contrataciones</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">contrataciones</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <ion-refresher slot="fixed" (ionRefresh)="ngOnInit()">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <ion-list *ngIf="!cargando && contrataciones.length > 0">
+    <ion-item *ngFor="let c of contrataciones">
+      <ion-label>
+        <h2><strong>{{ c.nombreProfesional }}</strong></h2>
+        <p>Fecha: {{ c.fechaHora | date: 'dd/MM/yyyy HH:mm' }}</p>
+        <p>Duración: {{ c.duracionEstimada }} min</p>
+        <p>Estado: <strong>{{ c.estadoContratacion }}</strong></p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-text color="medium" *ngIf="!cargando && contrataciones.length === 0">
+    <div class="ion-padding">
+      No tienes contrataciones activas ni pendientes.
+    </div>
+  </ion-text>
 </ion-content>
