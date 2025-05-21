@@ -1,236 +1,147 @@
 /* Header styling */
 ion-header {
-  --background: transparent;
-  
   ion-toolbar {
-    --background: linear-gradient(135deg, #000046 0%, #1c6ae0 100%);
-    --color: white;
+    &::part(background) {
+      background: linear-gradient(135deg, #000046 0%, #1c6ae0 100%) !important;
+    }
+    --background: transparent;
     --border-width: 0;
-    --min-height: 56px;
-    --padding-top: 4px;
-    --padding-bottom: 4px;
+    --color: white;
     
     ion-title {
-      font-size: 18px;
       font-weight: 600;
+      font-size: 18px;
       letter-spacing: 0.5px;
       text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
     }
   }
 }
 
-/* Content styling with enhanced contrast */
+/* Content styling */
 ion-content {
-  --background: #edf1f7;
-  --padding-bottom: 16px;
+  --background: #f5f7fa;
   
   /* Refresher styling */
   ion-refresher {
-    z-index: 1;
+    --color: #1c6ae0;
     
     ion-refresher-content {
-      --color: #1c6ae0;
       --spinner-color: #1c6ae0;
     }
   }
   
-  /* Enhanced Card List styling with more contrast */
+  /* List styling */
   ion-list {
     background: transparent;
-    padding: 16px;
-    margin-bottom: 16px;
-    animation: fadeIn 0.5s ease-in-out;
+    padding: 12px;
     
     ion-item {
       --background: white;
-      --border-radius: 16px;
-      --padding-start: 0;
-      --padding-end: 0;
+      --padding-start: 16px;
+      --padding-end: 16px;
+      --padding-top: 12px;
+      --padding-bottom: 12px;
       --inner-padding-end: 0;
-      margin-bottom: 16px;
-      box-shadow: 0 6px 16px rgba(0, 0, 70, 0.12), 0 0 0 1px rgba(28, 106, 224, 0.05);
-      border-radius: 16px;
-      overflow: hidden;
-      --min-height: auto;
+      margin-bottom: 10px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0, 0, 70, 0.08);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
       
-      &:last-child {
-        margin-bottom: 0;
-      }
-      
-      &::part(native) {
-        padding: 0;
+      &:active {
+        --background: rgba(28, 106, 224, 0.05);
+        transform: scale(0.98);
+        box-shadow: 0 1px 4px rgba(0, 0, 70, 0.05);
       }
       
       ion-label {
-        margin: 0;
-        padding: 0;
+        h2 {
+          color: #000046;
+          font-size: 18px;
+          margin-bottom: 8px;
+          
+          strong {
+            font-weight: 600;
+          }
+        }
         
-        /* Card container */
-        .card-container {
-          display: flex;
-          flex-direction: column;
-          width: 100%;
+        p {
+          color: #666;
+          margin-bottom: 4px;
+          font-size: 14px;
           
-          /* Card header with professional name and status */
-          .card-header {
-            background: rgba(28, 106, 224, 0.08);
-            padding: 16px;
-            border-bottom: 1px solid rgba(28, 106, 224, 0.15);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+          &:last-child {
+            margin-top: 8px;
             
-            h2 {
-              font-size: 17px;
-              font-weight: 700;
-              color: #1c6ae0;
-              margin: 0;
-            }
-            
-            .status-badge {
-              padding: 6px 12px;
-              border-radius: 20px;
+            strong {
+              padding: 4px 8px;
+              border-radius: 4px;
               font-size: 13px;
-              font-weight: 600;
-              text-transform: uppercase;
-              letter-spacing: 0.5px;
-              
-              &.pendiente {
-                background-color: rgba(255, 152, 0, 0.2);
-                color: #e67e00;
-              }
-              
-              &.confirmado {
-                background-color: rgba(76, 175, 80, 0.2);
-                color: #388e3c;
-              }
-              
-              &.cancelado {
-                background-color: rgba(244, 67, 54, 0.2);
-                color: #d32f2f;
-              }
-              
-              &.completado {
-                background-color: rgba(28, 106, 224, 0.2);
-                color: #1658b8;
-              }
-            }
-          }
-          
-          /* Card body with details */
-          .card-body {
-            padding: 18px;
-            
-            .detail-row {
-              display: flex;
-              align-items: center;
-              margin-bottom: 14px;
-              
-              &:last-child {
-                margin-bottom: 0;
-              }
-              
-              ion-icon {
-                font-size: 20px;
-                color: #1c6ae0;
-                margin-right: 12px;
-              }
-              
-              .detail-label {
-                font-size: 14px;
-                color: #666;
-                width: 80px;
-                font-weight: 500;
-              }
-              
-              .detail-value {
-                font-size: 15px;
-                color: #333;
-                font-weight: 500;
-                flex: 1;
-              }
-            }
-          }
-          
-          /* Card footer with actions */
-          .card-footer {
-            padding: 14px 16px;
-            border-top: 1px solid rgba(0, 0, 0, 0.08);
-            display: flex;
-            justify-content: flex-end;
-            gap: 10px;
-            background-color: #fafafa;
-            
-            .action-button {
-              padding: 8px 16px;
-              border-radius: 8px;
-              font-size: 14px;
               font-weight: 500;
-              cursor: pointer;
-              transition: all 0.2s ease;
-              
-              &.primary {
-                background-color: #1c6ae0;
-                color: white;
-                box-shadow: 0 2px 6px rgba(28, 106, 224, 0.3);
-                
-                &:hover, &:active {
-                  background-color: #1658b8;
-                  box-shadow: 0 4px 8px rgba(28, 106, 224, 0.4);
-                }
-              }
-              
-              &.secondary {
-                background-color: rgba(28, 106, 224, 0.1);
-                color: #1c6ae0;
-                border: 1px solid rgba(28, 106, 224, 0.2);
-                
-                &:hover, &:active {
-                  background-color: rgba(28, 106, 224, 0.15);
-                }
-              }
+              background-color: rgba(28, 106, 224, 0.1);
+              color: #1c6ae0;
             }
           }
         }
-      }
-      
-      &:hover, &:active {
-        --background: white;
-        transform: translateY(-3px);
-        box-shadow: 0 10px 24px rgba(28, 106, 224, 0.18), 0 0 0 1px rgba(28, 106, 224, 0.08);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
       }
     }
   }
   
   /* Empty state styling */
   ion-text {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    animation: fadeIn 0.5s ease-in-out;
-    
     div.ion-padding {
-      background: white;
-      border-radius: 16px;
-      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 200px;
+      margin: 20px;
+      padding: 30px;
       text-align: center;
-      max-width: 80%;
-      box-shadow: 0 6px 16px rgba(0, 0, 70, 0.12), 0 0 0 1px rgba(28, 106, 224, 0.05);
-      font-size: 16px;
+      background-color: white;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0, 0, 70, 0.08);
       color: #666;
+      font-size: 16px;
       line-height: 1.5;
+      
+      &::before {
+        content: '📅';
+        font-size: 48px;
+        margin-bottom: 16px;
+      }
     }
   }
 }
 
-/* Loading state */
+/* Status colors - you can customize these based on your status values */
+ion-item ion-label p:last-child strong {
+  &:contains('Pendiente') {
+    background-color: rgba(255, 152, 0, 0.1);
+    color: #ff9800;
+  }
+  
+  &:contains('Confirmada') {
+    background-color: rgba(76, 175, 80, 0.1);
+    color: #4caf50;
+  }
+  
+  &:contains('Cancelada') {
+    background-color: rgba(244, 67, 54, 0.1);
+    color: #f44336;
+  }
+  
+  &:contains('Completada') {
+    background-color: rgba(33, 150, 243, 0.1);
+    color: #2196f3;
+  }
+}
+
+/* Loading state - add this if you have a loading indicator */
 .loading-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100%;
+  height: 200px;
   
   ion-spinner {
     --color: #1c6ae0;
@@ -239,11 +150,11 @@ ion-content {
   }
 }
 
-/* Animation */
-@keyframes fadeIn {
+/* Animation for list items */
+@keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateY(20px);
   }
   to {
     opacity: 1;
@@ -251,56 +162,19 @@ ion-content {
   }
 }
 
-/* Pulse animation for interactive elements */
-@keyframes pulse {
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.05);
-  }
-  100% {
-    transform: scale(1);
-  }
+ion-list ion-item {
+  animation: fadeInUp 0.3s ease forwards;
+  animation-delay: calc(var(--ion-item-index, 0) * 0.05s);
 }
 
 /* Media queries for responsive design */
 @media (min-width: 768px) {
-  ion-content {
-    ion-list {
-      max-width: 700px;
-      margin: 16px auto;
-      
-      ion-item {
-        .card-container {
-          .card-header {
-            h2 {
-              font-size: 18px;
-            }
-            
-            .status-badge {
-              font-size: 14px;
-            }
-          }
-          
-          .card-body {
-            .detail-row {
-              .detail-label {
-                width: 100px;
-              }
-              
-              .detail-value {
-                font-size: 16px;
-              }
-            }
-          }
-        }
-      }
-    }
+  ion-list {
+    padding: 20px;
     
-    ion-text div.ion-padding {
-      max-width: 500px;
-      font-size: 17px;
+    ion-item {
+      --padding-start: 24px;
+      --padding-end: 24px;
     }
   }
 }
