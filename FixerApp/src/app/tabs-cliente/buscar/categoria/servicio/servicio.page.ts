@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { ModalController } from '@ionic/angular';
-import { ServicioService } from 'src/app/shared/services/servicio.service';
+import { ActivatedRoute }    from '@angular/router';
+import { ModalController }   from '@ionic/angular';
+import { ServicioService }   from 'src/app/shared/services/servicio.service';
 import { ProfesionalServicioService } from 'src/app/shared/services/profesional-servicio.service';
 import { ContratarModalPage } from 'src/app/shared/componentes/contratar-modal/contratar-modal.page';
 import { ProfesionalServicioSimple } from 'src/app/shared/interfaces/profesional-servicio-simple';
+import { PerfilProfesionalModalPage } from 'src/app/shared/componentes/perfil-profesional-modal/perfil-profesional-modal.page';
 
 @Component({
   selector: 'app-servicio',
@@ -18,7 +19,6 @@ export class ServicioPage implements OnInit {
   usuarioIdLogueado!: number;
 
   constructor(
-    private router: Router,
     private route: ActivatedRoute,
     private servicioService: ServicioService,
     private profServService: ProfesionalServicioService,
@@ -26,11 +26,14 @@ export class ServicioPage implements OnInit {
   ) {}
 
   ngOnInit() {
-    const id = Number(this.route.snapshot.paramMap.get('id'));
-
-    this.servicioService.getServiciosByCategoria(id).subscribe(s => (this.servicio = s));
-    this.profServService.getProfesionalesByServicio(id)
-      .subscribe(ps => (this.profesionales = ps));
+    const idCat = this.route.snapshot.paramMap.get('id');
+    if (idCat) {
+      const id = Number(idCat);
+      this.servicioService.getServiciosByCategoria(id)
+        .subscribe(s => this.servicio = s);
+      this.profServService.getProfesionalesByServicio(id)
+        .subscribe(ps => this.profesionales = ps);
+    }
 
     const idGuardado = localStorage.getItem('idUsuario');
     if (idGuardado) {
@@ -40,13 +43,23 @@ export class ServicioPage implements OnInit {
     }
   }
 
-  abrirPerfil(prof: ProfesionalServicioSimple) {
-    this.router.navigate(['/perfil-profesional', prof.idUsuario]);
+  /** Abre modal de perfil de profesional */
+  async abrirPerfil(event: Event, prof: ProfesionalServicioSimple) {
+    event.stopPropagation();
+    const modal = await this.modalController.create({
+      component: PerfilProfesionalModalPage,
+      componentProps: {
+        profesional: prof,
+        usuarioId: this.usuarioIdLogueado
+      },
+      cssClass: 'perfil-modal'
+    });
+    await modal.present();
   }
 
+  /** Abre modal para contratar */
   async contratar(event: Event, profesional: ProfesionalServicioSimple) {
     event.stopPropagation();
-
     const modal = await this.modalController.create({
       component: ContratarModalPage,
       componentProps: {

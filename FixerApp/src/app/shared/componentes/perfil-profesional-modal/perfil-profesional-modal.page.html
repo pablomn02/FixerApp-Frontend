@@ -1,0 +1,74 @@
+
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-title>Perfil Profesional</ion-title>
+    <ion-buttons slot="end">
+      <ion-button fill="clear" (click)="closeModal()">
+        <ion-icon name="close" color="light"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="bg-primary" [fullscreen]="true">
+  <div class="profile-section">
+    <div class="profile-avatar">
+      <ion-icon name="person-circle-outline"></ion-icon>
+    </div>
+    <div class="profile-info">
+      <h2>{{ profesional.nombre }}</h2>
+      <p class="specialty">{{ profesional.especialidad }}</p>
+      <p class="experience">Precio: {{ profesional.precioHora }} €/h</p>
+    </div>
+
+    <ion-button
+      class="favorite-btn"
+      fill="clear"
+      (click)="toggleFavorito()"
+      [disabled]="cargandoFavorito"
+    >
+      <ion-icon
+        [name]="isFavorito ? 'heart' : 'heart-outline'"
+        [class.spinning]="cargandoFavorito"
+        color="danger"
+      ></ion-icon>
+    </ion-button>
+  </div>
+
+  <ion-list>
+    <h5>Contacto</h5>
+    <ion-item *ngIf="profesional.especialidad">
+      <ion-icon name="call-outline" slot="start"></ion-icon>
+      <ion-label>{{ profesional.especialidad }}</ion-label>
+    </ion-item>
+    <ion-item *ngIf="profesional.especialidad">
+      <ion-icon name="mail-outline" slot="start"></ion-icon>
+      <ion-label>{{ profesional.especialidad }}</ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-list>
+    <h5>Información</h5>
+    <ion-item>
+      <ion-icon name="time-outline" slot="start"></ion-icon>
+      <ion-label>
+        <h3>Horario</h3>
+        <p>{{ profesional.especialidad }}</p>
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-icon name="person-outline" slot="start"></ion-icon>
+      <ion-label>
+        <h3>Usuario</h3>
+        <p>{{ profesional.especialidad }}</p>
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-icon name="shield-checkmark-outline" slot="start"></ion-icon>
+      <ion-label>
+        <h3>Rol</h3>
+        <p>{{ profesional.nombre }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

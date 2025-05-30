@@ -6,5 +6,6 @@ export interface ProfesionalServicioSimple {
     precioHora: number;
     idServicio: number;
     nombreServicio: string;
+    isFavorito: boolean;
   }
   

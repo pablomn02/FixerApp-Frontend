@@ -5,24 +5,39 @@
   <ion-card-content>
     <ion-list>
       <ion-item *ngFor="let prof of profesionales" lines="none" class="profesional-item">
-        <ion-avatar slot="start" class="profesional-avatar" (click)="abrirPerfil(prof)">
+        <!-- AVATAR: ahora abre modal de perfil -->
+        <ion-avatar 
+          slot="start" 
+          class="profesional-avatar"
+          (click)="abrirPerfil($event, prof)"
+        >
           <ion-icon name="person-circle-outline"></ion-icon>
         </ion-avatar>
-        <ion-label (click)="abrirPerfil(prof)">
+
+        <ion-label (click)="abrirPerfil($event, prof)">
           <h2>{{ prof.nombre }}</h2>
           <p class="especialidad">Especialidad: {{ prof.especialidad || '—' }}</p>
           <p class="precio">Precio por hora: {{ prof.precioHora }} €</p>
           <p class="rating">
             Valoración:
-            <ion-icon name="star" color="warning" *ngFor="let star of [1,2,3,4,5]; let i = index"></ion-icon>
+            <ion-icon 
+              name="star" 
+              color="warning" 
+              *ngFor="let star of [1,2,3,4,5]; let i = index"
+            ></ion-icon>
           </p>
         </ion-label>
 
-        <!-- Botón para contratar (abre el modal programáticamente) -->
-        <ion-button slot="end" fill="solid" color="primary" class="contratar-button" (click)="contratar($event, prof)">
+        <!-- Botón para contratar -->
+        <ion-button 
+          slot="end" 
+          fill="solid" 
+          color="primary" 
+          class="contratar-button"
+          (click)="contratar($event, prof)"
+        >
           <ion-icon name="briefcase-outline"></ion-icon>
         </ion-button>
-
       </ion-item>
     </ion-list>
   </ion-card-content>

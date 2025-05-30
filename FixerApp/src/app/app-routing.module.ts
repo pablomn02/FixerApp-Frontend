@@ -53,6 +53,10 @@ const routes: Routes = [
   },  {
     path: 'seleccionar-servicio-modal',
     loadChildren: () => import('./shared/componentes/seleccionar-servicio-modal/seleccionar-servicio-modal.module').then( m => m.SeleccionarServicioModalPageModule)
+  },
+  {
+    path: 'perfil-profesional-modal',
+    loadChildren: () => import('./shared/componentes/perfil-profesional-modal/perfil-profesional-modal.module').then( m => m.PerfilProfesionalModalPageModule)
   }
 
 

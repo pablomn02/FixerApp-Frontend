@@ -3,12 +3,13 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { Cliente } from '../interfaces/cliente';
+import { environment } from 'src/environments/environment.prod';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
-  private baseUrl = 'http://localhost:8080';
+  private baseUrl = environment.url;
   private loginUrl = `${this.baseUrl}/auth/login`;
   private registerClienteUrl = `${this.baseUrl}/auth/register/cliente`;
   private registerProfesionalUrl = `${this.baseUrl}/auth/register/profesional`;

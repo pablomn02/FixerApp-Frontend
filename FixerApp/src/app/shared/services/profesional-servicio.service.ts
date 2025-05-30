@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ProfesionalServicioSimple } from '../interfaces/profesional-servicio-simple';
+import { environment } from 'src/environments/environment.prod';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProfesionalServicioService {
 
-  private baseUrl = 'http://localhost:8080';
+  private baseUrl = environment.url;
 
   constructor(private http: HttpClient) {}
 

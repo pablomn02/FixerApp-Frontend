@@ -9,4 +9,5 @@ export interface ContratacionDTO {
   estadoContratacion: string;
   duracionEstimada: number;
   costoTotal: number;
+  isFavorito: boolean;
 }

@@ -8,5 +8,6 @@ export interface Profesional {
     especialidad: any,
     precioHora: number,
     horarioDisponible: string,
-    telefono: string
+    telefono: string;
+    isFavorito: boolean;
 }

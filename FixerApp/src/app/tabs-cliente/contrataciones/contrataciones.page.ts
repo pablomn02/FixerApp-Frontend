@@ -12,6 +12,8 @@ import { ContratacionDTO } from 'src/app/shared/interfaces/contratacion-dto';
 export class ContratacionesPage implements OnInit {
 
   contrataciones: ContratacionDTO[] = [];
+  contratacionesFiltradasCliente: ContratacionDTO[] = [];
+  filtroEstadoCliente: string = 'pendiente';
   cargando = true;
 
   constructor(
@@ -20,20 +22,29 @@ export class ContratacionesPage implements OnInit {
   ) {}
 
   ngOnInit() {
-    console.log("Boricua")
+    this.cargarContrataciones();
+  }
+
+  cargarContrataciones() {
     const userId = this.loginService.getUserId();
     if (!userId) return;
 
-    this.contratacionService.obtenerContratacionesActivas(+userId).subscribe({
+    this.contratacionService.obtenerContratacionesPorCliente(+userId).subscribe({
       next: (data) => {
-        console.log(data)
         this.contrataciones = data;
+        this.filtrarContratacionesCliente();
         this.cargando = false;
       },
       error: (err) => {
-        console.error('Error al cargar contrataciones', err);
+        console.error('Error al cargar contrataciones:', err);
         this.cargando = false;
       }
     });
+  }
+
+  filtrarContratacionesCliente() {
+    this.contratacionesFiltradasCliente = this.contrataciones.filter(
+      c => c.estadoContratacion?.toLowerCase() === this.filtroEstadoCliente
+    );
   }
 }

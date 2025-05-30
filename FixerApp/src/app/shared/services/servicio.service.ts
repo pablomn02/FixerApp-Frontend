@@ -3,13 +3,14 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Categoria } from '../interfaces/categoria';
 import { Servicio } from '../interfaces/servicio';
+import { environment } from 'src/environments/environment.prod';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ServicioService {
 
-    private baseUrl = 'http://localhost:8080';
+    private baseUrl = environment.url;
   
     constructor(private http: HttpClient) { }
   

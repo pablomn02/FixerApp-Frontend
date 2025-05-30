@@ -4,25 +4,58 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content class="cliente-contrataciones-content">
   <ion-refresher slot="fixed" (ionRefresh)="ngOnInit()">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
 
-  <ion-list *ngIf="!cargando && contrataciones.length > 0">
-    <ion-item *ngFor="let c of contrataciones">
+  <div class="segment-container">
+    <ion-segment [(ngModel)]="filtroEstadoCliente" (ionChange)="filtrarContratacionesCliente()">
+      <ion-segment-button value="pendiente">
+        <ion-label>Pendientes</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="confirmada">
+        <ion-label>Confirmadas</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="completada">
+        <ion-label>Completadas</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </div>
+
+  <ion-list class="contrataciones-list">
+    <ion-item *ngFor="let c of contratacionesFiltradasCliente" class="contratacion-item">
       <ion-label>
-        <h2><strong>{{ c.nombreProfesional }}</strong></h2>
-        <p>Fecha: {{ c.fechaHora | date: 'dd/MM/yyyy HH:mm' }}</p>
-        <p>Duración: {{ c.duracionEstimada }} min</p>
-        <p>Estado: <strong>{{ c.estadoContratacion }}</strong></p>
+        <div class="contratacion-content">
+          <div class="contratacion-header">
+            <h2 [ngClass]="'estado-' + c.estadoContratacion">{{ c.nombreProfesional }}</h2>
+          </div>
+          <div class="contratacion-body">
+            <div class="info-grid">
+              <div class="info-item full-width">
+                <span class="info-label">Servicio</span>
+                <span class="info-value">{{ c.nombreServicio }}</span>
+              </div>
+              <div class="info-item">
+                <span class="info-label">Fecha</span>
+                <span class="info-value">{{ c.fechaHora | date: 'short' }}</span>
+              </div>
+              <div class="info-item">
+                <span class="info-label">Duración</span>
+                <span class="info-value">{{ c.duracionEstimada }} min</span>
+              </div>
+              <div class="info-item highlight">
+                <span class="info-label">Estado</span>
+                <span class="info-value">{{ c.estadoContratacion | titlecase }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
       </ion-label>
     </ion-item>
   </ion-list>
 
-  <ion-text color="medium" *ngIf="!cargando && contrataciones.length === 0">
-    <div class="ion-padding">
-      No tienes contrataciones activas ni pendientes.
-    </div>
-  </ion-text>
+  <div class="no-contrataciones" *ngIf="contratacionesFiltradasCliente.length === 0">
+    <p>No hay contrataciones {{ filtroEstadoCliente | titlecase }}s en este momento.</p>
+  </div>
 </ion-content>
