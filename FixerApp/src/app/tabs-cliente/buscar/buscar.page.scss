@@ -65,15 +65,29 @@ ion-content {
   
   /* Título de sección */
   .section-title {
-    padding: 0 16px;
-    margin: 20px 0 10px;
+    padding: 20px 20px 16px;
+    margin-bottom: 0;
+    animation: fadeIn 0.5s ease-in-out;
     
     h2 {
-      font-size: 18px;
+      color: #000046;
+      font-size: 22px;
       font-weight: 600;
-      color: #333;
+      letter-spacing: 0.5px;
       margin: 0;
-      text-align: center;
+      position: relative;
+      display: inline-block;
+      
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: -8px;
+        left: 0;
+        width: 60px;
+        height: 3px;
+        background: linear-gradient(135deg, #000046 0%, #1c6ae0 100%);
+        border-radius: 3px;
+      }
     }
   }
   
@@ -163,10 +177,32 @@ ion-content {
 
 @media (min-width: 768px) {
   ion-content {
-    .section-title {
-      max-width: 700px;
-      margin: 20px auto 10px;
+  .section-title {
+    padding: 20px 20px 16px;
+    margin-bottom: 0;
+    animation: fadeIn 0.5s ease-in-out;
+    
+    h2 {
+      color: #000046;
+      font-size: 22px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      margin: 0;
+      position: relative;
+      display: inline-block;
+      
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: -8px;
+        left: 0;
+        width: 60px;
+        height: 3px;
+        background: linear-gradient(135deg, #000046 0%, #1c6ae0 100%);
+        border-radius: 3px;
+      }
     }
+  }
     
     ion-searchbar.rounded-searchbar,
     .direccion {

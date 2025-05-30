@@ -1,10 +1,9 @@
-
 <ion-header [translucent]="true">
-  <ion-toolbar color="primary">
+  <ion-toolbar>
     <ion-title>Perfil Profesional</ion-title>
     <ion-buttons slot="end">
       <ion-button fill="clear" (click)="closeModal()">
-        <ion-icon name="close" color="light"></ion-icon>
+        <ion-icon name="close"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
@@ -23,15 +22,17 @@
 
     <ion-button
       class="favorite-btn"
+      [class.favorito]="isFavorito"
+      [class.loading]="cargandoFavorito"
       fill="clear"
       (click)="toggleFavorito()"
       [disabled]="cargandoFavorito"
     >
       <ion-icon
+        *ngIf="!cargandoFavorito"
         [name]="isFavorito ? 'heart' : 'heart-outline'"
-        [class.spinning]="cargandoFavorito"
-        color="danger"
       ></ion-icon>
+      <ion-spinner *ngIf="cargandoFavorito" name="crescent"></ion-spinner>
     </ion-button>
   </div>
 

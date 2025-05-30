@@ -3,26 +3,26 @@
     <h2>Favoritos</h2>
   </div>
 
-  <div class="favorites-container">
+  <div class="favorites-container" *ngIf="favorites.length > 0; else noFavoritos">
     <ion-list class="favorites-list" lines="none">
       <ion-item class="favorite-item" *ngFor="let favorite of favorites">
         <ion-avatar slot="start">
           <ion-icon name="person-circle-outline" size="large"></ion-icon>
         </ion-avatar>
         <ion-label>
-          <h3>{{ favorite.name }}</h3>
-          <p>{{ favorite.role }}</p>
+          <h3>{{ favorite.nombre }}</h3>
+          <p>{{ favorite.especialidad }}</p>
         </ion-label>
         <ion-button slot="end" class="btn-contratar" (click)="contratar(favorite)">
-          Contratar de Nuevo
+          Contratar
         </ion-button>
       </ion-item>
     </ion-list>
-
-    <div class="add-favorite-button">
-      <ion-button expand="block" color="primary" (click)="addFavorite()">
-        Agregar cuentas favoritas
-      </ion-button>
-    </div>
   </div>
+
+  <ng-template #noFavoritos>
+    <div class="no-favorites-msg">
+      <p>No tienes profesionales marcados como favoritos aún.</p>
+    </div>
+  </ng-template>
 </ion-content>

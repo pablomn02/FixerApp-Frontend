@@ -1,197 +1,288 @@
-/* Contenido principal */
-ion-content {
-    --background: linear-gradient(180deg, #e6f0ff 0%, #f8f9fa 100%);
-    --padding-bottom: 16px;
-    --padding-start: 8px; // Reducido para pantallas pequeñas
-    --padding-end: 8px;
-    --padding-top: 8px;
+/* Estilos para la página de favoritos */
+ion-content#main-content {
+  --background: #f8f9fa;
   
-    .section-title {
-      padding: 0 8px; // Reducido para pantallas pequeñas
-      margin: 16px 0 8px; // Reducido para ahorrar espacio vertical
+  .section-title {
+    padding: 20px 20px 16px;
+    margin-bottom: 0;
+    animation: fadeIn 0.5s ease-in-out;
+    
+    h2 {
+      color: #000046;
+      font-size: 22px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      margin: 0;
+      position: relative;
+      display: inline-block;
+      
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: -8px;
+        left: 0;
+        width: 60px;
+        height: 3px;
+        background: linear-gradient(135deg, #000046 0%, #1c6ae0 100%);
+        border-radius: 3px;
+      }
+    }
+  }
   
-      h2 {
-        font-size: 16px; // Reducido para mejor legibilidad en móviles
+  /* Contenedor de favoritos */
+  .favorites-container {
+    padding: 0 20px;
+    animation: slideUp 0.5s ease-in-out;
+  }
+  
+  /* Lista de favoritos */
+  .favorites-list {
+    background: transparent;
+    padding: 0;
+    margin: 0;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  
+  /* Cada ítem de favorito */
+  .favorite-item {
+    --background: white;
+    --border-color: transparent;
+    --border-radius: 16px;
+    --padding-start: 0;
+    --padding-end: 0;
+    --inner-padding-end: 0;
+    margin-bottom: 16px;
+    box-shadow: 0 4px 15px rgba(0, 0, 70, 0.08);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    
+    &:last-child {
+      margin-bottom: 0;
+    }
+    
+    ion-avatar {
+      width: 50px;
+      height: 50px;
+      margin: 0 16px;
+      background: linear-gradient(135deg, #e6f0ff 0%, #f0f7ff 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      
+      ion-icon {
+        font-size: 32px;
+        color: #1c6ae0;
+      }
+    }
+    
+    ion-label {
+      padding: 16px 0;
+      margin: 0;
+      
+      h3 {
+        font-size: 16px;
         font-weight: 600;
         color: #333;
+        margin: 0 0 4px 0;
+      }
+      
+      p {
+        font-size: 14px;
+        color: #1c6ae0;
         margin: 0;
-        text-align: center;
       }
     }
-  }
-  
-  /* Botón de contratar */
-  .btn-contratar {
-    --background: white;
-    color: #000046;
-    font-weight: 500;
-    --border-radius: 8px; // Añadido para consistencia
-    --padding-start: 16px; // Ajustado para mejor toque en móviles
-    --padding-end: 16px;
-    font-size: 14px; // Reducido para pantallas pequeñas
-    height: 40px; // Ajustado para mejor proporción
-  }
-  
-  /* Favoritos */
-  .favorites-container {
-    margin: 0;
-    padding: 0 8px; // Reducido para pantallas pequeñas
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    min-height: calc(100% - 120px); // Reducido para pantallas pequeñas
-  
-    .favorites-list {
-      background: transparent;
-  
-      .favorite-item {
-        --background: linear-gradient(135deg, #000046 0%, #1c6ae0 100%);
-        --border-radius: 12px; // Reducido para mejor proporción
-        --box-shadow: 0 2px 6px rgba(0, 0, 70, 0.1); // Sombra más suave
-        margin: 8px 0; // Ajustado para pantallas pequeñas
-        padding: 8px; // Reducido para ahorrar espacio
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        color: white;
-  
-        ion-avatar {
-          width: 40px; // Reducido para pantallas pequeñas
-          height: 40px;
-  
-          ion-icon {
-            font-size: 32px; // Reducido para proporción
-            color: #ffffff;
-          }
-        }
-  
-        ion-label {
-          h3 {
-            font-size: 14px; // Reducido para pantallas pequeñas
-            font-weight: 500;
-            color: #ffffff;
-            margin: 0;
-          }
-  
-          p {
-            font-size: 12px; // Reducido para pantallas pequeñas
-            color: #ffffff;
-            margin: 2px 0 0;
-          }
-        }
-  
-        ion-button {
-          --border-radius: 8px; // Reducido para proporción
-          --padding-start: 10px; // Ajustado para pantallas pequeñas
-          --padding-end: 10px;
-          font-size: 12px; // Reducido para pantallas pequeñas
-          height: 32px; // Reducido para proporción
-        }
-      }
-    }
-  
-    .add-favorite-button {
-      padding: 16px 8px; // Reducido para pantallas pequeñas
-  
-      ion-button {
-        --border-radius: 12px; // Reducido para proporción
-        --background: white;
-        --box-shadow: 0 2px 6px rgba(0, 0, 70, 0.1); // Sombra más suave
-        font-size: 14px; // Reducido para pantallas pequeñas
-        height: 44px; // Ajustado para mejor toque en móviles
-        text-transform: none;
-        width: 100%; // Asegura que el botón ocupe todo el ancho
-      }
-    }
-  }
-  
-  /* Estilos para pantallas más grandes (mantenidos pero no aplicados en móviles) */
-  @media (min-width: 768px) {
-    ion-content {
+    
+    .btn-contratar {
+      --background: linear-gradient(135deg, #000046 0%, #1c6ae0 100%);
+      --border-radius: 12px;
+      --box-shadow: 0 4px 10px rgba(28, 106, 224, 0.25);
+      --color: white;
       --padding-start: 16px;
       --padding-end: 16px;
-      --padding-top: 16px;
+      font-size: 13px;
+      font-weight: 500;
+      height: 36px;
+      margin: 0 16px;
+      text-transform: none;
+      letter-spacing: 0.3px;
+      transition: all 0.3s ease;
+      
+      &:hover {
+        --background: linear-gradient(135deg, #000046 0%, #1c6ae0 90%);
+        --box-shadow: 0 6px 16px rgba(28, 106, 224, 0.3);
+        transform: translateY(-2px);
+      }
+    }
+    
+    &:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(28, 106, 224, 0.15);
+    }
+  }
   
-      .section-title {
-        max-width: 700px;
-        margin: 20px auto 10px;
-        padding: 0 16px;
+  /* Mensaje de no favoritos */
+  .no-favorites-msg {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: calc(100% - 100px);
+    padding: 0 16px;
+    
+    p {
+      background: white;
+      border-radius: 16px;
+      padding: 24px;
+      text-align: center;
+      max-width: 80%;
+      box-shadow: 0 4px 15px rgba(0, 0, 70, 0.08);
+      font-size: 16px;
+      color: #666;
+      line-height: 1.5;
+      animation: fadeIn 0.5s ease-in-out;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      
+      &::before {
+        content: '⭐';
+        font-size: 36px;
+        margin-bottom: 16px;
+      }
+    }
+  }
   
-        h2 {
-          font-size: 18px; // Tamaño original para pantallas grandes
+  /* Botón para agregar favoritos */
+  .add-favorite-button {
+    padding: 0 20px;
+    margin-top: 24px;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    animation: fadeIn 0.6s ease-in-out;
+    
+    ion-button {
+      --background: linear-gradient(135deg, #000046 0%, #1c6ae0 100%);
+      --border-radius: 12px;
+      --box-shadow: 0 4px 10px rgba(28, 106, 224, 0.25);
+      height: 48px;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      text-transform: none;
+      transition: all 0.3s ease;
+      
+      &:hover {
+        --background: linear-gradient(135deg, #000046 0%, #1c6ae0 90%);
+        --box-shadow: 0 6px 16px rgba(28, 106, 224, 0.3);
+        transform: translateY(-2px);
+      }
+    }
+  }
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Media queries */
+@media (min-width: 768px) {
+  ion-content#main-content {
+    .section-title {
+      padding: 24px 20px 20px;
+      
+      h2 {
+        font-size: 24px;
+        
+        &::after {
+          width: 70px;
+          height: 4px;
         }
       }
     }
-  
-    .btn-contratar {
-      font-size: 16px; // Tamaño original para pantallas grandes
-      height: 44px;
-    }
-  
-    .favorites-container {
+    
+    .favorites-list {
       max-width: 700px;
-      margin: 0 auto;
-      padding: 0 16px;
-      min-height: calc(100% - 150px);
-  
-      .favorites-list {
-        .favorite-item {
-          margin: 10px 12px;
-          padding: 10px;
-  
-          ion-avatar {
-            width: 48px;
-            height: 48px;
-  
-            ion-icon {
-              font-size: 40px;
-            }
-          }
-  
-          ion-label {
-            h3 {
-              font-size: 16px;
-            }
-  
-            p {
-              font-size: 14px;
-              margin: 4px 0 0;
-            }
-          }
-  
-          ion-button {
-            --border-radius: 10px;
-            --padding-start: 12px;
-            --padding-end: 12px;
-            font-size: 14px;
-            height: 36px;
-          }
+    }
+    
+    .favorite-item {
+      ion-avatar {
+        width: 56px;
+        height: 56px;
+        
+        ion-icon {
+          font-size: 36px;
         }
       }
-  
-      .add-favorite-button {
-        padding: 20px 16px;
-  
-        ion-button {
-          --border-radius: 15px;
-          font-size: 16px;
-          height: 48px;
+      
+      ion-label {
+        h3 {
+          font-size: 17px;
+        }
+        
+        p {
+          font-size: 15px;
         }
       }
+      
+      .btn-contratar {
+        font-size: 14px;
+        height: 38px;
+      }
+    }
+    
+    .no-favorites-msg p {
+      max-width: 500px;
+      font-size: 17px;
     }
   }
-  
-  /* Estilos para pantallas pequeñas (móviles) */
-  @media (max-width: 767px) {
-    ion-content {
-      --padding-start: 8px;
-      --padding-end: 8px;
-      --padding-top: 8px;
+}
+
+@media (min-width: 992px) {
+  ion-content#main-content {
+    .favorites-list {
+      .favorite-item {
+        ion-label {
+          padding: 18px 0;
+        }
+      }
     }
-  
-    .favorites-container {
-      padding: 0 8px;
-    }
-  
+    
     .add-favorite-button {
-      padding: 16px 8px;
+      ion-button {
+        height: 52px;
+      }
     }
   }
+}
+

@@ -1,13 +1,7 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>Mis Contrataciones</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content class="cliente-contrataciones-content">
-  <ion-refresher slot="fixed" (ionRefresh)="ngOnInit()">
-    <ion-refresher-content></ion-refresher-content>
-  </ion-refresher>
+  <div class="section-title">
+    <h2>Mis contrataciones</h2>
+  </div>
 
   <div class="segment-container">
     <ion-segment [(ngModel)]="filtroEstadoCliente" (ionChange)="filtrarContratacionesCliente()">
