@@ -18,6 +18,7 @@ interface HoraChip {
 export class ContratarModalPage implements OnInit {
   @Input() profesional: any;
   @Input() usuarioId!: number;
+  @Input() idProfesionalServicio!: number;
 
   form: any = {
     fecha: '',

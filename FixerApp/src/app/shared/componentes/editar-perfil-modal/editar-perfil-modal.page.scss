@@ -1,0 +1,364 @@
+/* Header styling */
+ion-header {
+  ion-toolbar {
+    --background: linear-gradient(135deg, #000046 0%, #1c6ae0 100%);
+    --color: white;
+    
+    ion-title {
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      font-size: 20px;
+    }
+  }
+}
+
+/* Contenido principal */
+ion-content {
+  --background: linear-gradient(180deg, #e6f0ff 0%, #f8f9fa 100%);
+  
+  /* Formulario */
+  form {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px 0;
+    animation: fadeIn 0.3s ease-in-out;
+  }
+  
+  /* Items del formulario */
+  ion-item {
+    --background: rgba(255, 255, 255, 0.95);
+    --border-radius: 16px;
+    --border-width: 0;
+    --inner-border-width: 0;
+    --padding-start: 20px;
+    --padding-end: 20px;
+    --padding-top: 16px;
+    --padding-bottom: 16px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 70, 0.08),
+                0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: all 0.15s ease;
+    position: relative;
+    overflow: hidden;
+    
+    /* Efecto de brillo sutil */
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+      transition: left 0.2s ease;
+    }
+    
+    &:hover, &:focus-within {
+      --background: rgba(255, 255, 255, 1);
+      box-shadow: 0 6px 20px rgba(0, 0, 70, 0.12),
+                  0 4px 8px rgba(0, 0, 0, 0.08);
+      transform: translateY(-2px);
+      
+      &::before {
+        left: 100%;
+      }
+    }
+    
+    /* Label styling */
+    ion-label {
+      color: #000046 !important;
+      font-weight: 600;
+      font-size: 14px;
+      letter-spacing: 0.3px;
+      margin-bottom: 8px;
+      position: relative;
+      
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: -4px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: linear-gradient(135deg, #000046 0%, #1c6ae0 100%);
+        transition: width 0.15s ease;
+      }
+    }
+    
+    &:focus-within ion-label::after {
+      width: 30px;
+    }
+    
+    /* Input styling */
+    ion-input {
+      --color: #333;
+      --placeholder-color: #999;
+      --padding-start: 0;
+      --padding-top: 8px;
+      --padding-bottom: 8px;
+      font-size: 16px;
+      font-weight: 400;
+      
+      &::part(native) {
+        border: none;
+        border-bottom: 2px solid #e0e0e0;
+        border-radius: 0;
+        background: transparent;
+        transition: border-color 0.15s ease;
+        
+        &:focus {
+          border-bottom-color: #1c6ae0;
+          box-shadow: 0 2px 0 rgba(28, 106, 224, 0.2);
+        }
+      }
+      
+      /* Estados de validación */
+      &.ion-valid {
+        &::part(native) {
+          border-bottom-color: #28a745;
+        }
+      }
+      
+      &.ion-invalid.ion-touched {
+        &::part(native) {
+          border-bottom-color: #dc3545;
+        }
+      }
+    }
+  }
+  
+  /* Botón de guardar */
+  ion-button {
+    --background: linear-gradient(135deg, #000046 0%, #1c6ae0 100%);
+    --color: white;
+    --border-radius: 16px;
+    --box-shadow: 0 6px 20px rgba(0, 0, 70, 0.3);
+    --padding-top: 16px;
+    --padding-bottom: 16px;
+    font-weight: 600;
+    font-size: 16px;
+    letter-spacing: 0.5px;
+    margin-top: 30px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.15s ease;
+    
+    /* Efecto de ondas */
+    &::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      transition: width 0.15s ease, height 0.15s ease;
+    }
+    
+    &:hover {
+      --box-shadow: 0 8px 25px rgba(0, 0, 70, 0.4);
+      transform: translateY(-2px);
+      
+      &::before {
+        width: 300px;
+        height: 300px;
+      }
+    }
+    
+    &:active {
+      transform: translateY(0);
+      --box-shadow: 0 4px 15px rgba(0, 0, 70, 0.3);
+      transition: all 0.05s ease;
+    }
+    
+    /* Estado de carga */
+    &.button-loading {
+      --background: linear-gradient(135deg, #666 0%, #999 100%);
+      cursor: not-allowed;
+      
+      &:hover {
+        transform: none;
+        --box-shadow: 0 6px 20px rgba(0, 0, 70, 0.3);
+      }
+    }
+  }
+}
+
+/* Animaciones más rápidas */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Animación escalonada más rápida para los items */
+ion-item:nth-child(1) { animation: slideInUp 0.3s ease-out 0.05s both; }
+ion-item:nth-child(2) { animation: slideInUp 0.3s ease-out 0.1s both; }
+ion-item:nth-child(3) { animation: slideInUp 0.3s ease-out 0.15s both; }
+ion-item:nth-child(4) { animation: slideInUp 0.3s ease-out 0.2s both; }
+
+ion-button { animation: slideInUp 0.3s ease-out 0.25s both; }
+
+/* Responsive design para tablets */
+@media (min-width: 768px) {
+  ion-content {
+    form {
+      max-width: 600px;
+      padding: 40px 20px;
+    }
+    
+    ion-item {
+      --padding-start: 24px;
+      --padding-end: 24px;
+      --padding-top: 20px;
+      --padding-bottom: 20px;
+      margin-bottom: 24px;
+      
+      ion-label {
+        font-size: 15px;
+        margin-bottom: 10px;
+      }
+      
+      ion-input {
+        font-size: 17px;
+        --padding-top: 10px;
+        --padding-bottom: 10px;
+      }
+    }
+    
+    ion-button {
+      --padding-top: 18px;
+      --padding-bottom: 18px;
+      font-size: 17px;
+      margin-top: 40px;
+    }
+  }
+}
+
+/* Responsive design para desktop */
+@media (min-width: 1024px) {
+  ion-content {
+    form {
+      max-width: 700px;
+      padding: 60px 40px;
+    }
+    
+    ion-item {
+      margin-bottom: 28px;
+      
+      &:hover {
+        transform: translateY(-3px);
+      }
+    }
+    
+    ion-button {
+      margin-top: 50px;
+      
+      &:hover {
+        transform: translateY(-3px);
+      }
+    }
+  }
+}
+
+/* Estados de validación mejorados */
+.form-validation {
+  ion-item.ion-valid {
+    &::after {
+      content: '✓';
+      position: absolute;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #28a745;
+      font-weight: bold;
+      font-size: 18px;
+    }
+  }
+  
+  ion-item.ion-invalid.ion-touched {
+    --background: rgba(220, 53, 69, 0.05);
+    border-left: 4px solid #dc3545;
+    
+    &::after {
+      content: '✗';
+      position: absolute;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #dc3545;
+      font-weight: bold;
+      font-size: 18px;
+    }
+  }
+}
+
+/* Efectos de focus más rápidos */
+ion-item:focus-within {
+  --background: rgba(255, 255, 255, 1);
+  border-left: 4px solid #1c6ae0;
+  transition: all 0.1s ease;
+  
+  ion-label {
+    color: #1c6ae0 !important;
+  }
+}
+
+/* Loading state para el formulario */
+.form-loading {
+  opacity: 0.7;
+  pointer-events: none;
+  transition: opacity 0.15s ease;
+  
+  ion-item {
+    --background: rgba(240, 240, 240, 0.8);
+  }
+  
+  ion-button {
+    --background: linear-gradient(135deg, #ccc 0%, #999 100%);
+  }
+}
+
+/* Mensaje de éxito */
+.success-message {
+  background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+  color: white;
+  padding: 16px 20px;
+  border-radius: 12px;
+  margin: 20px 0;
+  text-align: center;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+  animation: slideInUp 0.25s ease-out;
+}
+
+/* Mensaje de error */
+.error-message {
+  background: linear-gradient(135deg, #dc3545 0%, #e74c3c 100%);
+  color: white;
+  padding: 16px 20px;
+  border-radius: 12px;
+  margin: 20px 0;
+  text-align: center;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(220, 53, 69, 0.3);
+  animation: slideInUp 0.25s ease-out;
+}

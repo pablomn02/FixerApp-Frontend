@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { PerfilPageRoutingModule } from './perfil-routing.module';
 
 import { PerfilPage } from './perfil.page';
+import { EditarPerfilModalPageModule } from 'src/app/shared/componentes/editar-perfil-modal/editar-perfil-modal.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    PerfilPageRoutingModule
+    PerfilPageRoutingModule,
+    EditarPerfilModalPageModule
   ],
   declarations: [PerfilPage]
 })

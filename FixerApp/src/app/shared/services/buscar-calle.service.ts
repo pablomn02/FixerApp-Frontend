@@ -12,6 +12,7 @@ export class BuscarCalleService {
   direccion$ = this.direccionSubject.asObservable();
 
   constructor(private httpClient: HttpClient) {}
+  
 
   async obtenerUbicacion(): Promise<void> {
     try {
@@ -49,7 +50,7 @@ export class BuscarCalleService {
   }
 
   async obtenerDireccion(lat: number, lng: number): Promise<void> {
-    const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`;
+    const url = `http://localhost:8080/geolocalizacion/reverse?lat=${lat}&lon=${lng}`;
 
     try {
       const data: any = await this.httpClient.get(url).toPromise();
@@ -64,4 +65,5 @@ export class BuscarCalleService {
       console.error('Error obteniendo la dirección:', error);
     }
   }
+
 }

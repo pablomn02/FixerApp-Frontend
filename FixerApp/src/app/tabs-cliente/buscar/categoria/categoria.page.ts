@@ -22,7 +22,7 @@ export class CategoriaPage implements OnInit {
     private categoriaStyleService: CategoryStyleService,
     private categoriaService: CategoriaService,
     private servicioService: ServicioService,
-    private navCtrl: NavController
+    public navCtrl: NavController
   ) {}
 
   ngOnInit() {

@@ -16,4 +16,12 @@ export class ProfesionalServicioService {
   getProfesionalesByServicio(idCategoria: number): Observable<ProfesionalServicioSimple[]> {
     return this.http.get<ProfesionalServicioSimple[]>(`${this.baseUrl}/profesionales/servicio/${idCategoria}`);
   }
+
+  getIdProfesionalServicio(profesionalId: number, servicioId: number) {
+    const params = {
+      profesionalId: profesionalId.toString(),
+      servicioId: servicioId.toString()
+    };
+    return this.http.get<number>(environment.url + `/id`, { params });
+  }
 }

@@ -1,0 +1,37 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Editar Perfil</ion-title>
+    <ion-buttons slot="end">
+      <ion-button fill="clear" (click)="cancelar()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content class="ion-padding">
+  <form (ngSubmit)="guardarCambios()">
+    <ion-item>
+      <ion-label position="stacked">Nombre</ion-label>
+      <ion-input [(ngModel)]="usuario.nombre" name="nombre" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Correo</ion-label>
+      <ion-input [(ngModel)]="usuario.email" name="email" required type="email"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Usuario</ion-label>
+      <ion-input [(ngModel)]="usuario.nombreUsuario" name="nombreUsuario" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Contraseña</ion-label>
+      <ion-input [(ngModel)]="usuario.contrasena" name="contrasena" type="password"></ion-input>
+    </ion-item>
+
+    <ion-button expand="block" type="submit" class="ion-margin-top">Guardar</ion-button>
+  </form>
+</ion-content>

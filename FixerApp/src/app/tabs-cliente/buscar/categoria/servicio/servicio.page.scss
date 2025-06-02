@@ -346,6 +346,108 @@ ion-modal {
   }
 }
 
+/* Estilos para el FAB (Opción 2) */
+.back-fab {
+  --background: linear-gradient(135deg, #000046 0%, #1c6ae0 100%);
+  --color: white;
+  --box-shadow: 0 4px 12px rgba(0, 0, 70, 0.3);
+  margin: 20px;
+  
+  &:hover {
+    --box-shadow: 0 6px 16px rgba(0, 0, 70, 0.4);
+  }
+}
+
+/* Estilos para botón integrado (Opción 3) */
+.section-title-with-back {
+  display: flex;
+  align-items: center;
+  padding: 20px 20px 16px;
+  margin-bottom: 0;
+  animation: fadeIn 0.5s ease-in-out;
+  gap: 15px;
+  
+  .back-button {
+    background: linear-gradient(135deg, #000046 0%, #1c6ae0 100%);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 70, 0.2);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    
+    ion-icon {
+      color: white;
+      font-size: 20px;
+    }
+    
+    &:hover, &:active {
+      transform: scale(1.05);
+      box-shadow: 0 6px 16px rgba(0, 0, 70, 0.3);
+    }
+    
+    &:active {
+      transform: scale(0.95);
+    }
+  }
+  
+  .title-content {
+    flex: 1;
+    
+    h2 {
+      color: #000046;
+      font-size: 22px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      margin: 0;
+      position: relative;
+      display: inline-block;
+      
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: -8px;
+        left: 0;
+        width: 60px;
+        height: 3px;
+        background: linear-gradient(135deg, #000046 0%, #1c6ae0 100%);
+        border-radius: 3px;
+      }
+    }
+  }
+}
+
+/* Responsive para botón integrado */
+@media (min-width: 768px) {
+  .section-title-with-back {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 30px 20px 20px;
+    
+    .back-button {
+      width: 45px;
+      height: 45px;
+      
+      ion-icon {
+        font-size: 22px;
+      }
+    }
+    
+    .title-content h2 {
+      font-size: 26px;
+      
+      &::after {
+        width: 80px;
+        height: 4px;
+      }
+    }
+  }
+}
+
 /* Modal Animation */
 @keyframes modalFadeIn {
   from {

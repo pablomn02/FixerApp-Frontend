@@ -57,6 +57,10 @@ const routes: Routes = [
   {
     path: 'perfil-profesional-modal',
     loadChildren: () => import('./shared/componentes/perfil-profesional-modal/perfil-profesional-modal.module').then( m => m.PerfilProfesionalModalPageModule)
+  },
+  {
+    path: 'editar-perfil-modal',
+    loadChildren: () => import('./shared/componentes/editar-perfil-modal/editar-perfil-modal.module').then( m => m.EditarPerfilModalPageModule)
   }
 
 

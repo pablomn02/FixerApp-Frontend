@@ -1,6 +1,6 @@
   import { Component, OnInit } from '@angular/core';
   import { ActivatedRoute }    from '@angular/router';
-  import { ModalController }   from '@ionic/angular';
+  import { ModalController, NavController }   from '@ionic/angular';
   import { ServicioService }   from 'src/app/shared/services/servicio.service';
   import { ProfesionalServicioService } from 'src/app/shared/services/profesional-servicio.service';
   import { ContratarModalPage } from 'src/app/shared/componentes/contratar-modal/contratar-modal.page';
@@ -22,7 +22,8 @@
       private route: ActivatedRoute,
       private servicioService: ServicioService,
       private profServService: ProfesionalServicioService,
-      private modalController: ModalController
+      private modalController: ModalController,
+      public navCtrl: NavController
     ) {}
 
     ngOnInit() {
