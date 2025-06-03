@@ -1,18 +1,13 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-menu-button color="light"></ion-menu-button>
-    </ion-buttons>
     <ion-buttons slot="end">
-      <ion-button>
-        <ion-icon name="moon" color="light"></ion-icon>
-      </ion-button>
+      <ion-menu-button color="light"></ion-menu-button>
     </ion-buttons>
     <ion-title id="titulo">FIXER</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-menu contentId="main-content" type="overlay">
+<ion-menu contentId="main-content">
   <ion-header>
     <ion-toolbar>
       <ion-title>Menú</ion-title>
@@ -31,10 +26,13 @@
 <ion-content id="main-content">
   <ion-tabs>
     <ion-tab-bar>
-      <ion-tab-button tab="agenda">
-        <ion-icon name="today" size="large"></ion-icon>
-      </ion-tab-button>
       <ion-tab-button tab="solicitudes">
+        <ion-icon name="search" size="large"></ion-icon>
+      </ion-tab-button>
+      <ion-tab-button tab="horario">
+        <ion-icon name="star" size="large"></ion-icon>
+      </ion-tab-button>
+      <ion-tab-button tab="valoraciones">
         <ion-icon name="calendar" size="large"></ion-icon>
       </ion-tab-button>
       <ion-tab-button tab="perfil">

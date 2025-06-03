@@ -1,0 +1,29 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Valoraciones</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Valoraciones</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-list *ngIf="valoraciones.length > 0; else sinValoraciones">
+    <ion-item *ngFor="let valoracion of valoraciones">
+      <ion-label>
+        <h2>⭐ {{ valoracion.puntuacion }} / 5</h2>
+        <p>{{ valoracion.comentario }}</p>
+        <p><small>{{ valoracion.fechaTimestamp | date:'short' }}</small></p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ng-template #sinValoraciones>
+    <ion-text color="medium">
+      <p class="ion-padding">Aún no tienes valoraciones registradas.</p>
+    </ion-text>
+  </ng-template>
+</ion-content>

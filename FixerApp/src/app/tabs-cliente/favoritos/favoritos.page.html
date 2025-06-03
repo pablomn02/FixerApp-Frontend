@@ -6,13 +6,15 @@
   <div class="favorites-container" *ngIf="favorites.length > 0; else noFavoritos">
     <ion-list class="favorites-list" lines="none">
       <ion-item class="favorite-item" *ngFor="let favorite of favorites">
-        <ion-avatar slot="start">
+        <ion-avatar slot="start" (click)="abrirPerfil(favorite)">
           <ion-icon name="person-circle-outline" size="large"></ion-icon>
         </ion-avatar>
+
         <ion-label>
           <h3>{{ favorite.nombre }}</h3>
           <p>{{ favorite.especialidad }}</p>
         </ion-label>
+
         <ion-button slot="end" class="btn-contratar" (click)="contratar(favorite)">
           Contratar
         </ion-button>

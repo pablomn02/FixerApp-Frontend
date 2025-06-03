@@ -19,9 +19,20 @@ const routes: Routes = [
       {
         path: 'agenda',
         loadChildren: () => import('./agenda/agenda.module').then( m => m.AgendaPageModule)
-      }
+      },
+      {
+        path: 'valoraciones',
+        loadChildren: () => import('./valoraciones/valoraciones.module').then( m => m.ValoracionesPageModule)
+      },
+      {
+        path: 'horario',
+        loadChildren: () => import('./horario/horario.module').then( m => m.HorarioPageModule)
+      },
     ]
   },
+
+
+
 ];
 
 @NgModule({

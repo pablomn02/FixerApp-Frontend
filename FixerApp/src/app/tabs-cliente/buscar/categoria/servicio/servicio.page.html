@@ -1,55 +1,152 @@
-<ion-card class="profesionales-card" *ngIf="profesionales.length > 0">
-  <ion-card-header class="profesionales-card-header">
-    <ion-card-title>Profesionales disponibles</ion-card-title>
-  </ion-card-header>
-  <ion-card-content>
-    <ion-list>
-      <ion-item *ngFor="let prof of profesionales" lines="none" class="profesional-item">
-        <ion-avatar 
-          slot="start" 
-          class="profesional-avatar"
-          (click)="abrirPerfil($event, prof)"
-        >
-          <ion-icon name="person-circle-outline"></ion-icon>
-        </ion-avatar>
+<ion-content [fullscreen]="true">
+  <div class="page-container">
+    <!-- Header Section -->
+    <div class="page-header">
+      <h1>Encuentra tu profesional</h1>
+      <p>{{ profesionalesFiltrados.length }} profesionales disponibles</p>
+    </div>
 
-        <ion-label (click)="abrirPerfil($event, prof)">
-          <h2>{{ prof.nombre }}</h2>
-          <p class="especialidad">Especialidad: {{ prof.especialidad || '—' }}</p>
-          <p class="precio">Precio por hora: {{ prof.precioHora }} €</p>
-          <p class="rating">
-            Valoración:
-            <ion-icon 
-              name="star" 
-              color="warning" 
-              *ngFor="let star of [1,2,3,4,5]; let i = index"
-            ></ion-icon>
-          </p>
-        </ion-label>
+    <!-- Filters Section -->
+    <div class="filters-section">
+      <div class="filters-header" (click)="toggleFilters()">
+        <div class="filters-title">
+          <ion-icon name="options-outline"></ion-icon>
+          <span>Filtros</span>
+          <ion-badge color="primary" *ngIf="!showFilters && (filtro.valoracionMinima !== 0 || filtro.precioMaximo !== 200)">
+            {{ getActiveFiltersCount() }}
+          </ion-badge>
+        </div>
+        <ion-icon [name]="showFilters ? 'chevron-up' : 'chevron-down'" class="toggle-icon"></ion-icon>
+      </div>
+      
+      <div class="filters-content" [class.expanded]="showFilters">
+        <div class="filter-group">
+          <label class="filter-label">
+            <ion-icon name="star-outline"></ion-icon>
+            Valoración mínima
+          </label>
+          <ion-segment [(ngModel)]="filtro.valoracionMinima" class="rating-segment">
+            <ion-segment-button [value]="0">
+              <ion-label>Todas</ion-label>
+            </ion-segment-button>
+            <ion-segment-button [value]="3">
+              <ion-label>3★+</ion-label>
+            </ion-segment-button>
+            <ion-segment-button [value]="4">
+              <ion-label>4★+</ion-label>
+            </ion-segment-button>
+            <ion-segment-button [value]="5">
+              <ion-label>5★</ion-label>
+            </ion-segment-button>
+          </ion-segment>
+        </div>
 
-        <!-- Botón para contratar -->
+        <div class="filter-group">
+          <label class="filter-label">
+            <ion-icon name="cash-outline"></ion-icon>
+            Precio máximo: {{ filtro.precioMaximo }}€/hora
+          </label>
+          <ion-range 
+            [(ngModel)]="filtro.precioMaximo" 
+            min="0" 
+            max="200" 
+            step="10"
+            color="primary"
+            class="price-range">
+            <ion-label slot="start">0€</ion-label>
+            <ion-label slot="end">200€</ion-label>
+          </ion-range>
+        </div>
+
+        <div class="filter-actions" *ngIf="filtro.valoracionMinima !== 0 || filtro.precioMaximo !== 200">
+          <ion-button fill="outline" size="small" (click)="limpiarFiltros()">
+            <ion-icon name="refresh-outline" slot="start"></ion-icon>
+            Limpiar filtros
+          </ion-button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Professionals List -->
+    <div class="professionals-container" *ngIf="profesionalesFiltrados.length > 0">
+      <div class="professional-card" *ngFor="let prof of profesionalesFiltrados">
+        <div class="card-content" (click)="abrirPerfil($event, prof)">
+          <div class="professional-header">
+            <div class="avatar-section">
+              <div class="professional-avatar">
+                <ion-icon name="person"></ion-icon>
+              </div>
+              <div class="professional-info">
+                <h3 class="professional-name">{{ prof.nombre }}</h3>
+                <p class="professional-specialty">{{ prof.especialidad || 'Especialista' }}</p>
+              </div>
+            </div>
+            <ion-button 
+              fill="clear" 
+              class="favorite-btn"
+              (click)="toggleFavorite($event, prof)">
+              <ion-icon [name]="prof.isFavorito ? 'heart' : 'heart-outline'" 
+                        [color]="prof.isFavorito ? 'danger' : 'medium'"></ion-icon>
+            </ion-button>
+          </div>
+
+          <div class="professional-details">
+            <div class="price-section">
+              <span class="price-label">Precio por hora:</span>
+              <span class="price-value">{{ prof.precioHora }}€</span>
+            </div>
+
+            <div class="rating-section">
+              <span class="rating-label">Valoración:</span>
+              <div class="rating-stars">
+                <ng-container *ngFor="let star of [1,2,3,4,5]; let i = index">
+                  <ion-icon
+                    [name]="i < (prof.valoracionMedia || 0) ? 'star' : 'star-outline'"
+                    [class.filled]="i < (prof.valoracionMedia || 0)">
+                  </ion-icon>
+                </ng-container>
+                <span class="rating-number" *ngIf="prof.valoracionMedia">
+                  ({{ prof.valoracionMedia | number:'1.1-1' }})
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-actions">
+          <ion-button 
+            expand="block" 
+            class="hire-button"
+            (click)="contratar($event, prof)">
+            <ion-icon name="briefcase-outline" slot="start"></ion-icon>
+            Contratar profesional
+          </ion-button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Empty State -->
+    <div class="empty-state" *ngIf="profesionalesFiltrados.length === 0 && servicio">
+      <div class="empty-content">
+        <ion-icon name="search-outline" class="empty-icon"></ion-icon>
+        <h3>No hay profesionales disponibles</h3>
+        <p>No encontramos profesionales que cumplan con tus criterios de búsqueda.</p>
         <ion-button 
-          slot="end" 
-          fill="solid" 
-          color="primary" 
-          class="contratar-button"
-          (click)="contratar($event, prof)"
-        >
-          <ion-icon name="briefcase-outline"></ion-icon>
+          fill="outline" 
+          class="clear-filters-btn"
+          (click)="limpiarFiltros()" 
+          *ngIf="filtro.valoracionMinima !== 0 || filtro.precioMaximo !== 200">
+          <ion-icon name="refresh-outline" slot="start"></ion-icon>
+          Limpiar filtros
         </ion-button>
-      </ion-item>
-    </ion-list>
-  </ion-card-content>
-</ion-card>
+      </div>
+    </div>
+  </div>
 
-<ion-card class="profesionales-empty" *ngIf="profesionales.length === 0 && servicio">
-  <ion-card-content>
-    <p>No hay profesionales asignados a este servicio.</p>
-  </ion-card-content>
-</ion-card>
-
+  <!-- FAB -->
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button (click)="navCtrl.back()">
+    <ion-fab-button class="back-fab" (click)="navCtrl.back()">
       <ion-icon name="arrow-back-outline"></ion-icon>
     </ion-fab-button>
   </ion-fab>
+</ion-content>

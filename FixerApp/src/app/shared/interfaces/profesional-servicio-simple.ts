@@ -11,4 +11,5 @@ export interface ProfesionalServicioSimple {
     latitud: number;
     longitud: number;
   };
+  valoracionMedia: number;
 }

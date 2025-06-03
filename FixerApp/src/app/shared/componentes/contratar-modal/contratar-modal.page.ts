@@ -16,11 +16,10 @@ interface HoraChip {
   standalone: false
 })
 export class ContratarModalPage implements OnInit {
-  @Input() profesional: any;
+  @Input() profesional!: any;
   @Input() usuarioId!: number;
-  @Input() idProfesionalServicio!: number;
 
-  form: any = {
+  form = {
     fecha: '',
     horaSeleccionada: '',
     duracion: 60
@@ -28,9 +27,9 @@ export class ContratarModalPage implements OnInit {
 
   horasDisponibles: HoraChip[] = [];
   horasOcupadas: string[] = [];
-  diaNoDisponible: boolean = false;
-  mensajeError: string = '';
-  botonDeshabilitado: boolean = true;
+  diaNoDisponible = false;
+  mensajeError = '';
+  botonDeshabilitado = true;
   minDate: string = new Date().toISOString();
 
   constructor(
@@ -54,7 +53,12 @@ export class ContratarModalPage implements OnInit {
   }
 
   async presentToast(message: string, color: string = 'success') {
-    const toast = await this.toastController.create({ message, duration: 2000, color, position: 'bottom' });
+    const toast = await this.toastController.create({
+      message,
+      duration: 2000,
+      color,
+      position: 'bottom'
+    });
     await toast.present();
   }
 
@@ -68,7 +72,7 @@ export class ContratarModalPage implements OnInit {
     this.generarHorasDisponibles(diaSemana);
 
     const fechaStr = fechaLocal.toISODate();
-    if (!fechaStr) return;
+    if (!fechaStr || !this.profesional?.idProfesionalServicio) return;
 
     this.contratacionService.getHorasOcupadas(this.profesional.idProfesionalServicio, fechaStr).subscribe({
       next: (ocupadas) => {
@@ -98,16 +102,11 @@ export class ContratarModalPage implements OnInit {
     }
 
     for (const horario of horarioDelDia) {
-      if (!horario?.inicio || !horario?.fin) {
-        console.warn('Horario inválido:', horario);
-        continue;
-      }
-
       const inicio = DateTime.fromISO(horario.inicio);
       const fin = DateTime.fromISO(horario.fin);
 
       if (!inicio.isValid || !fin.isValid) {
-        console.warn('Fechas inválidas:', horario);
+        console.warn('Horario inválido:', horario);
         continue;
       }
 
@@ -119,7 +118,6 @@ export class ContratarModalPage implements OnInit {
       }
     }
   }
-
 
   seleccionarHora(hora: string) {
     const horaEstaOcupada = this.horasDisponibles.find(h => h.hora === hora)?.ocupada;
@@ -138,12 +136,12 @@ export class ContratarModalPage implements OnInit {
       return;
     }
 
-    const fechaStr = this.form.fecha?.split('T')[0];
+    const fechaStr = this.form.fecha.split('T')[0];
     const horaStr = this.form.horaSeleccionada;
 
     const fechaHoraLocal = DateTime.fromFormat(
       `${fechaStr} ${horaStr}`, 
-      'yyyy-MM-dd HH:mm', 
+      'yyyy-MM-dd HH:mm',
       { zone: 'Europe/Madrid' }
     );
 
@@ -153,7 +151,7 @@ export class ContratarModalPage implements OnInit {
       idUsuario: this.usuarioId,
       idProfesionalServicio: this.profesional.idProfesionalServicio,
       fechaHora: fechaHoraFormatted,
-      duracionEstimada: this.form.duracion || 60,
+      duracionEstimada: this.form.duracion,
       costoTotal: this.calcularPrecioTotal()
     };
 
@@ -169,7 +167,7 @@ export class ContratarModalPage implements OnInit {
     });
   }
 
-  calcularPrecioTotal() {
+  calcularPrecioTotal(): number {
     const precioHora = this.profesional?.precioHora || this.profesional?.precio || 0;
     return (this.form.duracion / 60) * precioHora;
   }
