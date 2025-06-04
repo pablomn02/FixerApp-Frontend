@@ -45,8 +45,6 @@ export class PerfilProfesionalModalPage implements OnInit {
     });
   }
 
-
-
   closeModal(favoritoCambiado: boolean = false) {
     this.modalCtrl.dismiss(favoritoCambiado);
   }

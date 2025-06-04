@@ -1,9 +1,3 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>Valoraciones</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
@@ -11,19 +5,36 @@
     </ion-toolbar>
   </ion-header>
 
+  <!-- Título de sección estilizado -->
+  <div class="section-title">
+    <h2>Mis Valoraciones</h2>
+  </div>
+
   <ion-list *ngIf="valoraciones.length > 0; else sinValoraciones">
     <ion-item *ngFor="let valoracion of valoraciones">
       <ion-label>
-        <h2>⭐ {{ valoracion.puntuacion }} / 5</h2>
-        <p>{{ valoracion.comentario }}</p>
-        <p><small>{{ valoracion.fechaTimestamp | date:'short' }}</small></p>
+        <div class="valoracion-content">
+          <div class="valoracion-header">
+            <h2>{{ valoracion.nombreCliente }}</h2>
+            <div class="rating-stars">
+              <ion-icon *ngFor="let star of [1,2,3,4,5]" 
+                        [name]="star <= valoracion.puntuacion ? 'star' : 'star-outline'">
+              </ion-icon>
+              <span class="rating-number">{{ valoracion.puntuacion }}/5</span>
+            </div>
+          </div>
+          <div class="valoracion-body">
+            <div class="comentario">{{ valoracion.comentario }}</div>
+            <div class="fecha">{{ valoracion.fechaTimestamp | date:'short' }}</div>
+          </div>
+        </div>
       </ion-label>
     </ion-item>
   </ion-list>
 
   <ng-template #sinValoraciones>
     <ion-text color="medium">
-      <p class="ion-padding">Aún no tienes valoraciones registradas.</p>
+      <p>Aún no tienes valoraciones registradas.</p>
     </ion-text>
   </ng-template>
 </ion-content>

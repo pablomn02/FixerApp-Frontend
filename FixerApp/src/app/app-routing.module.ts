@@ -61,6 +61,10 @@ const routes: Routes = [
   {
     path: 'editar-perfil-modal',
     loadChildren: () => import('./shared/componentes/editar-perfil-modal/editar-perfil-modal.module').then( m => m.EditarPerfilModalPageModule)
+  },
+  {
+    path: 'valoracion-modal',
+    loadChildren: () => import('./shared/componentes/valoracion-modal/valoracion-modal.module').then( m => m.ValoracionModalPageModule)
   }
 
 

@@ -9,7 +9,7 @@ ion-content.cliente-contrataciones-content {
     animation: fadeIn 0.5s ease-in-out;
   }
 
-    .section-title {
+  .section-title {
     padding: 20px 20px 16px;
     margin-bottom: 0;
     animation: fadeIn 0.5s ease-in-out;
@@ -121,7 +121,7 @@ ion-content.cliente-contrataciones-content {
         background-color: #ff9800;
       }
       
-      &[value="confirmada"] ion-label::before {
+      &[value="aceptada"] ion-label::before {
         background-color: #4caf50;
       }
       
@@ -237,6 +237,65 @@ ion-content.cliente-contrataciones-content {
               }
             }
           }
+          
+          /* Estilos para la sección de valoración */
+          .valoracion-section {
+            margin-top: 14px;
+            padding-top: 14px;
+            border-top: 1px solid rgba(0, 0, 70, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.5s ease-in-out;
+            
+            ion-button {
+              --background: linear-gradient(135deg, #000046 0%, #1c6ae0 100%);
+              --background-hover: linear-gradient(135deg, #000046 0%, #1c6ae0 90%);
+              --background-focused: linear-gradient(135deg, #000046 0%, #1c6ae0 90%);
+              --color: white;
+              --border-radius: 12px;
+              --padding-start: 16px;
+              --padding-end: 16px;
+              --padding-top: 8px;
+              --padding-bottom: 8px;
+              --box-shadow: 0 4px 12px rgba(28, 106, 224, 0.25);
+              height: auto;
+              font-size: 14px;
+              font-weight: 500;
+              letter-spacing: 0.2px;
+              text-transform: none;
+              transition: all 0.3s ease;
+              
+              &:hover {
+                --box-shadow: 0 6px 16px rgba(28, 106, 224, 0.35);
+                transform: translateY(-1px);
+              }
+              
+              &:active {
+                transform: translateY(0);
+                --box-shadow: 0 2px 8px rgba(28, 106, 224, 0.3);
+              }
+            }
+            
+            ion-text {
+              display: flex;
+              align-items: center;
+              font-size: 14px;
+              font-weight: 500;
+              color: #4caf50;
+              letter-spacing: 0.2px;
+              
+              &::before {
+                content: '';
+                display: inline-block;
+                width: 8px;
+                height: 8px;
+                border-radius: 50%;
+                margin-right: 8px;
+                background-color: #4caf50;
+              }
+            }
+          }
         }
       }
       
@@ -347,6 +406,21 @@ ion-content.cliente-contrataciones-content {
                 .info-value {
                   font-size: 16px;
                 }
+              }
+            }
+            
+            .valoracion-section {
+              margin-top: 16px;
+              padding-top: 16px;
+              
+              ion-button {
+                font-size: 15px;
+                --padding-start: 20px;
+                --padding-end: 20px;
+              }
+              
+              ion-text {
+                font-size: 15px;
               }
             }
           }

@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-toolbar class="valoracion-modal-header">
+    <ion-title>Valorar a un profesional</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cancelar()">Cerrar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="valoracion-modal-content ion-padding">
+  <div class="stars-container">
+    <ion-label>{{ nombreProfesional }}</ion-label>
+    <div class="stars-rating">
+      <ion-icon
+        *ngFor="let star of [1,2,3,4,5]"
+        [name]="star <= valoracion ? 'star' : 'star-outline'"
+        [class.star-filled]="star <= valoracion"
+        (click)="valoracion = star">
+      </ion-icon>
+    </div>
+    <div class="rating-text">
+      <span class="rating-number">{{ valoracion }}</span> de 5
+    </div>
+  </div>
+
+  <ion-item class="comment-item">
+    <ion-label position="stacked">Comentario</ion-label>
+    <ion-textarea
+      [(ngModel)]="comentario"
+      placeholder="Deja tu comentario..."
+      rows="5">
+    </ion-textarea>
+  </ion-item>
+
+  <ion-button 
+    expand="block" 
+    class="submit-button"
+    [disabled]="valoracion === 0"
+    (click)="enviarValoracion()">
+    Enviar Valoración
+  </ion-button>
+</ion-content>

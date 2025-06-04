@@ -40,11 +40,17 @@ export class FavoritosPage implements OnInit {
   }
 
   cargarFavoritos() {
-    this.favoritoService.getFavoritos(this.usuarioIdLogueado).subscribe((data) => {
-      this.favorites = data;
-    }, (error) => {
-      console.error('Error al obtener favoritos', error);
-    });
+    this.favoritoService.getFavoritos(this.usuarioIdLogueado).subscribe(
+      (data) => {
+        this.favorites = data.map(p => ({
+          ...p,
+          isFavorito: true
+        }));
+      },
+      (error) => {
+        console.error('Error al obtener favoritos', error);
+      }
+    );
   }
 
   abrirPerfil(profesional: ProfesionalServicioSimple) {
@@ -100,8 +106,8 @@ export class FavoritosPage implements OnInit {
           const distancia = this.calcularDistanciaKm(
             ubicacionCliente.latitud,
             ubicacionCliente.longitud,
-            profesional.ubicacion.latitud,
-            profesional.ubicacion.longitud
+            profesional.ubicacion!.latitud,
+            profesional.ubicacion!.longitud
           );
 
           if (distancia > 30) {
@@ -118,7 +124,7 @@ export class FavoritosPage implements OnInit {
             cssClass: 'classic-modal'
           }).then(modal => modal.present());
         });
-      }, 2000); // Espera de 2 segundos
+      }, 2000);
     });
   }
 
@@ -146,9 +152,10 @@ export class FavoritosPage implements OnInit {
     const R = 6371;
     const dLat = this.toRadian(lat2 - lat1);
     const dLon = this.toRadian(lon2 - lon1);
-    const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-              Math.cos(this.toRadian(lat1)) * Math.cos(this.toRadian(lat2)) *
-              Math.sin(dLon / 2) * Math.sin(dLon / 2);
+    const a =
+      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.cos(this.toRadian(lat1)) * Math.cos(this.toRadian(lat2)) *
+      Math.sin(dLon / 2) * Math.sin(dLon / 2);
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     return R * c;
   }

@@ -16,18 +16,11 @@ const routes: Routes = [
         path: 'solicitudes',
         loadChildren: () => import('./solicitudes/solicitudes.module').then( m => m.SolicitudesPageModule)
       },
-      {
-        path: 'agenda',
-        loadChildren: () => import('./agenda/agenda.module').then( m => m.AgendaPageModule)
-      },
+
       {
         path: 'valoraciones',
         loadChildren: () => import('./valoraciones/valoraciones.module').then( m => m.ValoracionesPageModule)
-      },
-      {
-        path: 'horario',
-        loadChildren: () => import('./horario/horario.module').then( m => m.HorarioPageModule)
-      },
+      }
     ]
   },
 

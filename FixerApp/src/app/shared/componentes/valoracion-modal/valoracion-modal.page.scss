@@ -1,0 +1,251 @@
+// Estilos para el modal de valoración
+.valoracion-modal-header {
+  --background: linear-gradient(135deg, #000046 0%, #1c6ae0 100%);
+  --color: white;
+  
+  ion-title {
+    color: white;
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+  }
+  
+  ion-button {
+    --color: white;
+    font-size: 14px;
+    font-weight: 500;
+    text-transform: none;
+    letter-spacing: 0.2px;
+    
+    &:hover {
+      --background: rgba(255, 255, 255, 0.1);
+    }
+  }
+}
+
+.valoracion-modal-content {
+  --background: #f8f9fa;
+}
+
+.stars-container {
+  background: white;
+  border-radius: 16px;
+  padding: 24px 20px;
+  margin: 0 0 20px 0;
+  box-shadow: 0 4px 15px rgba(0, 0, 70, 0.08);
+  text-align: center;
+  animation: fadeInUp 0.5s ease-out;
+  
+  ion-label {
+    display: block;
+    font-size: 16px;
+    font-weight: 600;
+    color: #000046;
+    margin-bottom: 16px;
+    letter-spacing: 0.3px;
+  }
+  
+  .stars-rating {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin: 16px 0;
+    
+    ion-icon {
+      font-size: 2.2rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      color: #ddd;
+      
+      &.star-filled {
+        color: #ffc107;
+        transform: scale(1.1);
+      }
+      
+      &:hover {
+        transform: scale(1.2);
+        filter: drop-shadow(0 2px 4px rgba(255, 193, 7, 0.3));
+      }
+      
+      &:active {
+        transform: scale(1.05);
+      }
+    }
+  }
+  
+  .rating-text {
+    margin-top: 12px;
+    font-size: 14px;
+    color: #666;
+    font-weight: 500;
+    letter-spacing: 0.2px;
+    
+    .rating-number {
+      color: #1c6ae0;
+      font-weight: 600;
+    }
+  }
+}
+
+.comment-item {
+  --background: white;
+  --border-radius: 16px;
+  --padding-start: 0;
+  --padding-end: 0;
+  --inner-padding-start: 16px;
+  --inner-padding-end: 16px;
+  --inner-padding-top: 16px;
+  --inner-padding-bottom: 16px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 70, 0.08);
+  border-radius: 16px;
+  animation: fadeInUp 0.6s ease-out;
+  
+  ion-label {
+    font-size: 24px;
+    font-weight: 600;
+    color: #000046;
+    margin-bottom: 8px;
+    letter-spacing: 0.2px;
+  }
+  
+  ion-textarea {
+    margin-top: 1rem;
+    --background: transparent;
+    --color: #333;
+    --placeholder-color: #999;
+    --padding-start: 0;
+    --padding-end: 0;
+    --padding-top: 8px;
+    --padding-bottom: 8px;
+    font-size: 15px;
+    line-height: 1.5;
+    border: 1px solid rgba(28, 106, 224, 0.1);
+    border-radius: 12px;
+    padding: 12px;
+    transition: border-color 0.3s ease;
+    
+    &:focus-within {
+      border-color: #1c6ae0;
+      box-shadow: 0 0 0 3px rgba(28, 106, 224, 0.1);
+    }
+  }
+}
+
+.submit-button {
+  --background: linear-gradient(135deg, #000046 0%, #1c6ae0 100%);
+  --background-hover: linear-gradient(135deg, #000046 0%, #1c6ae0 90%);
+  --background-focused: linear-gradient(135deg, #000046 0%, #1c6ae0 90%);
+  --color: white;
+  --border-radius: 12px;
+  --padding-top: 14px;
+  --padding-bottom: 14px;
+  --box-shadow: 0 4px 12px rgba(28, 106, 224, 0.25);
+  margin-top: 20px;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  text-transform: none;
+  transition: all 0.3s ease;
+  animation: fadeInUp 0.7s ease-out;
+  
+  &:hover {
+    --box-shadow: 0 6px 16px rgba(28, 106, 224, 0.35);
+    transform: translateY(-2px);
+  }
+  
+  &:active {
+    transform: translateY(0);
+    --box-shadow: 0 2px 8px rgba(28, 106, 224, 0.3);
+  }
+  
+  &:disabled {
+    --background: #ccc;
+    --color: #666;
+    --box-shadow: none;
+    transform: none;
+    
+    &:hover {
+      --box-shadow: none;
+      transform: none;
+    }
+  }
+}
+
+/* Animaciones */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Media queries */
+@media (min-width: 768px) {
+  .stars-container {
+    padding: 28px 24px;
+    
+    ion-label {
+      font-size: 18px;
+    }
+    
+    .stars-rating {
+      gap: 12px;
+      margin: 20px 0;
+      
+      ion-icon {
+        font-size: 2.5rem;
+      }
+    }
+    
+    .rating-text {
+      font-size: 15px;
+    }
+  }
+  
+  .comment-item {
+    --inner-padding-start: 20px;
+    --inner-padding-end: 20px;
+    --inner-padding-top: 20px;
+    --inner-padding-bottom: 20px;
+    
+    ion-label {
+      font-size: 15px;
+    }
+    
+    ion-textarea {
+      font-size: 16px;
+    }
+  }
+  
+  .submit-button {
+    --padding-top: 16px;
+    --padding-bottom: 16px;
+    font-size: 17px;
+  }
+}
+
+@media (hover: hover) {
+  .stars-rating {
+    ion-icon:hover {
+      animation: starPulse 0.3s ease-out;
+    }
+  }
+}
+
+@keyframes starPulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1.1);
+  }
+}

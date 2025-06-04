@@ -122,28 +122,30 @@ ion-content.bg-primary {
   top: 12px;
   right: 12px;
   --background: transparent;
-  --color: #ccc;
+  --color: #ffffff;
+  --border-radius: 50%;
   width: 52px;
   height: 52px;
+  border: none;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
   ion-icon {
     font-size: 28px;
     transition: all 0.3s ease;
-    color: #ccc;
+    color: #ff0000;
   }
 
   /* Estado hover cuando NO es favorito */
   &:not([disabled]):hover {
     --background: rgba(255, 71, 87, 0.1);
-    --color: #ff4757;
-    border-color: #ff4757;
+    --color: #ff0015;
     transform: scale(1.1);
+    
     ion-icon {
-      color: #ff4757;
+      color: #ff0015;
     }
   }
 
@@ -154,51 +156,23 @@ ion-content.bg-primary {
   &[disabled] {
     --background: transparent;
     --color: #ccc;
-    border-color: #e0e0e0;
     opacity: 0.5;
   }
 }
 
-/* Botón favorito - Estado activofavorito */
+/* Botón favorito - Estado activo (favorito) */
 .favorite-btn.favorito {
-  --background: #ff4757;
+  --background: #ff0015;
   --color: white;
-  border-color: #ff4757;
+  --border-radius: 50%;
+
 
   ion-icon {
     color: white;
     animation: heartPulse 0.6s ease-out;
   }
-
-  /* Estado hover cuando SÍ es favorito */
-  &:not([disabled]):hover {
-    --background: #ff6b7a;
-    border-color: #ff6b7a;
-    transform: scale(1.00);    
-    ion-icon {
-      color: white;
-      transform: scale(1.1);
-    }
-  }
-
-  &:active {
-    transform: scale(0.2);
-    --background: #e63946;
-    border-color: #e63946;
-  }
 }
 
-.favorite-btn.loading {
-  --background: rgba(255, 71, 87, 0.1);
-  border-color: #ff4757;
-  pointer-events: none;
-
-  ion-spinner {
-    color: #ff4757;
-    width: 24px;
-    height: 24px;
-  }
-}
 
 /* Animación para cuando se marca como favorito */
 @keyframes heartPulse {
@@ -238,7 +212,7 @@ ion-list {
 }
 
 ion-item {
-  --background: white;
+  --background: rgb(255, 255, 255);
   --border-color: rgba(28, 106, 224, 0.1);
   --padding-start: 20px;
   --padding-end: 20px;
@@ -250,7 +224,7 @@ ion-item {
   }
 
   ion-icon {
-    color: #1c6ae0;
+    color: #000046;
     font-size: 20px;
     margin-right: 12px;
   }
@@ -308,6 +282,7 @@ ion-item {
     height: 44px;
     top: 10px;
     right: 10px;
+    
     ion-icon {
       font-size: 24px;
     }
@@ -367,8 +342,10 @@ ion-item {
       transform: scale(1.12);
     }
 
-    &.favorito:hover {
-      transform: scale(1.18);
+    &.favorito {
+      &:hover {
+        transform: scale(1.18);
+      }
     }
   }
 }

@@ -105,12 +105,6 @@ export class ServicioPage implements OnInit {
     await modal.present()
   }
 
-  async toggleFavorite(event: Event, prof: ProfesionalServicioSimple) {
-    event.stopPropagation()
-    // Aquí implementarías la lógica para agregar/quitar de favoritos
-    prof.isFavorito = !prof.isFavorito
-  }
-
   limpiarFiltros() {
     this.filtro = {
       valoracionMinima: 0,

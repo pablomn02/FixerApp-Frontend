@@ -1,4 +1,5 @@
 export interface ContratacionDTO {
+  [x: string]: any;
   idContratacion: number;
   idUsuario: number;
   nombreCliente: string;
@@ -10,4 +11,6 @@ export interface ContratacionDTO {
   duracionEstimada: number;
   costoTotal: number;
   isFavorito: boolean;
+  yaValorada?: boolean;
+  idProfesional: number
 }

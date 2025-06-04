@@ -81,13 +81,6 @@
                 <p class="professional-specialty">{{ prof.especialidad || 'Especialista' }}</p>
               </div>
             </div>
-            <ion-button 
-              fill="clear" 
-              class="favorite-btn"
-              (click)="toggleFavorite($event, prof)">
-              <ion-icon [name]="prof.isFavorito ? 'heart' : 'heart-outline'" 
-                        [color]="prof.isFavorito ? 'danger' : 'medium'"></ion-icon>
-            </ion-button>
           </div>
 
           <div class="professional-details">

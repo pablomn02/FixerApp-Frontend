@@ -16,4 +16,9 @@ export class ValoracionesService {
   getValoracionesByIdProfesional(id: number): Observable<Valoracion[]> {
     return this.http.get<Valoracion[]>(`${this.baseUrl}/valoraciones/${id}`);
   }
+
+  crearValoracion(valoracion: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}/valoraciones/crear-valoracion`, valoracion);
+  }
+
 }

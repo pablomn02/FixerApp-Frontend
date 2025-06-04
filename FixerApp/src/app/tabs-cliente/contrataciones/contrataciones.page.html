@@ -8,8 +8,8 @@
       <ion-segment-button value="pendiente">
         <ion-label>Pendientes</ion-label>
       </ion-segment-button>
-      <ion-segment-button value="confirmada">
-        <ion-label>Confirmadas</ion-label>
+      <ion-segment-button value="aceptada">
+        <ion-label>Aceptadas</ion-label>
       </ion-segment-button>
       <ion-segment-button value="completada">
         <ion-label>Completadas</ion-label>
@@ -43,6 +43,20 @@
                 <span class="info-value">{{ c.estadoContratacion | titlecase }}</span>
               </div>
             </div>
+
+            <!-- Sección de valoración -->
+            <div class="valoracion-section" *ngIf="c.estadoContratacion?.toLowerCase() === 'completada'">
+              <ion-button
+                *ngIf="!c.yaValorada"
+                (click)="abrirValoracion(c)">
+                Valorar Profesional
+              </ion-button>
+
+              <ion-text *ngIf="c.yaValorada">
+                Ya valorado
+              </ion-text>
+            </div>
+
           </div>
         </div>
       </ion-label>
