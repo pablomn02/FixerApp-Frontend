@@ -24,9 +24,6 @@
             Valoración mínima
           </label>
           <ion-segment [(ngModel)]="filtro.valoracionMinima" class="rating-segment">
-            <ion-segment-button [value]="0">
-              <ion-label>Todas</ion-label>
-            </ion-segment-button>
             <ion-segment-button [value]="3">
               <ion-label>3★+</ion-label>
             </ion-segment-button>
@@ -104,13 +101,7 @@
         </div>
 
         <div class="card-actions">
-          <ion-button 
-            expand="block" 
-            class="hire-button"
-            (click)="contratar($event, prof)">
-            <ion-icon name="briefcase-outline" slot="start"></ion-icon>
-            Contratar profesional
-          </ion-button>
+          <ion-button expand="block" class="hire-button" (click)="contratar($event, prof)">Contratar</ion-button>
         </div>
       </div>
     </div>
