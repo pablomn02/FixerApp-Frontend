@@ -26,10 +26,6 @@
           </div>
           <div class="contratacion-body">
             <div class="info-grid">
-              <div class="info-item full-width">
-                <span class="info-label">Servicio</span>
-                <span class="info-value">{{ c.nombreServicio }}</span>
-              </div>
               <div class="info-item">
                 <span class="info-label">Fecha</span>
                 <span class="info-value">{{ c.fechaHora | date: 'short' }}</span>
@@ -44,7 +40,6 @@
               </div>
             </div>
 
-            <!-- Sección de valoración -->
             <div class="valoracion-section" *ngIf="c.estadoContratacion?.toLowerCase() === 'completada'">
               <ion-button
                 *ngIf="!c.yaValorada"

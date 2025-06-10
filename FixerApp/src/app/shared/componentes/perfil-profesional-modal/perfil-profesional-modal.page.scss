@@ -166,13 +166,11 @@ ion-content.bg-primary {
   --color: white;
   --border-radius: 50%;
 
-
   ion-icon {
     color: white;
     animation: heartPulse 0.6s ease-out;
   }
 }
-
 
 /* Animación para cuando se marca como favorito */
 @keyframes heartPulse {
@@ -195,6 +193,7 @@ ion-list {
   padding: 0;
   overflow: hidden;
   transition: transform 0.2s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 70, 0.1);
 
   &:hover {
     transform: translateY(-2px);
@@ -246,6 +245,187 @@ ion-item {
   }
 }
 
+/* Estrellas para valoración media */
+.rating-average {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  margin-top: 8px;
+
+  .stars-container {
+    display: flex;
+    gap: 2px;
+  }
+
+  .star {
+    font-size: 18px;
+    color: #ddd;
+    transition: color 0.2s ease;
+
+    &.filled {
+      color: #ffc107;
+    }
+
+    &.half-filled {
+      background: linear-gradient(90deg, #ffc107 50%, #ddd 50%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+  }
+
+  .rating-text {
+    margin-left: 8px;
+    font-size: 14px;
+    color: #666;
+    font-weight: 500;
+
+    .rating-number {
+      color: #000046;
+      font-weight: 700;
+    }
+  }
+}
+
+/* Estilizado especial para el item de valoración media */
+ion-item.rating-item {
+  .rating-display {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 4px;
+
+    .stars-row {
+      display: flex;
+      gap: 2px;
+    }
+
+    .star {
+      font-size: 16px;
+      color: #ddd;
+
+      &.filled {
+        color: #ffc107;
+      }
+
+      &.half-filled {
+        background: linear-gradient(90deg, #ffc107 50%, #ddd 50%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+    }
+
+    .rating-value {
+      font-size: 14px;
+      color: #000046;
+      font-weight: 600;
+      margin-left: 4px;
+    }
+  }
+}
+
+/* Sección de valoraciones individuales */
+.valoraciones-list {
+  ion-item {
+    --min-height: 80px;
+    --padding-top: 12px;
+    --padding-bottom: 12px;
+
+    ion-label {
+      h3 {
+        color: #000046;
+        font-size: 16px;
+        font-weight: 600;
+        margin: 0 0 8px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        .client-stars {
+          display: flex;
+          gap: 2px;
+          margin-left: auto;
+
+          .star {
+            font-size: 14px;
+            color: #ddd;
+
+            &.filled {
+              color: #ffc107;
+            }
+          }
+        }
+      }
+
+      p {
+        color: #555;
+        font-size: 14px;
+        font-weight: 400;
+        margin: 0 0 4px;
+        line-height: 1.4;
+
+        &.comment {
+          font-style: italic;
+          color: #666;
+          background: #f8f9fa;
+          padding: 8px 12px;
+          border-radius: 8px;
+          border-left: 3px solid #1c6ae0;
+          margin: 8px 0;
+        }
+
+        &.rating-text {
+          display: flex;
+          align-items: center;
+          gap: 6px;
+          font-weight: 600;
+          color: #000046;
+
+          .rating-stars {
+            display: flex;
+            gap: 2px;
+
+            .star {
+              font-size: 16px;
+              color: #ddd;
+
+              &.filled {
+                color: #ffc107;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+/* Estado sin valoraciones mejorado */
+ion-text[color="medium"] {
+  p {
+    background: white;
+    border-radius: 16px;
+    padding: 24px;
+    text-align: center;
+    margin: 16px 0;
+    box-shadow: 0 4px 12px rgba(0, 0, 70, 0.1);
+    color: #666 !important;
+    font-size: 15px;
+    font-weight: 500;
+    position: relative;
+
+    &::before {
+      content: '⭐';
+      font-size: 2rem;
+      display: block;
+      margin-bottom: 12px;
+      opacity: 0.5;
+    }
+  }
+}
+
 /* Animación básica de entrada */
 @keyframes slideUp {
   from {
@@ -258,8 +438,22 @@ ion-item {
   }
 }
 
+@keyframes starTwinkle {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
 .profile-section, ion-list {
   animation: slideUp 0.5s ease-out;
+}
+
+/* Animación para estrellas */
+.star.filled {
+  animation: starTwinkle 0.6s ease-out;
 }
 
 /* Responsive */
@@ -285,6 +479,25 @@ ion-item {
     
     ion-icon {
       font-size: 24px;
+    }
+  }
+
+  .rating-average .star {
+    font-size: 16px;
+  }
+
+  .valoraciones-list ion-item {
+    --min-height: 70px;
+    
+    ion-label h3 {
+      font-size: 15px;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 4px;
+
+      .client-stars {
+        margin-left: 0;
+      }
     }
   }
 }
@@ -345,6 +558,38 @@ ion-item {
     &.favorito {
       &:hover {
         transform: scale(1.18);
+      }
+    }
+  }
+
+  .rating-average {
+    .star {
+      font-size: 20px;
+    }
+
+    .rating-text {
+      font-size: 15px;
+    }
+  }
+
+  .valoraciones-list ion-item {
+    --min-height: 90px;
+
+    ion-label {
+      h3 {
+        font-size: 17px;
+
+        .client-stars .star {
+          font-size: 16px;
+        }
+      }
+
+      p {
+        font-size: 15px;
+
+        &.rating-text .rating-stars .star {
+          font-size: 18px;
+        }
       }
     }
   }

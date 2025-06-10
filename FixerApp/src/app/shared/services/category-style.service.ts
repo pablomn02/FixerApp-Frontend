@@ -5,43 +5,43 @@ import { Injectable } from '@angular/core';
 })
 export class CategoryStyleService {
   private iconMap: { [key: string]: string } = {
-    'Hogar': 'construct-outline',
-    'Belleza': 'color-wand-outline',
+    'Hogar': 'home-outline',
     'Educación': 'school-outline',
-    'Tecnología': 'laptop-outline',
-    'Transporte': 'cube-outline',
-    'Jardinería': 'leaf-outline',
-    'Construcción': 'hammer-outline',
-    'Cuidado': 'heart-outline',
-    'Creatividad': 'calendar-outline',
-    'Profesional': 'briefcase-outline',
     'Salud': 'medkit-outline',
+    'Tecnología': 'laptop-outline',
+    'Construcción': 'hammer-outline',
+    'Belleza': 'color-wand-outline',
+    'Mascotas': 'paw-outline',
+    'Eventos': 'balloon-outline',
     'Automoción': 'car-outline',
-    'Hostelería': 'restaurant-outline',
+    'Consultoría': 'briefcase-outline',
+    'Arte': 'brush-outline',
+    'Jardinería': 'leaf-outline',
     'Seguridad': 'shield-checkmark-outline',
-    'Reparaciones': 'settings-outline'
+    'Reparaciones': 'settings-outline',
+    'Limpieza': 'sparkles-outline'
   };
 
   private colorMap: { [key: string]: string } = {
     'Hogar': '#6c757d',
-    'Belleza': '#ff70a6',
     'Educación': '#0077b6',
-    'Tecnología': '#1c6ae0',
-    'Transporte': '#9d4edd',
-    'Jardinería': '#2d6a4f',
-    'Construcción': '#7209b7',
-    'Cuidado': '#ff006e',
-    'Creatividad': '#f48c06',
-    'Profesional': '#343a40',
     'Salud': '#00b4d8',
+    'Tecnología': '#1c6ae0',
+    'Construcción': '#7209b7',
+    'Belleza': '#ff70a6',
+    'Mascotas': '#f4a261',
+    'Eventos': '#f48c06',
     'Automoción': '#495057',
-    'Hostelería': '#f72585',
+    'Consultoría': '#343a40',
+    'Arte': '#f72585',
+    'Jardinería': '#2d6a4f',
     'Seguridad': '#212529',
-    'Reparaciones': '#560bad'
+    'Reparaciones': '#560bad',
+    'Limpieza': '#4ea8de'
   };
 
   getIcon(category: string): string {
-    return this.iconMap[category] || 'construct-outline';
+    return this.iconMap[category] || 'help-outline';
   }
 
   getColor(category: string): string {

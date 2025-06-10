@@ -1,18 +1,13 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-menu-button color="light"></ion-menu-button>
-    </ion-buttons>
     <ion-buttons slot="end">
-      <ion-button>
-        <ion-icon name="moon" color="light"></ion-icon>
-      </ion-button>
+      <ion-menu-button color="light"></ion-menu-button>
     </ion-buttons>
     <ion-title id="titulo">FIXER</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-menu contentId="main-content" type="overlay">
+<ion-menu contentId="main-content">
   <ion-header>
     <ion-toolbar>
       <ion-title>Menú</ion-title>
@@ -24,6 +19,14 @@
         <ion-icon name="log-out-outline" slot="start"></ion-icon>
         <ion-label>Cerrar Sesión</ion-label>
       </ion-item>
+      <ion-item button (click)="abrirAyuda()">
+        <ion-icon name="help-circle-outline" slot="start"></ion-icon>
+        <ion-label>Ayuda</ion-label>
+      </ion-item>
+      <ion-item button (click)="abrirTerminos()">
+        <ion-icon name="layers-outline" slot="start"></ion-icon>
+        <ion-label>Términos y condiciones</ion-label>
+      </ion-item>
     </ion-list>
   </ion-content>
 </ion-menu>
@@ -31,7 +34,7 @@
 <ion-content id="main-content">
   <ion-tabs>
     <ion-tab-bar>
-      <ion-tab-button tab="gestion">
+      <ion-tab-button tab="usuarios">
         <ion-icon name="calendar" size="large"></ion-icon>
       </ion-tab-button>
       <ion-tab-button tab="perfil">

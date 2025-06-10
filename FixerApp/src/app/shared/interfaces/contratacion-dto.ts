@@ -1,5 +1,4 @@
 export interface ContratacionDTO {
-  [x: string]: any;
   idContratacion: number;
   idUsuario: number;
   nombreCliente: string;

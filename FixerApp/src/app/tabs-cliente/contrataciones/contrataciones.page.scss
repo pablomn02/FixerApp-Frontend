@@ -1,7 +1,6 @@
 ion-content.cliente-contrataciones-content {
   --background: #f8f9fa;
   
-  /* Enhanced segment styling */
   .segment-container {
     padding: 20px 20px 16px;
     display: flex;
@@ -238,7 +237,6 @@ ion-content.cliente-contrataciones-content {
             }
           }
           
-          /* Estilos para la sección de valoración */
           .valoracion-section {
             margin-top: 14px;
             padding-top: 14px;
@@ -338,7 +336,6 @@ ion-content.cliente-contrataciones-content {
   }
 }
 
-/* Animations */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -371,7 +368,6 @@ ion-content.cliente-contrataciones-content {
   }
 }
 
-/* Media queries */
 @media (min-width: 768px) {
   ion-content.cliente-contrataciones-content {
     .segment-container {

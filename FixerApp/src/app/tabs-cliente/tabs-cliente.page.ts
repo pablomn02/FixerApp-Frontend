@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
+import { ModalController } from '@ionic/angular';
+import { TerminosCondicionesPage } from '../shared/componentes/terminos-condiciones/terminos-condiciones.page';
+import { AyudaPage } from '../shared/componentes/ayuda/ayuda.page';
 
 @Component({
   selector: 'app-tabs-cliente',
@@ -12,7 +15,8 @@ export class TabsClientePage {
 
   constructor(
     private router: Router,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private modalCtrl: ModalController
   ) {}
 
   async presentAlertConfirm() {
@@ -43,6 +47,20 @@ export class TabsClientePage {
     localStorage.removeItem('token');
     console.log("Sesión cerrada exitosamente");
     this.router.navigate(['/login']);
+  }
+
+  async abrirTerminos() {
+    const modal = await this.modalCtrl.create({
+      component: TerminosCondicionesPage,
+    });
+    await modal.present();
+  }
+
+  async abrirAyuda() {
+    const modal = await this.modalCtrl.create({
+      component: AyudaPage,
+    });
+    await modal.present();
   }
 
 }

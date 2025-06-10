@@ -1,0 +1,241 @@
+/* Header con gradiente */
+ion-header {
+  ion-toolbar {
+    --background: linear-gradient(135deg, #000046 0%, #1c6ae0 100%);
+    --color: white;
+    --border-width: 0;
+    --min-height: 64px;
+    box-shadow: 0 2px 8px rgba(0, 0, 70, 0.15);
+
+    ion-title {
+      font-size: 20px;
+      font-weight: 600;
+      color: white;
+      letter-spacing: 0.3px;
+    }
+
+    ion-button {
+      --background: transparent;
+      --color: white;
+      transition: background 0.2s ease;
+
+      &:hover {
+        --background: rgba(255, 255, 255, 0.1);
+      }
+
+      ion-icon {
+        font-size: 20px;
+      }
+    }
+  }
+}
+
+/* Contenido */
+ion-content {
+  --background: #f8f9fa;
+}
+
+ion-content .ion-padding {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 24px 20px;
+}
+
+/* Contenedor del texto */
+ion-text {
+  background: white;
+  border-radius: 12px;
+  padding: 32px;
+  box-shadow: 0 2px 12px rgba(0, 0, 70, 0.08);
+  border: 1px solid rgba(28, 106, 224, 0.1);
+}
+
+/* Título principal */
+h2 {
+  color: #000046;
+  font-size: 26px;
+  font-weight: 700;
+  text-align: center;
+  margin: 0 0 32px 0;
+  letter-spacing: 0.3px;
+  position: relative;
+  padding-bottom: 16px;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(135deg, #000046 0%, #1c6ae0 100%);
+    border-radius: 2px;
+  }
+}
+
+/* Subtítulos */
+h3 {
+  color: #000046;
+  font-size: 18px;
+  font-weight: 600;
+  margin: 28px 0 16px 0;
+  letter-spacing: 0.2px;
+  border-left: 4px solid #1c6ae0;
+  padding-left: 16px;
+  background: rgba(28, 106, 224, 0.03);
+  padding: 12px 16px;
+  border-radius: 6px;
+}
+
+/* Párrafos */
+p {
+  color: #4a5568;
+  font-size: 15px;
+  line-height: 1.6;
+  margin: 0 0 18px 0;
+  text-align: justify;
+
+  /* Primer párrafo destacado */
+  &:first-of-type {
+    font-size: 16px;
+    font-weight: 500;
+    color: #2d3748;
+    background: #e6f0ff;
+    padding: 20px;
+    border-radius: 8px;
+    border-left: 4px solid #1c6ae0;
+    margin-bottom: 28px;
+  }
+
+  /* Párrafo de fecha */
+  &.ion-margin-top {
+    background: #f0f7ff;
+    padding: 16px;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: 600;
+    color: #000046;
+    margin-top: 32px !important;
+    border: 1px solid rgba(28, 106, 224, 0.2);
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  ion-content .ion-padding {
+    padding: 20px 16px;
+  }
+
+  ion-text {
+    padding: 24px 20px;
+    border-radius: 8px;
+  }
+
+  h2 {
+    font-size: 22px;
+    margin-bottom: 24px;
+    padding-bottom: 12px;
+
+    &::after {
+      width: 50px;
+      height: 2px;
+    }
+  }
+
+  h3 {
+    font-size: 16px;
+    margin: 24px 0 12px 0;
+    padding: 10px 14px;
+  }
+
+  p {
+    font-size: 14px;
+    text-align: left;
+    margin-bottom: 16px;
+
+    &:first-of-type {
+      font-size: 15px;
+      padding: 16px;
+      margin-bottom: 20px;
+    }
+
+    &.ion-margin-top {
+      padding: 14px;
+      font-size: 13px;
+      margin-top: 24px !important;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  ion-content .ion-padding {
+    padding: 16px 12px;
+  }
+
+  ion-text {
+    padding: 20px 16px;
+  }
+
+  h2 {
+    font-size: 20px;
+  }
+
+  h3 {
+    font-size: 15px;
+    padding: 8px 12px;
+  }
+
+  p {
+    font-size: 13px;
+
+    &:first-of-type {
+      font-size: 14px;
+      padding: 14px;
+    }
+  }
+}
+
+@media (min-width: 1024px) {
+  ion-content .ion-padding {
+    padding: 40px;
+  }
+
+  ion-text {
+    padding: 40px;
+  }
+
+  h2 {
+    font-size: 28px;
+    margin-bottom: 36px;
+    padding-bottom: 20px;
+
+    &::after {
+      width: 80px;
+      height: 4px;
+    }
+  }
+
+  h3 {
+    font-size: 19px;
+    margin: 32px 0 18px 0;
+    padding: 14px 18px;
+  }
+
+  p {
+    font-size: 16px;
+    line-height: 1.7;
+    margin-bottom: 20px;
+
+    &:first-of-type {
+      font-size: 17px;
+      padding: 24px;
+      margin-bottom: 32px;
+    }
+
+    &.ion-margin-top {
+      padding: 18px;
+      font-size: 15px;
+    }
+  }
+}

@@ -2,7 +2,6 @@ ion-content {
   --background: #f8f9fa;
 }
 
-/* Header styling con gradiente */
 ion-header {
   ion-toolbar {
     --background: linear-gradient(135deg, #000046 0%, #1c6ae0 100%);
@@ -17,7 +16,6 @@ ion-header {
   }
 }
 
-/* Collapsible header con estilo especial */
 ion-header[collapse="condense"] {
   ion-toolbar {
     --background: transparent;
@@ -46,7 +44,6 @@ ion-header[collapse="condense"] {
   }
 }
 
-/* Título de sección estilizado */
 .section-title {
   padding: 20px 20px 16px;
   margin-bottom: 0;

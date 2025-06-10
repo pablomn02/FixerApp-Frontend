@@ -1,12 +1,10 @@
 <ion-content [fullscreen]="true">
   <div class="page-container">
-    <!-- Header Section -->
     <div class="page-header">
       <h1>Encuentra tu profesional</h1>
       <p>{{ profesionalesFiltrados.length }} profesionales disponibles</p>
     </div>
 
-    <!-- Filters Section -->
     <div class="filters-section">
       <div class="filters-header" (click)="toggleFilters()">
         <div class="filters-title">
@@ -67,7 +65,6 @@
       </div>
     </div>
 
-    <!-- Professionals List -->
     <div class="professionals-container" *ngIf="profesionalesFiltrados.length > 0">
       <div class="professional-card" *ngFor="let prof of profesionalesFiltrados">
         <div class="card-content" (click)="abrirPerfil($event, prof)">
@@ -118,7 +115,6 @@
       </div>
     </div>
 
-    <!-- Empty State -->
     <div class="empty-state" *ngIf="profesionalesFiltrados.length === 0 && servicio">
       <div class="empty-content">
         <ion-icon name="search-outline" class="empty-icon"></ion-icon>
@@ -136,7 +132,6 @@
     </div>
   </div>
 
-  <!-- FAB -->
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button class="back-fab" (click)="navCtrl.back()">
       <ion-icon name="arrow-back-outline"></ion-icon>

@@ -44,7 +44,6 @@ export class RecuperarContrasenaPage {
         next: (response: any) => {
           loading.dismiss();
           this.successMessage = response.message || 'Se ha enviado un enlace de recuperación a tu correo electrónico.';
-          // Para pruebas, redirigimos con el token devuelto
           const token = response.token;
           if (token) {
             setTimeout(() => {

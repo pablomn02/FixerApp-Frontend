@@ -2,6 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { FavoritoService } from 'src/app/shared/services/favorito.service';
 import { ProfesionalServicioSimple } from 'src/app/shared/interfaces/profesional-servicio-simple';
+import { Valoracion } from '../../interfaces/valoracion';
+import { ValoracionesService } from '../../services/valoraciones.service';
 
 @Component({
   selector: 'app-perfil-profesional-modal',
@@ -12,17 +14,32 @@ import { ProfesionalServicioSimple } from 'src/app/shared/interfaces/profesional
 export class PerfilProfesionalModalPage implements OnInit {
   @Input() profesional!: ProfesionalServicioSimple;
   @Input() usuarioId!: number;
+  Math = Math;
+
 
   isFavorito = false;
   cargandoFavorito = false;
+  valoraciones: Valoracion[] = [];
 
   constructor(
     private modalCtrl: ModalController,
-    private favoritoService: FavoritoService
+    private favoritoService: FavoritoService,
+    private valoracionesService: ValoracionesService
   ) {}
 
   ngOnInit() {
     this.isFavorito = this.profesional.isFavorito;
+    this.cargarValoraciones();
+  }
+
+  cargarValoraciones() {
+    this.valoracionesService.getValoracionesByIdProfesional(this.profesional.idUsuario).subscribe({
+      next: (data) => this.valoraciones = data,
+      error: (err) => {
+        console.error('Error al cargar valoraciones', err);
+        this.valoraciones = [];
+      }
+    });
   }
 
   toggleFavorito() {

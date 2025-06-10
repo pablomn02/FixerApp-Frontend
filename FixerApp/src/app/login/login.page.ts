@@ -47,7 +47,6 @@ export class LoginPage {
   }
 
   onSubmit() {
-    // Limpiar el mensaje de error anterior
     this.errorMessage = null;
 
     if (this.loginForm.valid) {
@@ -100,7 +99,7 @@ export class LoginPage {
       this.navCtrl.navigateRoot('/tabs-cliente');
     } else if (rol === 'profesional') {
       console.log('Redirigiendo al usuario a los tabs de profesional...');
-      this.navCtrl.navigateRoot('/tabs-profesional/agenda');
+      this.navCtrl.navigateRoot('/tabs-profesional/solicitudes');
     } else if (rol === 'admin') {
       console.log('Redirigiendo al usuario a los tabs de administrador...');
       this.navCtrl.navigateRoot('/tabs-admin');

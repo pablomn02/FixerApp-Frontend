@@ -31,20 +31,17 @@ export class ResetPasswordPage implements OnInit {
   }
 
   ngOnInit() {
-    // Intentar leer el token con queryParams
     this.route.queryParams.subscribe(params => {
       console.log('Query params recibidos:', params);
       this.token = params['token'];
       console.log('Token extraído con queryParams:', this.token);
 
-      // Si no se encuentra el token con queryParams, intentar leerlo manualmente
       if (!this.token) {
         const urlParams = new URLSearchParams(window.location.search);
         this.token = urlParams.get('token');
         console.log('Token extraído manualmente:', this.token);
       }
 
-      // Si no se encuentra el token, redirigir al login
       if (!this.token) {
         this.errorMessage = 'Token no proporcionado. Por favor, usa el enlace del correo.';
         setTimeout(() => this.navCtrl.navigateRoot('/login'), 3000);

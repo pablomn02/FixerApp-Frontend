@@ -1,0 +1,365 @@
+.admin-content {
+  --background: #f8f9fa;
+}
+
+.section-title {
+  padding: 20px 20px 16px;
+  margin-bottom: 0;
+  animation: fadeIn 0.5s ease-in-out;
+  
+  h2 {
+    color: #000046;
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    margin: 0;
+    position: relative;
+    display: inline-block;
+    
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 60px;
+      height: 3px;
+      background: linear-gradient(135deg, #000046 0%, #1c6ae0 100%);
+      border-radius: 3px;
+    }
+  }
+}
+
+.accordion-container {
+  padding: 0 20px 20px;
+  
+  ion-accordion-group {
+    background: transparent;
+    
+    .user-accordion {
+      background: white;
+      border-radius: 16px;
+      margin-bottom: 16px;
+      box-shadow: 0 4px 15px rgba(0, 0, 70, 0.08);
+      overflow: hidden;
+      border: 1px solid rgba(28, 106, 224, 0.1);
+      transition: all 0.3s ease;
+      
+      &:last-child {
+        margin-bottom: 0;
+      }
+      
+      &:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(28, 106, 224, 0.15);
+      }
+      
+      .accordion-header {
+        --background: linear-gradient(135deg, #000046 0%, #1c6ae0 100%);
+        --color: white;
+        --border-width: 0;
+        --padding-start: 0;
+        --padding-end: 0;
+        --inner-padding-end: 0;
+        --min-height: 60px;
+        
+        .header-content {
+          display: flex;
+          align-items: center;
+          width: 100%;
+          padding: 16px 20px;
+          gap: 12px;
+          
+          .header-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            background: rgba(255, 255, 255, 0.2);
+            
+            &.users {
+              background: rgba(76, 175, 80, 0.3);
+            }
+            
+            &.clients {
+              background: rgba(255, 152, 0, 0.3);
+            }
+            
+            &.professionals {
+              background: rgba(33, 150, 243, 0.3);
+            }
+          }
+          
+          ion-label {
+            flex: 1;
+            font-size: 18px;
+            font-weight: 600;
+            color: white;
+            margin: 0;
+          }
+          
+          .user-count {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            min-width: 24px;
+            text-align: center;
+          }
+        }
+      }
+      
+      .accordion-content {
+        background: white;
+        margin: 0;
+        padding: 0;
+        
+        .user-item {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 16px 20px;
+          border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+          transition: all 0.2s ease;
+          
+          &:last-child {
+            border-bottom: none;
+          }
+          
+          &:hover {
+            background: rgba(28, 106, 224, 0.02);
+          }
+          
+          .user-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex: 1;
+            
+            .user-avatar {
+              width: 40px;
+              height: 40px;
+              border-radius: 50%;
+              background: linear-gradient(135deg, #000046 0%, #1c6ae0 100%);
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              color: white;
+              font-size: 16px;
+              font-weight: 600;
+              
+              &.client {
+                background: linear-gradient(135deg, #ff9800 0%, #f57c00 100%);
+              }
+              
+              &.professional {
+                background: linear-gradient(135deg, #4caf50 0%, #388e3c 100%);
+              }
+            }
+            
+            .user-details {
+              display: flex;
+              flex-direction: column;
+              
+              .user-name {
+                font-size: 16px;
+                font-weight: 500;
+                color: #333;
+                margin-bottom: 2px;
+              }
+              
+              .user-type {
+                font-size: 13px;
+                color: #666;
+              }
+            }
+          }
+          
+          .user-actions {
+            display: flex;
+            gap: 8px;
+            
+            .action-btn {
+              --border-radius: 8px;
+              --box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+              --border-width: 1px;
+              --border-style: solid;
+              width: 36px;
+              height: 36px;
+              margin: 0;
+              transition: all 0.2s ease;
+              
+              ion-icon {
+                font-size: 16px;
+              }
+              
+              &.edit-btn {
+                --background: linear-gradient(135deg, #000046 0%, #1c6ae0 100%);
+                --border-color: rgba(28, 106, 224, 0.3);
+                --color: white;
+                --box-shadow: 0 2px 6px rgba(28, 106, 224, 0.25);
+                
+                &:hover {
+                  transform: scale(1.05);
+                  --box-shadow: 0 4px 10px rgba(28, 106, 224, 0.3);
+                }
+              }
+              
+              &.delete-btn {
+                --background: linear-gradient(135deg, #f44336 0%, #d32f2f 100%);
+                --border-color: rgba(244, 67, 54, 0.3);
+                --color: white;
+                --box-shadow: 0 2px 6px rgba(244, 67, 54, 0.25);
+                
+                &:hover {
+                  transform: scale(1.05);
+                  --box-shadow: 0 4px 10px rgba(244, 67, 54, 0.3);
+                }
+              }
+              
+              &:active {
+                transform: scale(0.95);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (min-width: 768px) {
+  .section-title {
+    padding: 24px 20px 20px;
+    
+    h2 {
+      font-size: 24px;
+    }
+  }
+  
+  .accordion-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 24px 24px;
+    
+    .user-accordion {
+      margin-bottom: 20px;
+      
+      .accordion-header {
+        --min-height: 70px;
+        
+        .header-content {
+          padding: 20px 24px;
+          
+          .header-icon {
+            width: 36px;
+            height: 36px;
+            font-size: 18px;
+          }
+          
+          ion-label {
+            font-size: 20px;
+          }
+          
+          .user-count {
+            padding: 6px 16px;
+            font-size: 15px;
+          }
+        }
+      }
+      
+      .accordion-content {
+        .user-item {
+          padding: 20px 24px;
+          
+          .user-info {
+            gap: 16px;
+            
+            .user-avatar {
+              width: 48px;
+              height: 48px;
+              font-size: 18px;
+            }
+            
+            .user-details {
+              .user-name {
+                font-size: 17px;
+              }
+              
+              .user-type {
+                font-size: 14px;
+              }
+            }
+          }
+          
+          .user-actions {
+            gap: 10px;
+            
+            .action-btn {
+              width: 40px;
+              height: 40px;
+              
+              ion-icon {
+                font-size: 18px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (hover: none) {
+  .user-accordion:hover {
+    transform: none;
+    box-shadow: 0 4px 15px rgba(0, 0, 70, 0.08);
+  }
+  
+  .user-item:hover {
+    background: white;
+  }
+  
+  .action-btn:hover {
+    transform: none;
+  }
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+  .user-accordion {
+    border-width: 2px;
+    border-color: #000046;
+  }
+  
+  .action-btn.edit-btn {
+    --background: #000046;
+  }
+  
+  .action-btn.delete-btn {
+    --background: #d32f2f;
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

@@ -65,6 +65,18 @@ const routes: Routes = [
   {
     path: 'valoracion-modal',
     loadChildren: () => import('./shared/componentes/valoracion-modal/valoracion-modal.module').then( m => m.ValoracionModalPageModule)
+  },
+  {
+    path: 'mapa-modal',
+    loadChildren: () => import('./shared/componentes/mapa-modal/mapa-modal.module').then( m => m.MapaModalPageModule)
+  },
+  {
+    path: 'terminos-condiciones',
+    loadChildren: () => import('./shared/componentes/terminos-condiciones/terminos-condiciones.module').then( m => m.TerminosCondicionesPageModule)
+  },
+  {
+    path: 'ayuda',
+    loadChildren: () => import('./shared/componentes/ayuda/ayuda.module').then( m => m.AyudaPageModule)
   }
 
 

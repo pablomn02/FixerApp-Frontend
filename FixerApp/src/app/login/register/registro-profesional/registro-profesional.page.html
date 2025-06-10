@@ -49,7 +49,7 @@
             <span *ngIf="registerForm.get('username')?.errors?.['minlength']">El nombre de usuario debe tener al menos 2 caracteres</span>
           </div>
 
-          <!-- Campo Especialidad (clicable para abrir modal) -->
+          <!-- Campo Especialidad -->
           <ion-label class="form-label">Especialidad</ion-label>
           <ion-item class="form-item" lines="none" button (click)="abrirSelectorDeEspecialidad()">
             <ion-label>
@@ -59,7 +59,6 @@
           <div class="help-text">
             <span>Ej: Carpintero, Electricista, etc.</span>
           </div>
-
 
           <!-- Campo Precio por Hora -->
           <ion-label class="form-label">Precio por Hora (€)</ion-label>
@@ -75,11 +74,28 @@
             <span *ngIf="registerForm.get('precioHora')?.errors?.['min']">El precio por hora debe ser mayor o igual a 0</span>
           </div>
 
-          <!-- Campo Horario Disponible -->
+          <!-- Campo Ubicación -->
+          <ion-label class="form-label">Ubicación</ion-label>
+          <ion-item class="form-item" lines="none" button (click)="abrirMapaModal()">
+            <ion-label>
+              {{ registerForm.get('ubicacion.latitud')?.value && registerForm.get('ubicacion.longitud')?.value 
+                ? 'Latitud: ' + (registerForm.get('ubicacion.latitud')?.value | number:'1.6-6') + ', Longitud: ' + (registerForm.get('ubicacion.longitud')?.value | number:'1.6-6')
+                : 'Selecciona tu ubicación' }}
+            </ion-label>
+          </ion-item>
+          <div *ngIf="registerForm.get('ubicacion.latitud')?.touched && registerForm.get('ubicacion.latitud')?.invalid" class="error-message">
+            <span *ngIf="registerForm.get('ubicacion.latitud')?.errors?.['required']">La latitud es obligatorio</span>
+            <span *ngIf="registerForm.get('ubicacion.latitud')?.errors?.['min'] || registerForm.get('ubicacion.latitud')?.errors?.['max']">La latitud debe estar entre -90 y 90</span>
+          </div>
+          <div *ngIf="registerForm.get('ubicacion.longitud')?.touched && registerForm.get('ubicacion.longitud')?.invalid" class="error-message">
+            <span *ngIf="registerForm.get('ubicacion.longitud')?.errors?.['required']">La longitud es obligatoria</span>
+            <span *ngIf="registerForm.get('ubicacion.longitud')?.errors?.['min'] || registerForm.get('ubicacion.longitud')?.errors?.['max']">La longitud debe estar entre -180 y 180</span>
+          </div>
+
+          <!-- Campo Horario -->
           <ion-label class="form-label">Horario de disponibilidad</ion-label>
           <div formGroupName="horarioDisponible" class="time-picker-container">
-            <!-- Selector de Días -->
-            <ion-label class="form-label">Selecciona los dias</ion-label>
+            <ion-label>Selecciona los días</ion-label>
             <ion-item lines="none" class="checkbox-container">
               <ion-list>
                 <ion-item *ngFor="let dia of diasSemana" lines="none">

@@ -1,4 +1,3 @@
-// src/app/shared/services/favorito.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ProfesionalServicioSimple } from '../interfaces/profesional-servicio-simple';

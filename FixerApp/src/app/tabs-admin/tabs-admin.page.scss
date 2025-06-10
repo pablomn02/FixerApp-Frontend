@@ -1,4 +1,3 @@
-/* Header */
 ion-header {
     ion-toolbar {
       &::part(background) {
@@ -19,15 +18,16 @@ ion-header {
     }
   }
   
-  /* Título con estilo */
   #titulo {
     font-weight: 600;
-    text-align: center;
+    text-align: left;
+    margin-left: 24px;
     font-size: 24px;
     letter-spacing: 1px;
     color: white;
-    margin: 0;
-    padding: 12px 0 8px;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding: 12px 0;
   }
   
   ion-tabs {

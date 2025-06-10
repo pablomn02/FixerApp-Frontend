@@ -1,8 +1,27 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NavController, LoadingController, ModalController } from '@ionic/angular';
+import { MapaModalPage } from 'src/app/shared/componentes/mapa-modal/mapa-modal.page';
 import { SeleccionarServicioModalPage } from 'src/app/shared/componentes/seleccionar-servicio-modal/seleccionar-servicio-modal.page';
 import { LoginService } from 'src/app/shared/services/login.service';
+
+interface ProfesionalRegisterData {
+  nombre: string;
+  email: string;
+  usuario: string;
+  contrasena: string;
+  rol: string;
+  especialidad: string;
+  idServicio: number;
+  precioHora: number;
+  latitud: number;
+  longitud: number;
+  horarioDisponible: { [key: string]: { inicio: string; fin: string }[] };
+  experiencia: number | null;
+  certificaciones: string | null;
+  calificacionPromedio: number;
+  totalContrataciones: number;
+}
 
 @Component({
   selector: 'app-registro-profesional',
@@ -29,11 +48,11 @@ export class RegistroProfesionalPage {
       email: ['', [Validators.required, Validators.email]],
       username: ['', [Validators.required, Validators.minLength(2)]],
       especialidad: ['', [Validators.required, Validators.maxLength(100)]],
-      idServicio: [null, Validators.required], // Nuevo campo
+      idServicio: [null, Validators.required],
       precioHora: ['', [Validators.required, Validators.min(0)]],
       ubicacion: this.formBuilder.group({
-        latitud: [40.416775],
-        longitud: [-3.703790]
+        latitud: ['', [Validators.required, Validators.min(-90), Validators.max(90)]],
+        longitud: ['', [Validators.required, Validators.min(-180), Validators.max(180)]]
       }),
       horarioDisponible: this.formBuilder.group({
         inicio: [''],
@@ -45,6 +64,26 @@ export class RegistroProfesionalPage {
     }, { validators: this.compararContrasenas });
   }
 
+  async abrirMapaModal() {
+    const modal = await this.modalController.create({
+      component: MapaModalPage,
+      cssClass: 'classic-modal'
+    });
+
+    modal.onDidDismiss().then((res) => {
+      if (res.data) {
+        this.registerForm.patchValue({
+          ubicacion: {
+            latitud: res.data.latitud,
+            longitud: res.data.longitud
+          }
+        });
+      }
+    });
+
+    await modal.present();
+  }
+
   compararContrasenas(form: FormGroup) {
     const password = form.get('password')?.value;
     const confirmPassword = form.get('confirmPassword')?.value;
@@ -54,7 +93,7 @@ export class RegistroProfesionalPage {
   async abrirSelectorDeEspecialidad() {
     const modal = await this.modalController.create({
       component: SeleccionarServicioModalPage,
-      cssClass: 'classic-modal',
+      cssClass: 'classic-modal'
     });
 
     modal.onDidDismiss().then((res) => {
@@ -102,7 +141,7 @@ export class RegistroProfesionalPage {
   }
 
   buildHorarioDisponible(inicio: string, fin: string, diasSeleccionados: string[]) {
-    const horario: { [key: string]: { inicio: string, fin: string }[] } = {
+    const horario: { [key: string]: { inicio: string; fin: string }[] } = {
       lunes: [],
       martes: [],
       miercoles: [],
@@ -111,19 +150,18 @@ export class RegistroProfesionalPage {
       sabado: [],
       domingo: []
     };
-  
+
     if (inicio && fin && diasSeleccionados.length > 0) {
       diasSeleccionados.forEach(dia => {
         horario[dia].push({
-          inicio: inicio,
-          fin: fin
+          inicio: this.formatTime(inicio),
+          fin: this.formatTime(fin)
         });
       });
     }
-  
+
     return horario;
   }
-  
 
   async onSubmit() {
     this.errorMessage = null;
@@ -138,7 +176,15 @@ export class RegistroProfesionalPage {
       await loading.present();
 
       const { name, email, username, especialidad, idServicio, precioHora, ubicacion, horarioDisponible, password } = this.registerForm.value;
-      const userData = {
+      if (isNaN(ubicacion.latitud) || isNaN(ubicacion.longitud) || 
+          ubicacion.latitud < -90 || ubicacion.latitud > 90 || 
+          ubicacion.longitud < -180 || ubicacion.longitud > 180) {
+        this.errorMessage = 'La latitud y longitud deben ser válidas.';
+        loading.dismiss();
+        return;
+      }
+
+      const userData: ProfesionalRegisterData = {
         nombre: name,
         email,
         usuario: username,
@@ -170,7 +216,7 @@ export class RegistroProfesionalPage {
           loading.dismiss();
           console.error('Error al registrarse:', err);
           if (err.status === 400) {
-            this.errorMessage = err.error.error || 'Datos inválidos. Por favor, verifica los campos.';
+            this.errorMessage = err.error?.error || 'Datos inválidos. Por favor, verifica los campos.';
           } else if (err.status === 409) {
             this.errorMessage = 'El correo electrónico ya está registrado.';
           } else if (err.status === 500) {
@@ -182,7 +228,7 @@ export class RegistroProfesionalPage {
           }
           setTimeout(() => {
             this.errorMessage = null;
-          }, 5000);
+          }, 3000);
         }
       });
     } else {

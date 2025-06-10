@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Geolocation } from '@capacitor/geolocation';
 import { Subject } from 'rxjs';
+import { environment } from 'src/environments/environment.prod';
 @Injectable({
   providedIn: 'root'
 })
@@ -50,7 +51,7 @@ export class BuscarCalleService {
   }
 
   async obtenerDireccion(lat: number, lng: number): Promise<void> {
-    const url = `http://localhost:8080/geolocalizacion/reverse?lat=${lat}&lon=${lng}`;
+    const url = `${environment.url}/geolocalizacion/reverse?lat=${lat}&lon=${lng}`;
 
     try {
       const data: any = await this.httpClient.get(url).toPromise();

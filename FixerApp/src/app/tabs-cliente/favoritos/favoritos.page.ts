@@ -1,56 +1,45 @@
 import { Component, OnInit } from '@angular/core';
 import { FavoritoService } from 'src/app/shared/services/favorito.service';
 import { ProfesionalServicioSimple } from 'src/app/shared/interfaces/profesional-servicio-simple';
-import { ModalController, LoadingController, ToastController } from '@ionic/angular';
+import { AlertController, ModalController } from '@ionic/angular';
 import { PerfilProfesionalModalPage } from 'src/app/shared/componentes/perfil-profesional-modal/perfil-profesional-modal.page';
 import { ContratarModalPage } from 'src/app/shared/componentes/contratar-modal/contratar-modal.page';
-import { BuscarCalleService } from 'src/app/shared/services/buscar-calle.service';
+import { LoadingController } from '@ionic/angular/standalone';
 
 @Component({
   selector: 'app-favoritos',
   templateUrl: './favoritos.page.html',
   styleUrls: ['./favoritos.page.scss'],
-  standalone: false,
+  standalone: false
 })
 export class FavoritosPage implements OnInit {
-  favorites: ProfesionalServicioSimple[] = [];
-  usuarioIdLogueado: number = 0;
-  direccion: string = '';
+  favoritos: ProfesionalServicioSimple[] = [];
+  idUsuario: number = 0;
 
   constructor(
-    private favoritoService: FavoritoService,
+    private favoritoServicio: FavoritoService,
     private modalCtrl: ModalController,
     private loadingCtrl: LoadingController,
-    private toastCtrl: ToastController,
-    private buscarCalleService: BuscarCalleService
+    private alertCtrl: AlertController
   ) {}
 
-  ngOnInit(): void {
-    const idGuardado = localStorage.getItem('idUsuario');
-    if (idGuardado) {
-      this.usuarioIdLogueado = parseInt(idGuardado, 10);
+  ngOnInit(): void {}
+
+  ionViewWillEnter(): void {
+    const id = localStorage.getItem('idUsuario');
+    if (id) {
+      this.idUsuario = parseInt(id, 10);
       this.cargarFavoritos();
     }
-
-    this.buscarCalleService.direccion$.subscribe((dir) => {
-      this.direccion = dir;
-    });
-
-    this.buscarCalleService.obtenerUbicacion();
   }
 
   cargarFavoritos() {
-    this.favoritoService.getFavoritos(this.usuarioIdLogueado).subscribe(
-      (data) => {
-        this.favorites = data.map(p => ({
-          ...p,
-          isFavorito: true
-        }));
-      },
-      (error) => {
-        console.error('Error al obtener favoritos', error);
-      }
-    );
+    this.favoritoServicio.getFavoritos(this.idUsuario).subscribe((datos) => {
+      this.favoritos = datos.map(p => ({
+        ...p,
+        isFavorito: true
+      }));
+    });
   }
 
   abrirPerfil(profesional: ProfesionalServicioSimple) {
@@ -58,118 +47,112 @@ export class FavoritosPage implements OnInit {
       component: PerfilProfesionalModalPage,
       componentProps: {
         profesional: profesional,
-        usuarioId: this.usuarioIdLogueado
-      },
-      cssClass: 'perfil-modal'
+        usuarioId: this.idUsuario
+      }
     }).then(modal => {
-      modal.onDidDismiss().then(result => {
-        if (result.data === true) {
-          const index = this.favorites.findIndex(p => p.idUsuario === profesional.idUsuario);
-          if (index !== -1) {
-            this.favorites[index].isFavorito = !this.favorites[index].isFavorito;
-            if (!this.favorites[index].isFavorito) {
-              this.favorites.splice(index, 1);
-            }
-          }
+      modal.onDidDismiss().then(resultado => {
+        if (resultado.data === true) {
+          this.actualizarFavoritos(profesional);
         }
       });
       modal.present();
     });
   }
 
-  contratar(profesional: ProfesionalServicioSimple) {
-    if (!profesional.idProfesionalServicio) {
-      console.log('El profesional no tiene idProfesionalServicio');
-      return;
+  actualizarFavoritos(profesional: ProfesionalServicioSimple) {
+    const index = this.favoritos.findIndex(p => p.idUsuario === profesional.idUsuario);
+    if (index !== -1) {
+      this.favoritos[index].isFavorito = !this.favoritos[index].isFavorito;
+      if (!this.favoritos[index].isFavorito) {
+        this.favoritos.splice(index, 1);
+      }
     }
+  }
 
-    if (!profesional.ubicacion || profesional.ubicacion.latitud == null || profesional.ubicacion.longitud == null) {
-      this.presentToast('El profesional no tiene ubicación.', 'danger');
+  contratar(profesional: ProfesionalServicioSimple) {
+    if (!profesional.idProfesionalServicio || !profesional.ubicacion) {
       return;
     }
 
     this.loadingCtrl.create({
-      message: 'Comprobando la distancia al profesional...',
-      spinner: 'circles'
+      message: 'Comprobando distancia...',
+      spinner: 'crescent'
     }).then(loader => {
       loader.present();
 
-      setTimeout(() => {
-        this.obtenerUbicacionCliente((ubicacionCliente) => {
-          loader.dismiss();
+      this.obtenerUbicacionCliente((ubicacionCliente) => {
+        loader.dismiss();
 
-          if (!ubicacionCliente) {
-            this.presentToast('No se pudo obtener tu ubicación.', 'danger');
-            return;
-          }
+        if (!ubicacionCliente) {
+          this.mostrarAlerta('No se pudo obtener tu ubicación.');
+          return;
+        }
 
-          const distancia = this.calcularDistanciaKm(
-            ubicacionCliente.latitud,
-            ubicacionCliente.longitud,
-            profesional.ubicacion!.latitud,
-            profesional.ubicacion!.longitud
-          );
+        const distancia = this.calcularDistanciaKm(
+          ubicacionCliente.latitud,
+          ubicacionCliente.longitud,
+          profesional.ubicacion.latitud,
+          profesional.ubicacion.longitud
+        );
 
-          if (distancia > 30) {
-            this.presentToast(`El profesional está a ${distancia.toFixed(1)} km, fuera del rango.`, 'warning');
-            return;
-          }
-
+        if (distancia <= 30) {
           this.modalCtrl.create({
             component: ContratarModalPage,
             componentProps: {
               profesional: profesional,
-              usuarioId: this.usuarioIdLogueado
-            },
-            cssClass: 'classic-modal'
+              usuarioId: this.idUsuario
+            }
           }).then(modal => modal.present());
-        });
-      }, 2000);
+        } else {
+          this.mostrarAlerta(`El profesional está a ${distancia.toFixed(1)} km. Fuera del alcance.`);
+        }
+      });
     });
   }
 
+  mostrarAlerta(mensaje: string) {
+    this.alertCtrl.create({
+      header: 'Aviso',
+      message: mensaje,
+      buttons: ['Aceptar']
+    }).then(alerta => alerta.present());
+  }
+
+
+
   obtenerUbicacionCliente(callback: (ubicacion: { latitud: number; longitud: number } | null) => void) {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          callback({
-            latitud: position.coords.latitude,
-            longitud: position.coords.longitude
-          });
-        },
-        (error) => {
-          console.error('Error obteniendo ubicación:', error);
-          callback(null);
-        },
-        { enableHighAccuracy: true }
-      );
-    } else {
+    if (!navigator.geolocation) {
       callback(null);
+      return;
     }
+
+    navigator.geolocation.getCurrentPosition(
+      (posicion) => {
+        callback({
+          latitud: posicion.coords.latitude,
+          longitud: posicion.coords.longitude
+        });
+      },
+      () => {
+        callback(null);
+      },
+      { enableHighAccuracy: true }
+    );
   }
 
   calcularDistanciaKm(lat1: number, lon1: number, lat2: number, lon2: number): number {
     const R = 6371;
-    const dLat = this.toRadian(lat2 - lat1);
-    const dLon = this.toRadian(lon2 - lon1);
+    const dLat = this.aRadianes(lat2 - lat1);
+    const dLon = this.aRadianes(lon2 - lon1);
     const a =
       Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-      Math.cos(this.toRadian(lat1)) * Math.cos(this.toRadian(lat2)) *
+      Math.cos(this.aRadianes(lat1)) * Math.cos(this.aRadianes(lat2)) *
       Math.sin(dLon / 2) * Math.sin(dLon / 2);
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     return R * c;
   }
 
-  toRadian(value: number): number {
-    return value * Math.PI / 180;
-  }
-
-  presentToast(message: string, color: 'success' | 'danger' | 'warning') {
-    this.toastCtrl.create({
-      message: message,
-      duration: 3000,
-      position: 'bottom',
-      color: color
-    }).then(toast => toast.present());
+  aRadianes(valor: number): number {
+    return valor * Math.PI / 180;
   }
 }

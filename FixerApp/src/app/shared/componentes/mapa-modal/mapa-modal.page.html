@@ -1,0 +1,38 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Mapa</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Mapa</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <div #map style="height: calc(100% - 240px); width: 100%;"></div>
+
+  <ion-card *ngIf="locationError">
+    <ion-card-header>
+      <ion-card-title>Error</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      {{ locationError }}
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card *ngIf="selectedCoordinates">
+    <ion-card-header>
+      <ion-card-title>Coordenadas Seleccionadas</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      Latitud: {{ selectedCoordinates.lat | number:'1.4-4' }}<br>
+      Longitud: {{ selectedCoordinates.lng | number:'1.4-4' }}
+    </ion-card-content>
+  </ion-card>
+
+  <ion-button *ngIf="selectedCoordinates" expand="block" (click)="selectLocation()" class="select-location-btn">
+    Seleccionar Ubicación
+  </ion-button>
+</ion-content>

@@ -18,6 +18,20 @@
       <h2>{{ profesional.nombre }}</h2>
       <p class="specialty">{{ profesional.especialidad }}</p>
       <p class="experience">Precio: {{ profesional.precioHora }} €/h</p>
+
+      <div class="rating-average" *ngIf="profesional.valoracionMedia">
+        <div class="stars-container">
+          <span class="star" 
+                *ngFor="let star of [1,2,3,4,5]" 
+                [class.filled]="star <= Math.floor(profesional.valoracionMedia)"
+                [class.half-filled]="star === Math.ceil(profesional.valoracionMedia) && profesional.valoracionMedia % 1 !== 0">
+            ⭐
+          </span>
+        </div>
+        <div class="rating-text">
+          <span class="rating-number">{{ profesional.valoracionMedia }}</span>/5
+        </div>
+      </div>
     </div>
 
     <ion-button
@@ -35,41 +49,26 @@
       <ion-spinner *ngIf="cargandoFavorito" name="crescent"></ion-spinner>
     </ion-button>
   </div>
-
-  <ion-list>
-    <h5>Contacto</h5>
-    <ion-item *ngIf="profesional.especialidad">
-      <ion-icon name="call-outline" slot="start"></ion-icon>
-      <ion-label>{{ profesional.especialidad }}</ion-label>
-    </ion-item>
-    <ion-item *ngIf="profesional.especialidad">
-      <ion-icon name="mail-outline" slot="start"></ion-icon>
-      <ion-label>{{ profesional.especialidad }}</ion-label>
-    </ion-item>
-  </ion-list>
-
-  <ion-list>
-    <h5>Información</h5>
-    <ion-item>
-      <ion-icon name="time-outline" slot="start"></ion-icon>
+  
+  <ion-list *ngIf="valoraciones.length > 0" class="valoraciones-list">
+    <h5>Valoraciones</h5>
+    <ion-item *ngFor="let valoracion of valoraciones">
       <ion-label>
-        <h3>Horario</h3>
-        <p>{{ profesional.especialidad }}</p>
-      </ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-icon name="person-outline" slot="start"></ion-icon>
-      <ion-label>
-        <h3>Usuario</h3>
-        <p>{{ profesional.especialidad }}</p>
-      </ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-icon name="shield-checkmark-outline" slot="start"></ion-icon>
-      <ion-label>
-        <h3>Rol</h3>
-        <p>{{ profesional.nombre }}</p>
+        <h3>{{ valoracion.nombreCliente }}</h3>
+        <p class="comment">{{ valoracion.comentario }}</p>
+        <div class="client-stars">
+          <span class="star"
+                *ngFor="let star of [1,2,3,4,5]"
+                [class.filled]="star <= valoracion.puntuacion">
+            ⭐
+          </span>
+          <span class="rating-value">{{ valoracion.puntuacion }}/5</span>
+        </div>
       </ion-label>
     </ion-item>
   </ion-list>
+
+  <ion-text color="medium" *ngIf="valoraciones.length === 0">
+    <p class="ion-padding">Este profesional aún no tiene valoraciones.</p>
+  </ion-text>
 </ion-content>
