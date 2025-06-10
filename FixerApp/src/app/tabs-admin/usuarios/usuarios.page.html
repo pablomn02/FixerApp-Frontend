@@ -1,53 +1,72 @@
 <ion-content id="main-content">
   <div class="section-title">
-    <h2>Mis contrataciones</h2>
+    <h2>Gestión de Usuarios</h2>
   </div>
+
   <ion-accordion-group>
+    <!-- Todos los Usuarios -->
     <ion-accordion value="usuarios">
       <ion-item slot="header">
         <ion-label>Todos los Usuarios ({{ listaUsuarios.length }})</ion-label>
       </ion-item>
       <ion-list slot="content">
         <ion-item *ngFor="let usuario of listaUsuarios">
-          <ion-label>{{ usuario.nombre }}</ion-label>
-          <ion-button slot="end" color="warning" size="small" (click)="editarUsuario(usuario)">
-            <ion-icon name="create-outline"></ion-icon>
-          </ion-button>
-          <ion-button slot="end" color="danger" size="small" (click)="deleteUsuario(usuario)">
-            <ion-icon name="trash-outline"></ion-icon>
-          </ion-button>
+          <ion-label>
+            <h3>{{ usuario.nombre }}</h3>
+            <p>{{ usuario.nombreUsuario }} - {{ usuario.tipoUsuario | titlecase }}</p>
+          </ion-label>
+          <ion-buttons slot="end">
+            <ion-button color="warning" size="large" (click)="editarUsuario(usuario)">
+              <ion-icon name="create-outline"></ion-icon>
+            </ion-button>
+            <ion-button color="danger" size="large" (click)="deleteUsuario(usuario)">
+              <ion-icon name="trash-outline"></ion-icon>
+            </ion-button>
+          </ion-buttons>
         </ion-item>
       </ion-list>
     </ion-accordion>
+
+    <!-- Clientes -->
     <ion-accordion value="clientes">
       <ion-item slot="header">
         <ion-label>Clientes ({{ listaClientes.length }})</ion-label>
       </ion-item>
       <ion-list slot="content">
         <ion-item *ngFor="let cliente of listaClientes">
-          <ion-label>{{ cliente.nombre }}</ion-label>
-          <ion-button slot="end" color="warning" size="small" (click)="editarUsuario(cliente)">
-            <ion-icon name="create-outline"></ion-icon>
-          </ion-button>
-          <ion-button slot="end" color="danger" size="small" (click)="deleteUsuario(cliente)">
-            <ion-icon name="trash-outline"></ion-icon>
-          </ion-button>
+          <ion-label>
+            <h3>{{ cliente.nombre }}</h3>
+          </ion-label>
+          <ion-buttons slot="end">
+            <ion-button color="warning" size="small" (click)="editarUsuario(cliente)">
+              <ion-icon name="create-outline"></ion-icon>
+            </ion-button>
+            <ion-button color="danger" size="small" (click)="deleteUsuario(cliente)">
+              <ion-icon name="trash-outline"></ion-icon>
+            </ion-button>
+          </ion-buttons>
         </ion-item>
       </ion-list>
     </ion-accordion>
+
+    <!-- Profesionales -->
     <ion-accordion value="profesionales">
       <ion-item slot="header">
         <ion-label>Profesionales ({{ listaProfesionales.length }})</ion-label>
       </ion-item>
       <ion-list slot="content">
         <ion-item *ngFor="let profesional of listaProfesionales">
-          <ion-label>{{ profesional.nombre }}</ion-label>
-          <ion-button slot="end" color="warning" size="small" (click)="editarUsuario(profesional)">
-            <ion-icon name="create-outline"></ion-icon>
-          </ion-button>
-          <ion-button slot="end" color="danger" size="small" (click)="deleteUsuario(profesional)">
-            <ion-icon name="trash-outline"></ion-icon>
-          </ion-button>
+          <ion-label>
+            <h3>{{ profesional.nombre }}</h3>
+          </ion-label>
+          <ion-buttons slot="end">
+            <ion-button color="warning" size="small" (click)="editarUsuario(profesional)">
+              <ion-icon name="create-outline"></ion-icon>
+            </ion-button>
+            <ion-button color="danger" size="small" (click)="deleteUsuario(profesional)">
+              <ion-icon name="trash-outline"></ion-icon>
+            </ion-button>
+          </ion-buttons>
         </ion-item>
       </ion-list>
     </ion-accordion>

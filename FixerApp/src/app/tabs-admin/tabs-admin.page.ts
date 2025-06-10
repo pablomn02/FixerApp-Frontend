@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { AyudaPage } from '../shared/componentes/ayuda/ayuda.page';
 import { TerminosCondicionesPage } from '../shared/componentes/terminos-condiciones/terminos-condiciones.page';
-import { ModalController } from '@ionic/angular/standalone';
+import { ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-tabs-admin',

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ModalController } from '@ionic/angular';
+import { EditarPerfilModalPage } from 'src/app/shared/componentes/editar-perfil-modal/editar-perfil-modal.page';
 import { Cliente } from 'src/app/shared/interfaces/cliente';
 import { ProfesionalServicioSimple } from 'src/app/shared/interfaces/profesional-servicio-simple';
 import { UsuarioService } from 'src/app/shared/services/usuario.service';
@@ -12,7 +13,6 @@ import { UsuarioService } from 'src/app/shared/services/usuario.service';
   standalone: false
 })
 export class UsuariosPage implements OnInit {
-
   listaUsuarios: any[] = [];
   listaClientes: Cliente[] = [];
   listaProfesionales: ProfesionalServicioSimple[] = [];
@@ -20,7 +20,8 @@ export class UsuariosPage implements OnInit {
   constructor(
     private router: Router,
     private alertController: AlertController,
-    private usuarioService: UsuarioService
+    private usuarioService: UsuarioService,
+    private modalCtrl: ModalController
   ) {}
 
   ngOnInit() {
@@ -33,9 +34,6 @@ export class UsuariosPage implements OnInit {
         if (data && data.length > 0) {
           this.listaUsuarios = data;
           this.filtrarUsuariosByTipo(data);
-          console.log('Usuarios:', this.listaUsuarios);
-          console.log('Clientes:', this.listaClientes);
-          console.log('Profesionales:', this.listaProfesionales);
         }
       },
       error: (err) => {
@@ -58,7 +56,20 @@ export class UsuariosPage implements OnInit {
   }
 
   async editarUsuario(usuario: any) {
-    this.router.navigate(['/edit-usuario', usuario.id]);
+    const modal = await this.modalCtrl.create({
+      component: EditarPerfilModalPage,
+      componentProps: {
+        idUsuario: usuario.id
+      }
+    });
+
+    modal.onDidDismiss().then(({ data }) => {
+      if (data === true) {
+        this.getAllUsuarios();
+      }
+    });
+
+    await modal.present();
   }
 
   async deleteUsuario(usuario: any) {
@@ -69,21 +80,16 @@ export class UsuariosPage implements OnInit {
         {
           text: 'Cancelar',
           role: 'cancel',
-          cssClass: 'secondary',
-          handler: () => {
-            console.log('Eliminación cancelada');
-          }
+          cssClass: 'secondary'
         }, {
           text: 'Eliminar',
           cssClass: 'danger',
           handler: () => {
             this.usuarioService.deleteUsuario(usuario.id).subscribe({
               next: () => {
-                console.log('Usuario eliminado con éxito');
                 this.getAllUsuarios();
               },
-              error: (err) => {
-                console.error('Error al eliminar usuario:', err);
+              error: () => {
                 this.presentErrorAlert();
               }
             });
@@ -113,10 +119,7 @@ export class UsuariosPage implements OnInit {
         {
           text: 'Cancelar',
           role: 'cancel',
-          cssClass: 'secondary',
-          handler: () => {
-            console.log('Cierre de sesión cancelado');
-          }
+          cssClass: 'secondary'
         }, {
           text: 'Aceptar',
           handler: () => {
@@ -131,8 +134,6 @@ export class UsuariosPage implements OnInit {
 
   logout() {
     localStorage.removeItem('token');
-    console.log("Sesión cerrada con éxito");
     this.router.navigate(['/login']);
   }
-
 }

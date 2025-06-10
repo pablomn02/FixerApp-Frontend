@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ModalController, NavController } from '@ionic/angular';
 import { UsuarioService } from '../../services/usuario.service';
 
@@ -9,6 +9,7 @@ import { UsuarioService } from '../../services/usuario.service';
   standalone: false
 })
 export class EditarPerfilModalPage implements OnInit {
+  @Input() idUsuario?: number;
   usuario: any = {};
 
   constructor(
@@ -18,9 +19,9 @@ export class EditarPerfilModalPage implements OnInit {
   ) {}
 
   ngOnInit() {
-    const id = localStorage.getItem('idUsuario');
+    const id = this.idUsuario ?? +localStorage.getItem('idUsuario')!;
     if (id) {
-      this.usuarioService.getUsuarioById(+id).subscribe(user => {
+      this.usuarioService.getUsuarioById(id).subscribe(user => {
         this.usuario = user;
         this.usuario.contrasena = '';
       });
@@ -30,7 +31,6 @@ export class EditarPerfilModalPage implements OnInit {
   cancelar() {
     this.modalCtrl.dismiss(false);
   }
-
 
   guardarCambios() {
     const body = {
@@ -44,5 +44,4 @@ export class EditarPerfilModalPage implements OnInit {
       this.modalCtrl.dismiss(true);
     });
   }
-
 }

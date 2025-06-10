@@ -60,8 +60,13 @@ export class PerfilPage implements OnInit {
   }
 
   async abrirEditarPerfil() {
+    const idUsuario = +localStorage.getItem('idUsuario')!;
+
     const modal = await this.modalCtrl.create({
-      component: EditarPerfilModalPage
+      component: EditarPerfilModalPage,
+      componentProps: {
+        idUsuario
+      }
     });
 
     modal.onDidDismiss().then(({ data }) => {

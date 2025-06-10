@@ -7,13 +7,14 @@ import { IonicModule } from '@ionic/angular';
 import { TabsAdminPageRoutingModule } from './tabs-admin-routing.module';
 
 import { TabsAdminPage } from './tabs-admin.page';
+import { AyudaPage } from '../shared/componentes/ayuda/ayuda.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    TabsAdminPageRoutingModule
+    TabsAdminPageRoutingModule,
   ],
   declarations: [TabsAdminPage]
 })

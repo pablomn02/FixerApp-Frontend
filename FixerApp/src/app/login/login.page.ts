@@ -102,7 +102,7 @@ export class LoginPage {
       this.navCtrl.navigateRoot('/tabs-profesional/solicitudes');
     } else if (rol === 'admin') {
       console.log('Redirigiendo al usuario a los tabs de administrador...');
-      this.navCtrl.navigateRoot('/tabs-admin');
+      this.navCtrl.navigateRoot('/tabs-admin/usuarios');
     }
   }
 }
