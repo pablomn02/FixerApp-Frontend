@@ -21,12 +21,11 @@
 
       <div class="rating-average" *ngIf="profesional.valoracionMedia">
         <div class="stars-container">
-          <span class="star" 
-                *ngFor="let star of [1,2,3,4,5]" 
-                [class.filled]="star <= Math.floor(profesional.valoracionMedia)"
-                [class.half-filled]="star === Math.ceil(profesional.valoracionMedia) && profesional.valoracionMedia % 1 !== 0">
-            ⭐
-          </span>
+          <ion-icon
+            *ngFor="let star of [1,2,3,4,5]"
+            [name]="getStarIcon(star, profesional.valoracionMedia)"
+            class="star"
+          ></ion-icon>
         </div>
         <div class="rating-text">
           <span class="rating-number">{{ profesional.valoracionMedia }}</span>/5
@@ -57,11 +56,11 @@
         <h3>{{ valoracion.nombreCliente }}</h3>
         <p class="comment">{{ valoracion.comentario }}</p>
         <div class="client-stars">
-          <span class="star"
-                *ngFor="let star of [1,2,3,4,5]"
-                [class.filled]="star <= valoracion.puntuacion">
-            ⭐
-          </span>
+          <ion-icon
+            *ngFor="let star of [1,2,3,4,5]"
+            [name]="getStarIcon(star, valoracion.puntuacion)"
+            class="star"
+          ></ion-icon>
           <span class="rating-value">{{ valoracion.puntuacion }}/5</span>
         </div>
       </ion-label>

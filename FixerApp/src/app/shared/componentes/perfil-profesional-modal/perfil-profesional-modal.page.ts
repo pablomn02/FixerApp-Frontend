@@ -16,7 +16,6 @@ export class PerfilProfesionalModalPage implements OnInit {
   @Input() usuarioId!: number;
   Math = Math;
 
-
   isFavorito = false;
   cargandoFavorito = false;
   valoraciones: Valoracion[] = [];
@@ -64,5 +63,15 @@ export class PerfilProfesionalModalPage implements OnInit {
 
   closeModal(favoritoCambiado: boolean = false) {
     this.modalCtrl.dismiss(favoritoCambiado);
+  }
+
+  getStarIcon(star: number, rating: number): string {
+    if (star <= Math.floor(rating)) {
+      return 'star';
+    } else if (star === Math.ceil(rating) && rating % 1 >= 0.3) {
+      return 'star-half-outline';
+    } else {
+      return 'star-outline';
+    }
   }
 }

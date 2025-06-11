@@ -113,11 +113,4 @@ ion-button {
   font-weight: 600;
 }
 
-// Css para adaptacion a moviles android
-ion-content {
-  padding-bottom: env(safe-area-inset-bottom);
-}
 
-ion-header {
-  --padding-top: 40x
-}
