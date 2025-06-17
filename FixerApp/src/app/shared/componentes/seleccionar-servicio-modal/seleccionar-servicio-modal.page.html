@@ -2,14 +2,14 @@
   <ion-toolbar>
     <ion-title>Seleccionar Especialidad</ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)="cerrarModal()">Cerrar</ion-button>
+      <ion-button (click)="cerrarModal()">
+        <ion-icon name="close" slot="icon-only"></ion-icon>
+      </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
-
-  <ion-searchbar [(ngModel)]="searchTerm" placeholder="Buscar categoría o servicio..." disabled></ion-searchbar>
 
   <ion-list>
     <ng-container *ngFor="let categoria of categorias">

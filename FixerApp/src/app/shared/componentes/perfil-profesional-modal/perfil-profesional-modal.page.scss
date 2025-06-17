@@ -1,7 +1,11 @@
-/* Header con gradiente predominante ajustado */
+/* Header con gradiente predominante ajustado y Safe Area */
 ion-header {
+  /* Safe area para evitar solapamiento con barra de estado */
+  padding-top: env(safe-area-inset-top, 0);
+  background: linear-gradient(135deg, #000046 0%, #1c6ae0 100%);
+
   ion-toolbar {
-    --background: linear-gradient(135deg, #000046 0%, #1c6ae0 100%);
+    --background: transparent; /* Transparente para mostrar el gradiente del header */
     --color: white;
     --border-width: 0;
     --min-height: 64px;
@@ -25,11 +29,15 @@ ion-header {
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: background 0.2s ease, transform 0.2s ease;
+      transition: all 0.2s ease;
 
       &:hover {
         --background: rgba(255, 255, 255, 0.2);
         transform: scale(1.05);
+      }
+
+      &:active {
+        transform: scale(0.95);
       }
 
       ion-icon {
@@ -45,7 +53,8 @@ ion-content.bg-primary {
   --padding-start: 16px;
   --padding-end: 16px;
   --padding-top: 20px;
-  --padding-bottom: 20px;
+  /* Añadir safe area inferior */
+  --padding-bottom: calc(20px + env(safe-area-inset-bottom, 0));
 }
 
 .profile-section {
@@ -77,6 +86,11 @@ ion-content.bg-primary {
     border-radius: 50%;
     padding: 12px;
     box-shadow: 0 2px 8px rgba(28, 0, 224, 0.2);
+    transition: transform 0.2s ease;
+
+    &:hover {
+      transform: scale(1.05);
+    }
   }
 }
 
@@ -169,6 +183,11 @@ ion-content.bg-primary {
   ion-icon {
     color: white;
     animation: heartPulse 0.6s ease-out;
+  }
+
+  &:hover {
+    --background: #e6000c;
+    transform: scale(1.15);
   }
 }
 
@@ -426,6 +445,13 @@ ion-text[color="medium"] {
   }
 }
 
+/* Ajustes para dispositivos con notch */
+@supports (padding-top: env(safe-area-inset-top)) {
+  ion-header {
+    background: linear-gradient(135deg, #000046 0%, #1c6ae0 100%);
+  }
+}
+
 /* Animación básica de entrada */
 @keyframes slideUp {
   from {
@@ -457,6 +483,29 @@ ion-text[color="medium"] {
 }
 
 /* Responsive */
+@media (max-width: 480px) {
+  ion-header ion-toolbar {
+    --min-height: 56px;
+
+    ion-title {
+      font-size: 18px;
+    }
+
+    ion-button {
+      width: 36px;
+      height: 36px;
+
+      ion-icon {
+        font-size: 18px;
+      }
+    }
+  }
+
+  ion-content.bg-primary {
+    --padding-bottom: calc(16px + env(safe-area-inset-bottom, 0));
+  }
+}
+
 @media (max-width: 360px) {
   .profile-section {
     padding: 20px;
@@ -592,5 +641,27 @@ ion-text[color="medium"] {
         }
       }
     }
+  }
+
+  ion-content.bg-primary {
+    --padding-bottom: calc(24px + env(safe-area-inset-bottom, 0));
+  }
+}
+
+/* Para dispositivos sin safe area (fallback) */
+@media (max-width: 768px) and (orientation: portrait) {
+  ion-header {
+    padding-top: max(env(safe-area-inset-top, 0), 20px);
+  }
+}
+
+/* Fallback para dispositivos sin soporte de safe area */
+@supports not (padding-top: env(safe-area-inset-top)) {
+  ion-header {
+    padding-top: 20px;
+  }
+  
+  ion-content.bg-primary {
+    --padding-bottom: 40px;
   }
 }

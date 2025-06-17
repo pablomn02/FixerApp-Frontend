@@ -1,11 +1,9 @@
-/* Estilos para la página de favoritos */
 ion-content#main-content {
-  --background: #f8f9fa;
+  --background: #f5f7fa;
   
   .section-title {
     padding: 20px 20px 16px;
     margin-bottom: 0;
-    animation: fadeIn 0.5s ease-in-out;
     
     h2 {
       color: #000046;
@@ -31,95 +29,152 @@ ion-content#main-content {
   
   /* Contenedor de favoritos */
   .favorites-container {
-    padding: 0 20px;
-    animation: slideUp 0.5s ease-in-out;
+    padding: 0 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
   }
   
-  /* Lista de favoritos */
-  .favorites-list {
-    background: transparent;
-    padding: 0;
-    margin: 0;
-    max-width: 700px;
-    margin: 0 auto;
-  }
-  
-  /* Cada ítem de favorito */
-  .favorite-item {
-    --background: rgba(255, 255, 255, 0);
-    --border-color: transparent;
-    --border-radius: 16px;
-    --padding-start: 0;
-    --padding-end: 0;
-    --inner-padding-end: 0;
-    margin-bottom: 16px;
-    border-radius: 16px;
-    border: 1px solid rgba(0, 0, 0, 0.10);
-    overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  /* Tarjeta de profesional */
+  .professional-card {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    transition: transform 0.2s ease;
+    border: 1px solid rgba(0, 0, 0, 0.05);
     
-    &:last-child {
-      margin-bottom: 0;
-    }
-    
-    ion-avatar {
-      width: 50px;
-      height: 50px;
-      margin: 0 16px;
-      background: linear-gradient(135deg, #e6f0ff 0%, #f0f7ff 100%);
+    /* Header con avatar y info */
+    .card-header {
       display: flex;
       align-items: center;
-      justify-content: center;
+      gap: 16px;
+      margin-bottom: 16px;
       
-      ion-icon {
-        font-size: 32px;
-        color: #1c6ae0;
+      .professional-avatar {
+        width: 48px;
+        height: 48px;
+        background: linear-gradient(135deg, #4285f4 0%, #1c6ae0 100%);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: transform 0.2s ease;
+        
+        ion-icon {
+          font-size: 24px;
+          color: white;
+        }
+      }
+      
+      .professional-info {
+        flex: 1;
+        
+        .professional-name {
+          font-size: 18px;
+          font-weight: 600;
+          color: white;
+          margin: 0 0 4px 0;
+          line-height: 1.2;
+          letter-spacing: -0.2px;
+        }
+        
+        .professional-specialty {
+          font-size: 14px;
+          color: white;
+          margin: 0;
+          line-height: 1.2;
+          font-weight: 500;
+        }
       }
     }
     
-    ion-label {
-      padding: 16px 0;
-      margin: 0;
+    /* Detalles del profesional */
+    .professional-details {
+      margin-bottom: 20px;
       
-      h3 {
-        font-size: 16px;
-        font-weight: 600;
-        color: #333;
-        margin: 0 0 4px 0;
-      }
-      
-      p {
-        font-size: 14px;
-        color: #1c6ae0;
-        margin: 0;
+      .detail-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 12px;
+        padding: 8px 0;
+        
+        &:last-child {
+          margin-bottom: 0;
+        }
+        
+        .detail-label {
+          font-size: 14px;
+          color: white;
+          font-weight: 500;
+        }
+        
+        .detail-value {
+          font-size: 14px;
+          font-weight: 600;
+          color: white;
+          
+          &.price {
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #4285f4 0%, #1c6ae0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+          }
+        }
+        
+        .rating-container {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          
+          .rating-stars {
+            display: flex;
+            gap: 2px;
+            
+            ion-icon {
+              font-size: 16px;
+              color: #e0e0e0;
+              transition: color 0.2s ease;
+              
+              &.filled {
+                color: #ffc107;
+              }
+            }
+          }
+          
+          .rating-number {
+            font-size: 14px;
+            color: white;
+            font-weight: 500;
+            background: #f8f9fa;
+            padding: 2px 6px;
+            border-radius: 4px;
+          }
+        }
       }
     }
     
-    .btn-contratar {
+    /* Botón contratar */
+    .contratar-button {
       --background: linear-gradient(135deg, #000046 0%, #1c6ae0 100%);
-      --border-radius: 12px;
-      --box-shadow: 0 4px 10px rgba(28, 106, 224, 0.25);
       --color: white;
-      --padding-start: 16px;
-      --padding-end: 16px;
-      font-size: 13px;
-      font-weight: 500;
-      height: 36px;
-      margin: 0 16px;
+      --border-radius: 8px;
+      height: 44px;
+      font-size: 16px;
+      font-weight: 600;
       text-transform: none;
-      letter-spacing: 0.3px;
-      transition: all 0.3s ease;
+      margin: 0;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      letter-spacing: 0.2px;
       
-      &:hover {
-        --background: linear-gradient(135deg, #000046 0%, #1c6ae0 90%);
-        --box-shadow: 0 6px 16px rgba(28, 106, 224, 0.3);
-        transform: translateY(-2px);
+      &:active {
+        transform: translateY(0);
+        transition: all 0.1s ease;
       }
-    }
-    
-    &:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 20px rgba(28, 106, 224, 0.15);
     }
   }
   
@@ -128,74 +183,282 @@ ion-content#main-content {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: calc(100% - 100px);
-    padding: 0 16px;
+    height: calc(100vh - 200px);
+    padding: 0 20px;
     
     p {
       background: white;
       border-radius: 16px;
-      padding: 24px;
+      padding: 40px 32px;
       text-align: center;
-      max-width: 80%;
-      box-shadow: 0 4px 15px rgba(0, 0, 70, 0.08);
+      max-width: 320px;
+      border: 1px solid rgba(0, 0, 0, 0.05);
       font-size: 16px;
-      color: #666;
-      line-height: 1.5;
-      animation: fadeIn 0.5s ease-in-out;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      color: white;
+      line-height: 1.6;
+      margin: 0;
+      font-weight: 500;
       
       &::before {
-        content: '⭐';
-        font-size: 36px;
-        margin-bottom: 16px;
+        content: '💙';
+        font-size: 48px;
+        display: block;
+        margin-bottom: 20px;
+        animation: pulse 2s infinite;
       }
     }
   }
-  
-  /* Botón para agregar favoritos */
-  .add-favorite-button {
-    padding: 0 20px;
-    margin-top: 24px;
-    max-width: 700px;
-    margin-left: auto;
-    margin-right: auto;
-    animation: fadeIn 0.6s ease-in-out;
+}
+
+/* DARK MODE SUPPORT */
+@media (prefers-color-scheme: dark) {
+  ion-content#main-content {
+    --background: #0f172a;
     
-    ion-button {
-      --background: linear-gradient(135deg, #000046 0%, #1c6ae0 100%);
-      --border-radius: 12px;
-      --box-shadow: 0 4px 10px rgba(28, 106, 224, 0.25);
-      height: 48px;
-      font-weight: 500;
-      letter-spacing: 0.5px;
-      text-transform: none;
-      transition: all 0.3s ease;
+    .section-title {
+      h2 {
+        color: #f1f5f9;
+        
+        &::after {
+          background: linear-gradient(135deg, #000046 0%, #1c6ae0 100%);
+        }
+      }
+    }
+    
+    /* Tarjeta de profesional en modo oscuro */
+    .professional-card {
+      background: #1e293b;
+      border-color: rgba(51, 65, 85, 0.6);
       
-      &:hover {
-        --background: linear-gradient(135deg, #000046 0%, #1c6ae0 90%);
-        --box-shadow: 0 6px 16px rgba(28, 106, 224, 0.3);
-        transform: translateY(-2px);
+      .card-header {
+        .professional-avatar {
+          background: linear-gradient(135deg, #000046 0%, #1c6ae0 100%);
+        }
+        
+        .professional-info {
+          .professional-name {
+            color: #f1f5f9;
+          }
+          
+          .professional-specialty {
+            color: #94a3b8;
+          }
+        }
+      }
+      
+      .professional-details {
+        .detail-row {
+          .detail-label {
+            color: #94a3b8;
+          }
+          
+          .detail-value {
+            color: #e2e8f0;
+          }
+          
+          .rating-container {
+            .rating-stars {
+              ion-icon {
+                color: #475569;
+                
+                &.filled {
+                  color: #fbbf24;
+                }
+              }
+            }
+            
+            .rating-number {
+              color: #94a3b8;
+              background: #334155;
+            }
+          }
+        }
+      }
+      
+      .contratar-button {
+        --background: linear-gradient(135deg, #000046 0%, #1c6ae0 100%);
+        
+        &:active {
+          transition: all 0.1s ease;
+        }
+      }
+    }
+    
+    /* Mensaje de no favoritos en modo oscuro */
+    .no-favorites-msg {
+      p {
+        background: #1e293b;
+        border-color: rgba(51, 65, 85, 0.6);
+        color: #94a3b8;
+        
+        &::before {
+          filter: grayscale(0.2) brightness(0.9);
+        }
       }
     }
   }
 }
 
-/* Animaciones */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
+/* Responsive Design */
+@media (min-width: 768px) {
+  ion-content#main-content {
+    .favorites-container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 0 20px;
+      gap: 20px;
+    }
+    
+    .section-title {
+      text-align: center;
+      padding: 32px 20px 24px;
+      
+      h2 {
+        font-size: 28px;
+        
+        &::after {
+          width: 80px;
+          height: 4px;
+          left: 50%;
+          transform: translateX(-50%);
+        }
+      }
+    }
+    
+    .professional-card {
+      padding: 28px;
+      border-radius: 16px;
+      
+      .card-header {
+        margin-bottom: 20px;
+        
+        .professional-avatar {
+          width: 56px;
+          height: 56px;
+          
+          ion-icon {
+            font-size: 28px;
+          }
+        }
+        
+        .professional-info {
+          .professional-name {
+            font-size: 20px;
+          }
+          
+          .professional-specialty {
+            font-size: 15px;
+          }
+        }
+      }
+      
+      .professional-details {
+        margin-bottom: 24px;
+        
+        .detail-row {
+          margin-bottom: 16px;
+          padding: 10px 0;
+          
+          .detail-label {
+            font-size: 15px;
+          }
+          
+          .detail-value {
+            font-size: 15px;
+            
+            &.price {
+              font-size: 18px;
+            }
+          }
+          
+          .rating-container {
+            gap: 10px;
+            
+            .rating-stars {
+              ion-icon {
+                font-size: 18px;
+              }
+            }
+            
+            .rating-number {
+              font-size: 15px;
+              padding: 3px 8px;
+            }
+          }
+        }
+      }
+      
+      .contratar-button {
+        height: 48px;
+        font-size: 17px;
+        --border-radius: 10px;
+      }
+    }
+    
+    .no-favorites-msg p {
+      max-width: 400px;
+      padding: 48px 40px;
+      font-size: 17px;
+      border-radius: 20px;
+      
+      &::before {
+        font-size: 56px;
+        margin-bottom: 24px;
+      }
+    }
   }
 }
 
-@keyframes slideUp {
+/* Desktop optimizations */
+@media (min-width: 1024px) {
+  ion-content#main-content {
+    .favorites-container {
+      max-width: 800px;
+      gap: 24px;
+    }
+    
+    .professional-card {
+      padding: 32px;
+      
+      .card-header {
+        .professional-avatar {
+          width: 64px;
+          height: 64px;
+          
+          ion-icon {
+            font-size: 32px;
+          }
+        }
+        
+        .professional-info {
+          .professional-name {
+            font-size: 22px;
+          }
+          
+          .professional-specialty {
+            font-size: 16px;
+          }
+        }
+      }
+      
+      .contratar-button {
+        height: 52px;
+        font-size: 18px;
+      }
+    }
+  }
+}
+
+/* Animation for cards */
+.professional-card {
+  animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  opacity: 0;
+}
+
+@keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(30px);
   }
   to {
     opacity: 1;
@@ -204,85 +467,44 @@ ion-content#main-content {
 }
 
 @keyframes pulse {
-  0% {
+  0%, 100% {
     transform: scale(1);
   }
   50% {
     transform: scale(1.05);
   }
-  100% {
-    transform: scale(1);
+}
+
+/* Stagger animation for multiple cards */
+.professional-card:nth-child(1) { animation-delay: 0.1s; }
+.professional-card:nth-child(2) { animation-delay: 0.2s; }
+.professional-card:nth-child(3) { animation-delay: 0.3s; }
+.professional-card:nth-child(4) { animation-delay: 0.4s; }
+.professional-card:nth-child(5) { animation-delay: 0.5s; }
+.professional-card:nth-child(6) { animation-delay: 0.6s; }
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  .professional-card {
+    opacity: 1;
   }
 }
 
-/* Media queries */
-@media (min-width: 768px) {
+/* High contrast mode support */
+@media (prefers-contrast: high) {
   ion-content#main-content {
-    .section-title {
-      padding: 24px 20px 20px;
+    .professional-card {
+      border: 2px solid;
       
-      h2 {
-        font-size: 24px;
-        
-        &::after {
-          width: 70px;
-          height: 4px;
-        }
-      }
-    }
-    
-    .favorites-list {
-      max-width: 700px;
-    }
-    
-    .favorite-item {
-      ion-avatar {
-        width: 56px;
-        height: 56px;
-        
-        ion-icon {
-          font-size: 36px;
-        }
-      }
-      
-      ion-label {
-        h3 {
-          font-size: 17px;
-        }
-        
-        p {
-          font-size: 15px;
-        }
-      }
-      
-      .btn-contratar {
-        font-size: 14px;
-        height: 38px;
-      }
-    }
-    
-    .no-favorites-msg p {
-      max-width: 500px;
-      font-size: 17px;
-    }
-  }
-}
-
-@media (min-width: 992px) {
-  ion-content#main-content {
-    .favorites-list {
-      .favorite-item {
-        ion-label {
-          padding: 18px 0;
-        }
-      }
-    }
-    
-    .add-favorite-button {
-      ion-button {
-        height: 52px;
+      .contratar-button {
+        --border: 2px solid;
       }
     }
   }
 }
-

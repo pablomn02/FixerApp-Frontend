@@ -43,10 +43,10 @@
 }
 
 .card-subtitle {
+    margin-top: auto;
     color: white;
     font-size: 15px;
     font-weight: 400;
-    letter-spacing: 1px;
 }
 
 .card-content {
@@ -126,6 +126,8 @@ ion-button {
     text-transform: none;
     height: 44px;
 }
+
+
 
 .register-btn {
     --border-color: #1c6ae0;

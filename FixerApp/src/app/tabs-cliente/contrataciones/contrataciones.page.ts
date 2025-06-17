@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { IonicModule, ModalController } from '@ionic/angular';
 
 import { ContratacionService } from 'src/app/shared/services/contratacion.service';
 import { LoginService } from 'src/app/shared/services/login.service';
@@ -26,6 +28,7 @@ export class ContratacionesPage implements OnInit {
   ) {}
 
   ngOnInit() {
+    window
     this.cargarContrataciones();
   }
 
@@ -36,6 +39,7 @@ export class ContratacionesPage implements OnInit {
     this.contratacionService.obtenerContratacionesPorCliente(+userId).subscribe({
       next: (data) => {
         this.contrataciones = data;
+        console.log('Contrataciones cargadas:', this.contrataciones.map(c => c.fechaHora));
         this.filtrarContratacionesCliente();
         this.cargando = false;
       },
@@ -46,10 +50,11 @@ export class ContratacionesPage implements OnInit {
     });
   }
 
+  // Ordenadas por fecha reciente
   filtrarContratacionesCliente() {
-    this.contratacionesFiltradasCliente = this.contrataciones.filter(
-      c => c.estadoContratacion?.toLowerCase() === this.filtroEstadoCliente
-    );
+    this.contratacionesFiltradasCliente = this.contrataciones
+      .filter(c => c.estadoContratacion?.toLowerCase() === this.filtroEstadoCliente)
+      .sort((a, b) => new Date(b.fechaHora).getTime() - new Date(a.fechaHora).getTime());
   }
 
   async abrirValoracion(contratacion: ContratacionDTO) {

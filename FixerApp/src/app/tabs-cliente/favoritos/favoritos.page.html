@@ -4,22 +4,45 @@
   </div>
 
   <div class="favorites-container" *ngIf="favoritos.length > 0; else sinFavoritos">
-    <ion-list class="favorites-list" lines="none">
-      <ion-item class="favorite-item" *ngFor="let favorito of favoritos">
-        <ion-avatar slot="start" (click)="abrirPerfil(favorito)">
-          <ion-icon name="person-circle-outline" size="large"></ion-icon>
-        </ion-avatar>
+    <div class="professional-card" *ngFor="let favorito of favoritos">
+      <div class="card-header">
+        <div class="professional-avatar" (click)="abrirPerfil(favorito)">
+          <ion-icon name="person"></ion-icon>
+        </div>
+        <div class="professional-info">
+          <h3 class="professional-name">{{ favorito.nombre }}</h3>
+          <p class="professional-specialty">{{ favorito.especialidad }}</p>
+        </div>
+      </div>
 
-        <ion-label>
-          <h3>{{ favorito.nombre }}</h3>
-          <p>{{ favorito.especialidad }}</p>
-        </ion-label>
+      <div class="professional-details">
+        <div class="detail-row">
+          <span class="detail-label">Precio por hora:</span>
+          <span class="detail-value price">{{ favorito.precioHora }}€</span>
+        </div>
+        
+        <div class="detail-row" *ngIf="favorito.valoracionMedia">
+          <span class="detail-label">Valoración:</span>
+          <div class="rating-container">
+            <div class="rating-stars">
+              <ion-icon 
+                *ngFor="let star of [1,2,3,4,5]; let i = index"
+                [name]="i < (favorito.valoracionMedia || 0) ? 'star' : 'star-outline'"
+                [class.filled]="i < (favorito.valoracionMedia || 0)">
+              </ion-icon>
+            </div>
+            <span class="rating-number">({{ favorito.valoracionMedia | number:'1.1-1' }})</span>
+          </div>
+        </div>
+      </div>
 
-        <ion-button slot="end" class="btn-contratar" (click)="contratar(favorito)">
-          Contratar
-        </ion-button>
-      </ion-item>
-    </ion-list>
+      <ion-button 
+        expand="block" 
+        class="contratar-button" 
+        (click)="contratar(favorito)">
+        Contratar
+      </ion-button>
+    </div>
   </div>
 
   <ng-template #sinFavoritos>

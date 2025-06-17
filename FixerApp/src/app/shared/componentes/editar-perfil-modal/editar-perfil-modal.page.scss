@@ -1,7 +1,9 @@
-/* Header con el mismo gradiente de la app */
 ion-header {
+  padding-top: env(safe-area-inset-top, 0);
+  background: linear-gradient(135deg, #000046 0%, #1c6ae0 100%);
+  
   ion-toolbar {
-    --background: linear-gradient(135deg, #000046 0%, #1c6ae0 100%);
+    --background: transparent;
     --color: white;
     --border-width: 0;
     --min-height: 64px;
@@ -12,6 +14,7 @@ ion-header {
       font-weight: 600;
       color: white;
       letter-spacing: 0.3px;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
     }
 
     ion-buttons {
@@ -20,10 +23,15 @@ ion-header {
         --color: white;
         --border-radius: 6px;
         font-weight: 500;
-        transition: background 0.2s ease;
+        transition: all 0.2s ease;
 
         &:hover {
           --background: rgba(255, 255, 255, 0.1);
+          transform: scale(1.05);
+        }
+
+        &:active {
+          transform: scale(0.95);
         }
       }
     }
@@ -130,6 +138,8 @@ ion-footer {
   --background: transparent;
   --border-width: 0;
   padding: 0 20px 32px 20px;
+  /* Añadir safe area inferior */
+  padding-bottom: calc(32px + env(safe-area-inset-bottom, 0));
 
   ion-button {
     --background: linear-gradient(135deg, #000046 0%, #1c6ae0 100%);
@@ -210,8 +220,22 @@ ion-item.ion-invalid.ion-touched {
   }
 }
 
+@supports (padding-top: env(safe-area-inset-top)) {
+  ion-header {
+    background: linear-gradient(135deg, #000046 0%, #1c6ae0 100%);
+  }
+}
+
 /* Responsive para móviles */
 @media (max-width: 768px) {
+  ion-header ion-toolbar {
+    --min-height: 56px;
+
+    ion-title {
+      font-size: 18px;
+    }
+  }
+
   ion-content {
     --padding-start: 16px;
     --padding-end: 16px;
@@ -250,12 +274,26 @@ ion-item.ion-invalid.ion-touched {
   }
 
   ion-footer {
-    padding: 0 16px 28px 16px;
+    padding: 0 16px calc(28px + env(safe-area-inset-bottom, 0)) 16px;
 
     ion-button {
       height: 48px;
       font-size: 15px;
       --border-radius: 6px;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  ion-header ion-toolbar {
+    --min-height: 52px;
+
+    ion-title {
+      font-size: 16px;
+    }
+
+    ion-buttons ion-button {
+      font-size: 14px;
     }
   }
 }
@@ -300,7 +338,7 @@ ion-item.ion-invalid.ion-touched {
   }
 
   ion-footer {
-    padding: 0 32px 40px 32px;
+    padding: 0 32px calc(40px + env(safe-area-inset-bottom, 0)) 32px;
 
     ion-button {
       height: 56px;
@@ -312,6 +350,22 @@ ion-item.ion-invalid.ion-touched {
         transform: translateY(-3px);
       }
     }
+  }
+}
+
+@media (max-width: 768px) and (orientation: portrait) {
+  ion-header {
+    padding-top: max(env(safe-area-inset-top, 0), 20px);
+  }
+}
+
+@supports not (padding-top: env(safe-area-inset-top)) {
+  ion-header {
+    padding-top: 20px;
+  }
+  
+  ion-footer {
+    padding-bottom: 52px;
   }
 }
 

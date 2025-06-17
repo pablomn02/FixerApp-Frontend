@@ -40,7 +40,6 @@ export class LoginService {
     );
   }
 
-
   registerCliente(usuario: Cliente): Observable<any> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json'
@@ -66,7 +65,7 @@ export class LoginService {
   }
 
   saveUserId(userId: number): void {
-    localStorage.setItem('userId', userId.toString());
+    localStorage.setItem('idUsuario', userId.toString());
   }
 
   getUserId(): string | null {

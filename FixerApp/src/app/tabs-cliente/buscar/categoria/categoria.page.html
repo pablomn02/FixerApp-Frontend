@@ -1,17 +1,15 @@
 <ion-content [fullscreen]="true">
   <div class="section-title">
-    <h2>{{ categoriaNombre || 'esta categoría' }}</h2>
+    <h2>{{ categoriaNombre || 'Esta categoría' }}</h2>
   </div>
-  <div class="services-container">
-    <div class="services-grid">
-      <div class="service-item" *ngFor="let servicio of servicios">
-        <div class="service-bubble" [ngStyle]="{'background-color': getColor(categoriaNombre)}" >
-          <ion-icon [name]="getIcon(categoriaNombre)" (click)="goToServicio(servicio.id)"></ion-icon>
-        </div>
-        <span class="service-name">{{ servicio.nombre }}</span>
+  <ion-list class="services-list">
+    <ion-item class="service-item" *ngFor="let servicio of servicios" lines="none">
+      <div class="service-bubble" slot="start" [ngStyle]="{'background-color': getColor(categoriaNombre)}" (click)="goToServicio(servicio.id)">
+        <ion-icon [name]="getIcon(categoriaNombre)"></ion-icon>
       </div>
-    </div>
-  </div>
+      <ion-label class="service-name">{{ servicio.nombre }}</ion-label>
+    </ion-item>
+  </ion-list>
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button (click)="navCtrl.back()">

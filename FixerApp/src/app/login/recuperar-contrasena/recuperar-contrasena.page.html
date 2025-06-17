@@ -24,11 +24,16 @@
             <span>{{ successMessage }}</span>
           </div>
 
+          <!-- Mensaje de error -->
+          <div *ngIf="errorMessage" class="error-message">
+            <span>{{ errorMessage }}</span>
+          </div>
+
           <div class="button-container">
             <ion-button fill="outline" (click)="volver()" class="register-btn">
-              Iniciar Sesión
+              Volver
             </ion-button>
-            <ion-button type="submit" class="login-btn">
+            <ion-button type="submit" class="login-btn" [disabled]="!recoverForm.valid || isLoading">
               Enviar
             </ion-button>
           </div>

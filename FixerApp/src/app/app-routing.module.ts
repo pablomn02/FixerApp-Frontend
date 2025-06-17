@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { authGuard } from './guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -24,15 +25,21 @@ const routes: Routes = [
   },
   {
     path: 'tabs-cliente',
-    loadChildren: () => import('./tabs-cliente/tabs-cliente.module').then(m => m.TabsClientePageModule)
+    loadChildren: () => import('./tabs-cliente/tabs-cliente.module').then(m => m.TabsClientePageModule),
+    canActivate: [authGuard],
+    data: { role: 'cliente' }
   },
   {
     path: 'tabs-profesional',
-    loadChildren: () => import('./tabs-profesional/tabs-profesional.module').then(m => m.TabsProfesionalPageModule)
+    loadChildren: () => import('./tabs-profesional/tabs-profesional.module').then(m => m.TabsProfesionalPageModule),
+    canActivate: [authGuard],
+    data: { role: 'profesional' }
   },
   {
     path: 'tabs-admin',
-    loadChildren: () => import('./tabs-admin/tabs-admin.module').then(m => m.TabsAdminPageModule)
+    loadChildren: () => import('./tabs-admin/tabs-admin.module').then(m => m.TabsAdminPageModule),
+    canActivate: [authGuard],
+    data: { role: 'admin' }
   },
   {
     path: '',
@@ -44,42 +51,53 @@ const routes: Routes = [
     loadChildren: () => import('./login/reset-password/reset-password.module').then(m => m.ResetPasswordPageModule)
   },
   {
-    path: '**',
-    redirectTo: '/login'
+    path: 'contratar-modal',
+    loadChildren: () => import('./shared/componentes/contratar-modal/contratar-modal.module').then(m => m.ContratarModalPageModule),
+    canActivate: [authGuard],
+    data: { role: 'cliente' }
   },
   {
-    path: 'contratar-modal',
-    loadChildren: () => import('./shared/componentes/contratar-modal/contratar-modal.module').then( m => m.ContratarModalPageModule)
-  },  {
     path: 'seleccionar-servicio-modal',
-    loadChildren: () => import('./shared/componentes/seleccionar-servicio-modal/seleccionar-servicio-modal.module').then( m => m.SeleccionarServicioModalPageModule)
+    loadChildren: () => import('./shared/componentes/seleccionar-servicio-modal/seleccionar-servicio-modal.module').then(m => m.SeleccionarServicioModalPageModule),
+    canActivate: [authGuard],
+    data: { role: 'cliente' }
   },
   {
     path: 'perfil-profesional-modal',
-    loadChildren: () => import('./shared/componentes/perfil-profesional-modal/perfil-profesional-modal.module').then( m => m.PerfilProfesionalModalPageModule)
+    loadChildren: () => import('./shared/componentes/perfil-profesional-modal/perfil-profesional-modal.module').then(m => m.PerfilProfesionalModalPageModule),
+    canActivate: [authGuard],
+    data: { roles: ['cliente', 'profesional', 'admin'] }
   },
   {
     path: 'editar-perfil-modal',
-    loadChildren: () => import('./shared/componentes/editar-perfil-modal/editar-perfil-modal.module').then( m => m.EditarPerfilModalPageModule)
+    loadChildren: () => import('./shared/componentes/editar-perfil-modal/editar-perfil-modal.module').then(m => m.EditarPerfilModalPageModule),
+    canActivate: [authGuard],
+    data: { roles: ['cliente', 'profesional', 'admin'] }
   },
   {
     path: 'valoracion-modal',
-    loadChildren: () => import('./shared/componentes/valoracion-modal/valoracion-modal.module').then( m => m.ValoracionModalPageModule)
+    loadChildren: () => import('./shared/componentes/valoracion-modal/valoracion-modal.module').then(m => m.ValoracionModalPageModule),
+    canActivate: [authGuard],
+    data: { role: 'cliente' }
   },
   {
     path: 'mapa-modal',
-    loadChildren: () => import('./shared/componentes/mapa-modal/mapa-modal.module').then( m => m.MapaModalPageModule)
+    loadChildren: () => import('./shared/componentes/mapa-modal/mapa-modal.module').then(m => m.MapaModalPageModule),
+    canActivate: [authGuard],
+    data: { roles: ['profesional'] }
   },
   {
     path: 'terminos-condiciones',
-    loadChildren: () => import('./shared/componentes/terminos-condiciones/terminos-condiciones.module').then( m => m.TerminosCondicionesPageModule)
+    loadChildren: () => import('./shared/componentes/terminos-condiciones/terminos-condiciones.module').then(m => m.TerminosCondicionesPageModule)
   },
   {
     path: 'ayuda',
-    loadChildren: () => import('./shared/componentes/ayuda/ayuda.module').then( m => m.AyudaPageModule)
+    loadChildren: () => import('./shared/componentes/ayuda/ayuda.module').then(m => m.AyudaPageModule)
+  },
+  {
+    path: '**',
+    redirectTo: '/login'
   }
-
-
 ];
 
 @NgModule({

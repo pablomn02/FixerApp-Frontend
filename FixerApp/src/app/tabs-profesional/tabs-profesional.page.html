@@ -1,13 +1,13 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-buttons slot="end">
-      <ion-menu-button color="light"></ion-menu-button>
+      <ion-menu-button color="light" menu="mainMenu"></ion-menu-button>
     </ion-buttons>
-    <ion-title id="titulo">FIXER</ion-title>
+    <img src="../../assets/images/logo.png" style="height: 50px; padding: 10px 10px 10px 10px; margin-left: 10px">
   </ion-toolbar>
 </ion-header>
 
-<ion-menu contentId="main-content">
+<ion-menu menuId="mainMenu" contentId="mainContent" side="end">
   <ion-header>
     <ion-toolbar>
       <ion-title>Menú</ion-title>
@@ -31,7 +31,7 @@
   </ion-content>
 </ion-menu>
 
-<ion-content>
+<ion-content id="mainContent">
   <ion-tabs>
     <ion-tab-bar>
       <ion-tab-button tab="solicitudes">

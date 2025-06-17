@@ -52,7 +52,7 @@ export class FavoritosPage implements OnInit {
     }).then(modal => {
       modal.onDidDismiss().then(resultado => {
         if (resultado.data === true) {
-          this.actualizarFavoritos(profesional);
+          this.cargarFavoritos();
         }
       });
       modal.present();

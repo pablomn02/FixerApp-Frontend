@@ -10,6 +10,7 @@ import {
   IonInput, 
   IonButton, 
   IonText,
+  IonIcon,
   NavController
 } from '@ionic/angular/standalone';
 import { LoginService } from '../shared/services/login.service';
@@ -28,11 +29,14 @@ import { LoginService } from '../shared/services/login.service';
     IonLabel,
     IonInput,
     IonButton,
+    IonText,
+    IonIcon
   ]
 })
 export class LoginPage {
   loginForm: FormGroup;
   errorMessage: string | null = null;
+  showPassword: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -55,10 +59,9 @@ export class LoginPage {
         next: (data) => {
           console.log('Usuario:', data);
           
-          localStorage.clear();
-          localStorage.setItem('token', data.token);
-          localStorage.setItem('idUsuario', data.idUsuario);
-          localStorage.setItem('rol', data.rol);
+          this.loginService.saveToken(data.token);
+          this.loginService.saveUserId(data.idUsuario);
+          this.loginService.saveUserRole(data.rol);
 
           this.redirigirUsuario(data.rol);
         },
@@ -104,5 +107,9 @@ export class LoginPage {
       console.log('Redirigiendo al usuario a los tabs de administrador...');
       this.navCtrl.navigateRoot('/tabs-admin/usuarios');
     }
+  }
+
+  verPassword() {
+    this.showPassword = !this.showPassword;
   }
 }

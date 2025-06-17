@@ -2,8 +2,7 @@
   <div class="content-container">
     <ion-card class="login-card">
       <div class="card-header">
-        <h1 class="card-title">FIXER</h1>
-        <h2 class="card-subtitle">Contrata fácil, vive mejor</h2>
+        <img src="../../assets/images/logo-inicio.png">
       </div>
 
       <div class="card-content">
@@ -24,10 +23,16 @@
           <ion-label class="form-label">Contraseña</ion-label>
           <ion-item class="form-item" lines="none">
             <ion-input 
-              type="password" 
+              [type]="showPassword ? 'text' : 'password'" 
               formControlName="password" 
               placeholder="Introduce tu contraseña">
             </ion-input>
+            <ion-icon 
+              slot="end" 
+              [name]="showPassword ? 'eye-off' : 'eye'" 
+              (click)="verPassword()"
+              [attr.aria-label]="showPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'">
+            </ion-icon>
           </ion-item>
           <div *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.invalid" class="error-message">
             <span *ngIf="loginForm.get('password')?.errors?.['required']">La contraseña es obligatoria</span>

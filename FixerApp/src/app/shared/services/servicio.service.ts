@@ -14,7 +14,7 @@ export class ServicioService {
   
     constructor(private http: HttpClient) { }
   
-    public getServiciosByCategoria(idCategoria: number) {
+    public getServiciosByCategoria(idCategoria: number): Observable<any> {
       return this.http.get<Servicio[]>(`${this.baseUrl}/servicios/` + idCategoria);
     }
 }
