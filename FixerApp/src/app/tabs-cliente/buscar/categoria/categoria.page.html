@@ -3,8 +3,8 @@
     <h2>{{ categoriaNombre || 'Esta categoría' }}</h2>
   </div>
   <ion-list class="services-list">
-    <ion-item class="service-item" *ngFor="let servicio of servicios" lines="none">
-      <div class="service-bubble" slot="start" [ngStyle]="{'background-color': getColor(categoriaNombre)}" (click)="goToServicio(servicio.id)">
+    <ion-item class="service-item" *ngFor="let servicio of servicios" lines="none" (click)="goToServicio(servicio.id)">
+      <div class="service-bubble" slot="start" [ngStyle]="{'background-color': getColor(categoriaNombre)}" >
         <ion-icon [name]="getIcon(categoriaNombre)"></ion-icon>
       </div>
       <ion-label class="service-name">{{ servicio.nombre }}</ion-label>
