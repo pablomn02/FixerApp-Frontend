@@ -26,7 +26,7 @@
       <div *ngIf="categoriaExpandidaId === categoria.id">
         <ion-item *ngFor="let servicio of serviciosPorCategoria[categoria.id]" (click)="seleccionarServicio(servicio)">
           <ion-label class="ion-padding-start">
-            → {{ servicio.nombre }}
+            {{ servicio.nombre }}
           </ion-label>
         </ion-item>
   
