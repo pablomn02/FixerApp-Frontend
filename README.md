@@ -3,6 +3,9 @@
 Este es el **frontend de Fixer**, una aplicación de búsqueda de profesionales mediante geolocalización.  
 Desarrollado con **Angular e Ionic**, ofrece una interfaz moderna, responsive e intuitiva para interactuar con el backend.
 
+## App desplegada
+https://pablomn25.iesmontenaranco.com
+
 ## 🚀 Tecnologías principales
 - Angular / TypeScript  
 - HTML / CSS  
